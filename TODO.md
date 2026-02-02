@@ -2,3 +2,5 @@
 - code tab support
   - https://ecosystem.vuejs.press/plugins/markdown/markdown-tab.html
   - https://vitepress.dev/guide/markdown#code-groups
+- integrate API reference https://kitsu-staging.cg-wire.com/api/openapi.json
+- integrate SDK reference https://github.com/cgwire/gazu/blob/docs/docs/source/conf.py
