@@ -1,8 +1,10 @@
 - Start here
+  - Why Kitsu
   - Cloud hosting
   - Docker (Kitsu Docker)
   - Docker Compose
-- Basics
+  - Migrate to Kitsu
+- Basics (unit models)
   - Projects
     - SCRUD
   - Users
@@ -41,28 +43,29 @@
   - Playlists
     - Shot vs sequence vs asset
     - SCRUD
-- Guides
-  - Production Management
-    - Studio workflow
-    - Projects, departments, users, general settings
-    - meta columns
-  - Asset Management
-    - Asset, breakdowns, files, Versioning
-  - Pipeline tracking
-    - Episodes, sequences, shots, tasks, thumbnails
-  - Review engine
-    - Playlist, comments, versioning
-  - Reporting
-    - Events, estimates, quotas, advanced search
+- Guides (cross-functional overviews and common workflows)
   - Authentication
     - Email auth
     - Token auth
+    - Secret management
     - Logout
     - Get current user
   - Access control
     - Role-based access control
     - Default roles
     - Creating new roles
+  - Production Management
+    - Studio workflow
+    - Projects, departments, users, general settings
+    - meta columns
+  - Asset Management
+    - Concept, asset, breakdowns, files, Versioning
+  - Pipeline tracking
+    - Episodes, sequences, shots, tasks, thumbnails
+  - Review engine
+    - Playlist, comments, versioning
+  - Reporting
+    - Events, estimates, quotas, advanced search
   - Custom Actions
   - Bot Automation
   - Webhooks
@@ -90,32 +93,32 @@
     - KV Store
     - File storage
     - ffmpeg
-    - Configuration
+    - Email
     - Full-text search
     - Job queue
     - Lightweight Directory Access Protocol
     - Logging
     - Backup
     - Caching
-- Recipes
+- Recipes (specialized, functional tutorial)
   - CSV import
-- Integrations
+- Integrations (ecosystem)
   - Kitsu plugins
     - Plugin installation
     - Dev Quickstart
     - Plugin structure
     - UI
     - Best Practices
-  - DCC (Kitsu Publisher)
+  - DCC Tools (Kitsu Publisher)
     - DCC Utils
     - Blender
     - Toon Boom Harmony
     - Unreal Engine
     - Maya
     - Adobe Photoshop
-  - UI
+  - UI Frameworks
     - Vue (Kitsu UI)
-  - Messaging
+  - Messaging Tools
     - Slack
     - Discord
     - Mattermost
