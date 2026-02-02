@@ -4,38 +4,110 @@
   - Docker Compose
 - Basics
   - Projects
+    - SCRUD
   - Users
+    - SCRUD
+    - Invite users
+    - Roles
   - Episodes
+    - Episode vs sequence vs shot
+    - SCRUD
   - Sequences
+    - SCRUD
   - Shots
+    - SCRUD
   - Assets
+    - type vs instance
+    - SCRUD
   - Tasks
+    - type vs status vs instance
+    - SCRUD
+    - Get user todo list
+    - Changing task status
   - Comments
+    - Comment vs revision
+    - SCRUD
+    - thumbnails
   - Files
+    - Preview vs working vs output file
+    - SCRUD
+    - Upload
+    - Download
+    - DCC files
   - Events
+    - SCRUD
   - Notifications
+    - SCRUD
   - Playlists
+    - Shot vs sequence vs asset
+    - SCRUD
 - Guides
   - Production Management
+    - Studio workflow
+    - Projects, departments, users, general settings
+    - meta columns
   - Asset Management
+    - Asset, breakdowns, files, Versioning
   - Pipeline tracking
+    - Episodes, sequences, shots, tasks, thumbnails
   - Review engine
+    - Playlist, comments, versioning
   - Reporting
+    - Events, estimates, quotas, advanced search
   - Authentication
+    - Email auth
+    - Token auth
+    - Logout
+    - Get current user
   - Access control
+    - Role-based access control
+    - Default roles
+    - Creating new roles
   - Custom Actions
   - Bot Automation
   - Webhooks
+    - Available events
+    - Listening to events
+    - Event callbacks
+    - Testing events
+    - Logging
   - Advanced Search
+    - Raw request functions
+    - get by path
+    - filtering
+    - full-text search
   - Developer Tools
+    - API, SDK, CLI, Docker image
   - Multi-studio Productions
-  - Testing
+    - 
   - Self-hosting
+    - vs cloud hosting
+    - Architecture
+    - Hardware prerequisites
+    - Setup
+    - Database
+      - Migrations
+    - KV Store
+    - File storage
+    - ffmpeg
+    - Configuration
+    - Full-text search
+    - Job queue
+    - Lightweight Directory Access Protocol
+    - Logging
+    - Backup
+    - Caching
 - Recipes
   - CSV import
 - Integrations
   - Kitsu plugins
+    - Plugin installation
+    - Dev Quickstart
+    - Plugin structure
+    - UI
+    - Best Practices
   - DCC (Kitsu Publisher)
+    - DCC Utils
     - Blender
     - Toon Boom Harmony
     - Unreal Engine
@@ -49,12 +121,12 @@
     - Mattermost
 - Open Source
   - Contributing
-  - Development environment
+  - Development environment quickstart
 - References (auto-generated from code)
-  - API (zou)
-  - CLI
-  - Python SDK (gazu)
+  - API (zou) => parse from https://kitsu-staging.cg-wire.com/api/openapi.json
+  - Python SDK (gazu) => parse from sphinx https://github.com/cgwire/gazu/blob/docs/docs/source/conf.py
   - Javascript SDK
+  - CLI (from zou/cli.py)
 - Learn
   - Github
   - Blog
