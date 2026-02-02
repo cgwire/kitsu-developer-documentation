@@ -1,0 +1,4 @@
+- migrate to vitepress? https://vitepress.dev/
+- code tab support
+  - https://ecosystem.vuejs.press/plugins/markdown/markdown-tab.html
+  - https://vitepress.dev/guide/markdown#code-groups

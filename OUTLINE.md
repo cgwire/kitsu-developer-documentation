@@ -1,0 +1,60 @@
+- Start here
+  - Cloud hosting
+  - Docker (Kitsu Docker)
+  - Docker Compose
+- Basics
+  - Projects
+  - Users
+  - Episodes
+  - Sequences
+  - Shots
+  - Assets
+  - Tasks
+  - Comments
+  - Files
+  - Events
+  - Notifications
+  - Playlists
+- Guides
+  - Production Management
+  - Asset Management
+  - Pipeline tracking
+  - Review engine
+  - Reporting
+  - Authentication
+  - Access control
+  - Custom Actions
+  - Bot Automation
+  - Webhooks
+  - Advanced Search
+  - Developer Tools
+  - Multi-studio Productions
+  - Testing
+  - Self-hosting
+- Recipes
+  - CSV import
+- Integrations
+  - Kitsu plugins
+  - DCC (Kitsu Publisher)
+    - Blender
+    - Toon Boom Harmony
+    - Unreal Engine
+    - Maya
+    - Adobe Photoshop
+  - UI
+    - Vue (Kitsu UI)
+  - Messaging
+    - Slack
+    - Discord
+    - Mattermost
+- Open Source
+  - Contributing
+  - Development environment
+- References (auto-generated from code)
+  - API (zou)
+  - CLI
+  - Python SDK (gazu)
+  - Javascript SDK
+- Learn
+  - Github
+  - Blog
