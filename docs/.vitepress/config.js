@@ -4,7 +4,7 @@ export default {
   description: "Kitsu's unified developer documentation.",
 
   themeConfig: {
-    logo: "/logo.png",
+    logo: "/kitsu.png",
     sidebar: [
       {
         items: [
@@ -71,6 +71,70 @@ export default {
                   {
                     text: "vs cloud hosting",
                     link: "/guides/self-hosting/vs-cloud-hosting",
+                  },
+                  {
+                    text: "Architecture",
+                    link: "/guides/self-hosting/architecture",
+                  },
+                  {
+                    text: "Hardware prerequisites",
+                    link: "/guides/self-hosting/hardware-prerequisites",
+                  },
+                  {
+                    text: "Setup",
+                    link: "/guides/self-hosting/setup",
+                  },
+                  {
+                    text: "Database",
+                    link: "/guides/self-hosting/database",
+                  },
+                  {
+                    text: "Key-Value Store",
+                    link: "/guides/self-hosting/key-value-store",
+                  },
+                  {
+                    text: "File storage",
+                    link: "/guides/self-hosting/file-storage",
+                  },
+                  {
+                    text: "ffmpeg",
+                    link: "/guides/self-hosting/ffmpeg",
+                  },
+                  {
+                    text: "Email",
+                    link: "/guides/self-hosting/email",
+                  },
+                  {
+                    text: "Full-text search",
+                    link: "/guides/self-hosting/full-text-search",
+                  },
+                  {
+                    text: "Job queue",
+                    link: "/guides/self-hosting/job-queue",
+                  },
+                  {
+                    text: "Lightweight Directory Access Protocol",
+                    link: "/guides/self-hosting/lightweight-directory-access-protocol",
+                  },
+                  {
+                    text: "Logging",
+                    link: "/guides/self-hosting/logging",
+                  },
+                  {
+                    text: "Backup",
+                    link: "/guides/self-hosting/backup",
+                  },
+                  {
+                    text: "Data Migration",
+                    link: "/guides/self-hosting/data-migration",
+                  },
+                  {
+                    text: "Caching",
+                    link: "/guides/self-hosting/caching",
+                  },
+                  {
+                    text: "Troubleshooting",
+                    link: "/guides/self-hosting/troubleshooting",
                   },
                 ],
               },
@@ -158,10 +222,33 @@ export default {
             text: "References",
             link: "/references",
             items: [
-              { text: "API", link: "https://api-docs.kitsu.cloud/" },
+              {
+                text: "API (zou)",
+                link: "/references/zou",
+                items: [
+                  {
+                    text: "Quickstart",
+                    link: "/references/zou",
+                  },
+                  {
+                    text: "Specifications",
+                    link: "https://api-docs.kitsu.cloud/",
+                  },
+                ],
+              },
               {
                 text: "Gazu Python SDK",
-                link: "https://gazu.cg-wire.com/specs",
+                link: "/references/gazu",
+                items: [
+                  {
+                    text: "Quickstart",
+                    link: "/references/gazu",
+                  },
+                  {
+                    text: "Specifications",
+                    link: "https://gazu.cg-wire.com/specs",
+                  },
+                ],
               },
               {
                 text: "Javascript SDK",
