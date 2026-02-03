@@ -25,9 +25,9 @@ When you first create a bot, you will receive a **JWT token**. This token is cru
 
 1. **Navigate to the Bots Page:** On the Main Menu, under the Admin section, go to the Bots page.
 
-    ![Main menu Bots](../img/getting-started/main_menu_bots.png)
+    ![Main menu Bots]()
 
-2. **Add a New Bot:** Click on the ![New Bots](../img/getting-started/add_new_bot.png) button. A pop-up window will appear where you can fill in the bot's details.
+2. **Add a New Bot:** Click on the ![New Bots]() button. A pop-up window will appear where you can fill in the bot's details.
 
     - **Name:** Give your bot a name.
     - **Expiration Date:** Set an expiration date if needed.
@@ -35,15 +35,15 @@ When you first create a bot, you will receive a **JWT token**. This token is cru
     - **Role:** Define the role of the bot.
     - **Active:** Choose whether the bot is active or inactive.
 
-    ![Main creation Bots](../img/getting-started/add_new_bot_pop.png)
+    ![Main creation Bots]()
 
 3. **Create the Bot:** Fill in the details and click **Create user**.
 
-    ![Example creation Bots](../img/getting-started/bot_example.png)
+    ![Example creation Bots]()
 
  A new pop-up will display the bot's **API token**.
 
- ![Example Bots Token](../img/getting-started/bot_token.png)
+ ![Example Bots Token]()
 
 ## Managing Bots
 

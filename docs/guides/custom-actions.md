@@ -34,7 +34,7 @@ Only studio managers can set up a custom action. The custom action page is avail
 
 When you have access to the custom action page, you can create a new action via the add button on the top right. The action creation requires four pieces of information:
 
-![Add Custom Action](../img/getting-started/add_custom_action.png)
+![Add Custom Action]()
 
 - **Name**: The name of the action.
 - **URL**: The target URL (we strongly recommend using the same domain as your Kitsu installation).

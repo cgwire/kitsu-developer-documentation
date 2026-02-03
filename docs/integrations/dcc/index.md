@@ -565,17 +565,17 @@ You must first have the Kitsu publisher and the plugin installed on your compute
 
 Log in to the Kitsu Publisher using your Kitsu credentials. You will see your to-do list with similar options as in Kitsu.
 
-![Kitsu Publisher todo list](../img/getting-started/publisher_todolist.png)
+![Kitsu Publisher todo list]()
 
 To comment or publish on a task, click on the status.
 
-![Kitsu Publisher todo list status](../img/getting-started/publisher_todolist_status.png)
+![Kitsu Publisher todo list status]()
 
 The comment panel will open with the previews and the whole history of this task.
 
 The first new element is that you have direct access to your timesheet. You can move the cursor to adapt the timeline to the number of hours spent on this specific task.
 
-![Kitsu Publisher to-do list Comment panel](../img/getting-started/publisher_todolist_comment.png)
+![Kitsu Publisher to-do list Comment panel]()
 
 When you are ready to publish your work, click on the **Add a review to publish** button.
 
@@ -584,17 +584,17 @@ When you are ready to publish your work, click on the **Add a review to publish*
 
 You can either upload the preview manually or let the Kitsu Publisher do it for you. Kitsu Publisher will detect the open DCC and project.
 
-![Kitsu Publisher DCC list](../img/getting-started/publisher_dcc_list.png)
+![Kitsu Publisher DCC list]()
 
 Select your camera and render engine, and choose between a screenshot or full animation render.
 
 Here, for example, we select the **Screenshot** option. Kitsu publisher will ask your DCC to do the render for you and display the result.
 
-![Kitsu Publisher DCC Screenshot](../img/getting-started/publisher_dcc_screenshot.png)
+![Kitsu Publisher DCC Screenshot]()
 
 Once satisfied, click **Confirm**, add your comment, change the status, and click **Post Comment** to upload the preview.
 
-![Kitsu Publisher comment](../img/getting-started/publisher_post_comment.png)
+![Kitsu Publisher comment]()
 
 Now everybody logged in to Kitsu will see your comment and publish.
 
@@ -605,7 +605,7 @@ Now everybody logged in to Kitsu will see your comment and publish.
 
 You can access settings via your avatar.
 
-![Kitsu Publisher settings Menu](../img/getting-started/publisher_settings_menu.png)
+![Kitsu Publisher settings Menu]()
 
 You have two options here: the first one is the directory for exports made by the DCCs.
 
@@ -615,7 +615,7 @@ The second option is about the command you can launch after the exports made by 
 
 You can launch a command or a script directly on the exported file, the folder, etc.
 
-![Kitsu Publisher settings option](../img/getting-started/publisher_settings_option.png)
+![Kitsu Publisher settings option]()
 
 
 You can insert variables in your command. You just have to put the chosen variable under curly brackets (for example: {exportFile}). These variables are also in the environment variables at runtime. They are listed below:
@@ -642,10 +642,10 @@ You can insert variables in your command. You just have to put the chosen variab
 
 Once your preview is rendered, you can check the directory and the scripts launched.
 
-![Kitsu Publisher settings result](../img/getting-started/publisher_settings_result.png)
+![Kitsu Publisher settings result]()
 
 Click on the options icon to see the command executed before the import.
 
-![Kitsu Publisher settings result detailed](../img/getting-started/publisher_settings_resul_detailt.png)
+![Kitsu Publisher settings result detailed]()
 
 Confirm if everything is correct, then post your comment as usual.

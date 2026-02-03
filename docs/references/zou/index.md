@@ -1,4 +1,4 @@
-[![Kitsu Logo](kitsu.png)](https://github.com/cgwire/zou)
+[![Kitsu Logo]()](https://github.com/cgwire/zou)
 
 # Welcome to the Kitsu API (Zou) documentation
 

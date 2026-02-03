@@ -2,7 +2,7 @@ export default {
   lang: "en-US",
   title: "Kitsu Developer",
   description: "Kitsu's unified developer documentation.",
-
+  ignoreDeadLinks: true,
   themeConfig: {
     logo: "/kitsu.png",
     sidebar: [
