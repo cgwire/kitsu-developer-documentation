@@ -1,0 +1,7 @@
+{
+  "name": "kitsu-developer-documentation",
+  "compatibility_date": "2026-02-03",
+  "assets": {
+    "directory": "./docs/.vitepress/dist",
+  },
+}
