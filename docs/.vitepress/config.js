@@ -1,9 +1,10 @@
 export default {
-  // site-level options
+  lang: "en-US",
   title: "Kitsu Developer",
   description: "Kitsu's unified developer documentation.",
 
   themeConfig: {
+    logo: "/logo.png",
     sidebar: [
       {
         items: [
