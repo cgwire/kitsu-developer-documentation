@@ -1,5 +1,7 @@
-DCC Utils
-=========
+# DCC Utils
+
+work in progress
+
 
 This library offers a series of classes to abstract the most common features available in Digital Content Creation tools.
 

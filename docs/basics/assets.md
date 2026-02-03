@@ -1,3 +1,7 @@
+# Assets
+
+work in progress...
+
 * Assets (constituants of a shot scene)
     * name
     * code: Utility field for the pipeline to identify the asset

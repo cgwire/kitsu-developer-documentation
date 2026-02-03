@@ -1,3 +1,7 @@
+# Kitsu Plugin Installation
+
+work in progress
+
 Install it:
 
 ```

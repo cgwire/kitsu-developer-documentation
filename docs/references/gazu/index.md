@@ -1,5 +1,4 @@
-Welcome to Gazu's documentation!
-================================
+# Welcome to Gazu's documentation!
 
 |logo|
 

@@ -1,4 +1,4 @@
-## Slack Integration
+# Slack Integration
 
 The Slack integration requires creating a dedicated application in your Slack space. The following steps will guide you through the process.
 

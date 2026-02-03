@@ -1,4 +1,7 @@
-## Authentication
+# Authentication
+
+work in progress
+
 
 Authenticate gazu with a Kitsu user via the following function call:
 

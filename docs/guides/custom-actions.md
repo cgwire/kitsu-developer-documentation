@@ -1,5 +1,7 @@
 # Custom Actions
 
+work in progress
+
 ## What are Custom Actions?
 
 A custom action is a simple HTTP request that sends information from your current Kitsu selection to a custom endpoint. Essentially, when a user is in the Kitsu UI, they can send a request to another server containing the IDs of the selected elements.

@@ -1,9 +1,12 @@
+# Events
+
+work in progress...
+
 * Events
     * name
     * user\_id: the user who made the action that emitted the event.
     * data: Free JSON field to add event data
 
-# Events
 
 ## Configuration
 

@@ -357,3 +357,29 @@ These variables are active only if auth\_remote\_ldap strategy is selected.
 * `TMP_DIR` (default: /tmp): The temporary directory used to handle uploads.
 * `DEBUG` (default: False): Activate the debug mode for development purposes.
 * `CRISP TOKEN` (default: ): Activate the Crisp support chatbox on the bottom right.
+
+### API configuration
+
+Check if API is up:
+
+```python
+gazu.client.is_host_up()
+```
+
+Get currently configured API server hostname:
+
+```python
+gazu.client.get_host()
+```
+
+Set API server hostname:
+
+```python
+gazu.client.set_host("pipeline-api")
+```
+
+Get API version:
+
+```python
+gazu.client.get_api_version()
+```

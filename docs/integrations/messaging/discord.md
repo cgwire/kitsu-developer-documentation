@@ -1,6 +1,4 @@
-# Chat Integration
-
-## Discord Integration
+# Discord Integration
 
 ### Create a Bot Account
 

@@ -10,7 +10,7 @@ export default {
         items: [
           {
             text: "Start Here",
-            link: "/start-here",
+            collapsed: false,
             items: [
               { text: "Why Kitsu", link: "/start-here/why-kitsu" },
               { text: "Cloud Hosting", link: "/start-here/cloud-hosting" },
@@ -23,9 +23,9 @@ export default {
           },
           {
             text: "Basics",
-            link: "/basics",
             collapsed: true,
             items: [
+              { text: "Overview", link: "/basics/overview" },
               { text: "Projects", link: "/basics/projects" },
               { text: "Users", link: "/basics/users" },
               { text: "Episodes", link: "/basics/episodes" },
@@ -42,7 +42,7 @@ export default {
           },
           {
             text: "Guides",
-            link: "/guides",
+            collapsed: false,
             items: [
               { text: "Authentication", link: "/guides/authentication" },
               { text: "Access Control", link: "/guides/access-control" },
@@ -65,7 +65,6 @@ export default {
               },
               {
                 text: "Self-hosting",
-                link: "/guides/self-hosting",
                 collapsed: true,
                 items: [
                   {
@@ -142,16 +141,15 @@ export default {
           },
           {
             text: "Recipes",
-            link: "/recipes",
+            collapsed: false,
             items: [{ text: "CSV import", link: "/recipes/csv-import" }],
           },
           {
             text: "Integrations",
-            link: "/integrations",
+            collapsed: false,
             items: [
               {
                 text: "Kitsu plugins",
-                link: "/integrations/kitsu-plugins",
                 collapsed: true,
                 items: [
                   {
@@ -166,7 +164,6 @@ export default {
               },
               {
                 text: "DCC",
-                link: "/integrations/dcc",
                 collapsed: true,
                 items: [
                   { text: "DCC Utils", link: "/integrations/dcc/dcc-utils" },
@@ -188,13 +185,11 @@ export default {
               },
               {
                 text: "UI Frameworks",
-                link: "/integrations/ui",
                 collapsed: true,
                 items: [{ text: "Vue", link: "/integrations/ui/vue" }],
               },
               {
                 text: "Messaging",
-                link: "/integrations/messaging",
                 collapsed: true,
                 items: [
                   { text: "Slack", link: "/integrations/messaging/slack" },
@@ -209,7 +204,7 @@ export default {
           },
           {
             text: "Open Source",
-            link: "/open-source",
+            collapsed: false,
             items: [
               { text: "Contributing", link: "/open-source/contributing" },
               {
@@ -220,7 +215,7 @@ export default {
           },
           {
             text: "References",
-            link: "/references",
+            collapsed: false,
             items: [
               {
                 text: "API (zou)",
@@ -259,7 +254,7 @@ export default {
           },
           {
             text: "Learn",
-            link: "/learn",
+            collapsed: false,
             items: [
               { text: "Github", link: "https://github.com/cgwire" },
               { text: "Blog", link: "https://blog.cg-wire.com/" },

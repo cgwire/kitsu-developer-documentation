@@ -1,4 +1,4 @@
-## Mattermost Integration
+# Mattermost Integration
 
 ### Enable Incoming Webhooks, Custom Username, and Profile Picture for Webhooks
 

@@ -1,5 +1,7 @@
 # Bots
 
+work in progress
+
 Bots in Kitsu are non-physical users that can perform automated tasks, allowing you to run scripts and interact with Kitsu's API without logging in as a real user. 
 
 ::: tip

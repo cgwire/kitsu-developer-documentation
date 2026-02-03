@@ -1,3 +1,8 @@
+# Toon Boom Harmony Integration
+
+work in progress
+
+
 [![Kitsu](https://zou.cg-wire.com/kitsu.png)](https://kitsu.cg-wire.com)
 
 # Kitsu Publisher, send your files right from your DCC

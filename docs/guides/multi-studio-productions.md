@@ -1,3 +1,7 @@
+# Multi-Studio Productions
+
+work in progress
+
 ### Multi client
 
 Gazu acts a singleton. If you want several instances of the Kitsu client, 

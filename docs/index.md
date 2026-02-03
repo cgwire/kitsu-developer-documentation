@@ -1,2 +1,1 @@
----
----
+# Kitsu Developer Documentation

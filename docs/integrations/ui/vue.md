@@ -1,4 +1,4 @@
-## Kitsu UI
+# Kitsu UI
 
 This storybook displays and documents all components available in the
 `kitsu-ui` package. It contains basic UI components like a text field, a
@@ -35,11 +35,3 @@ Then import components directly from the module:
 ```js
 import { ButtonSimple } from 'kitsu-ui'
 ```
-
-## Contributing
-
-All contributions are welcome as long as they respect the following rules:
-
-* Respect all the [C4 contract](https://rfc.zeromq.org/spec/42/) instructions.
-* All contributions must respect the Kitsu styleguide.
-* All contributions must be validated by the CGWire designer.

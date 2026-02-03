@@ -1,3 +1,7 @@
+# Notifications
+
+work in progress...
+
 * Notifications
     * read: True if user read it.
     * person\_id: The user to who the notification is aimed at.

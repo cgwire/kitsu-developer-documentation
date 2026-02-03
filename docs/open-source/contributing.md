@@ -1,5 +1,7 @@
 ## Contributing
 
+work in progress
+
 As any open source project, we enjoy any contribution! You will find below
 how you can help the Kitsu project to get better.
 
@@ -26,3 +28,11 @@ The Kitsu publisher code is written with Javascript (ES6) and is based on the
 [Electron](https://www.electronjs.org/) and the
 [VueJS](https://vuejs.org/v2/guide/) framework extended with the
 [Vuex](https://vuex.vuejs.org) plugin.
+
+### Front-end
+
+All contributions are welcome as long as they respect the following rules:
+
+* Respect all the [C4 contract](https://rfc.zeromq.org/spec/42/) instructions.
+* All contributions must respect the Kitsu styleguide.
+* All contributions must be validated by the CGWire designer.
