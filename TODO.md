@@ -15,3 +15,6 @@
 2. rewrite (5-7 days)
   - rewrite to make it easy to read: overview (breadth) + details (depth) + code examples
   - code tab support: include code examples for curl, python, and javascript
+
+- code samples: https://docs.bump.sh/help/specification-support/doc-code-samples/
+- add reusable schema reference: https://docs.bump.sh/guides/openapi/specification/v3.2/understanding-structure/components/

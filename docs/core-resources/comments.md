@@ -27,3 +27,40 @@ asset = gazu.asset.get_asset_by_name(project, "Lama")
 task = gazu.task.get_task_by_entity(asset, modeling)
 comment = gazu.task.add_comment(task, wip, "Change status to work in progress")
 ```
+
+## object
+
+**ENDPOINTS**
+```
+```
+
+### Attributes
+
+```
+{
+    "object_id": "number",
+    "object_type": "string",
+    "text": "string",
+    "task_status_id": "number",
+    "person_id": "number",
+    "previews": "array",
+    "data": "object",
+    "shotgun_id": "number"
+  }
+```
+
+## Create a 
+
+
+
+## Update a 
+
+## Retrieve a 
+
+
+
+## List 
+
+
+
+## Delete a

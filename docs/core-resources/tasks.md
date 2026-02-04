@@ -92,3 +92,52 @@ time_spent = gazu.task.get_time_spent(task_dict, "2018-03-18")
 time_spent = gazu.task.set_time_spent(task_dict, person_dict, "2018-03-18", 8 * 3600)
 time_spent = gazu.task.add_time_spent(task_dict, person_dict, "2018-03-18", 3600)
 ```
+
+## object
+
+**ENDPOINTS**
+```
+```
+
+### Attributes
+
+"Tasks": {
+    "shotgun_id": "number"
+  },
+
+  "TaskStatus": {
+    "name": "string",
+    "short_name": "string",
+    "color": "string",
+    "is_done": "boolean",
+    "is_artist_allowed": "boolean",
+    "is_retake": "boolean",
+    "shotgun_id": "number"
+  },
+
+  "TaskTypes": {
+    "name": "string",
+    "short_name": "string",
+    "color": "string",
+    "priority": "number",
+    "allow_timelog": "boolean",
+    "for_shots": "boolean",
+    "for_entity": "boolean",
+    "shotgun_id": "number"
+  },
+
+## Create a 
+
+
+
+## Update a 
+
+## Retrieve a 
+
+
+
+## List 
+
+
+
+## Delete a

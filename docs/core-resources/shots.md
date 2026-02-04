@@ -92,3 +92,41 @@ Asset instance helpers:
 asset_instance = gazu.shot.new_shot_asset_instance(shot_dict, asset_dict)
 asset_instances = gazu.shot.all_asset_instances_for_shot(shot_dict)
 ```
+
+## object
+
+**ENDPOINTS**
+```
+```
+
+### Attributes
+
+"Shots": {
+    "name": "string",
+    "code": "string",
+    "description": "string",
+    "canceled": "boolean",
+    "project_id": "number",
+    "parent_id": "number",
+    "entity_type_id": "number",
+    "source_id": "number",
+    "preview_file_id": "number",
+    "data": "object",
+    "shotgun_id": "number"
+  },
+
+## Create a 
+
+
+
+## Update a 
+
+## Retrieve a 
+
+
+
+## List 
+
+
+
+## Delete a

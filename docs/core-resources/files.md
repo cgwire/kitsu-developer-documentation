@@ -310,3 +310,98 @@ Download a given file to given path:
 ```python
 gazu.client.download("thumbnails/projects/project-id.png", "my_file.png")
 ````
+
+## object
+
+**ENDPOINTS**
+```
+```
+
+### Attributes
+
+```
+"FileStatus": {
+    "name": "string",
+    "color": "string"
+  },
+  
+  "OutputFiles": {
+      "name": "string",
+      "extension": "string",
+      "revision": "number",
+      "size": "number",
+      "checksum": "string",
+      "description": "string",
+      "comment": "string",
+      "representation": "string",
+      "nb_elements": "number",
+      "source": "string",
+      "path": "string",
+      "data": "object",
+      "file_status_id": "number",
+      "entity_id": "number",
+      "task_type_id": "number",
+      "output_type_id": "number",
+      "person_id": "number",
+      "source_file_id": "number",
+      "temporal_entity_id": "number"
+    },
+  
+    "OutputTypes": {
+      "name": "string",
+      "short_name": "string"
+    },
+    
+    "PreviewFiles": {
+        "name": "string",
+        "revision": "number",
+        "extension": "string",
+        "description": "string",
+        "path": "string",
+        "source": "string",
+        "annotations": "object",
+        "task_id": "number",
+        "person_id": "number",
+        "source_file_id": "number",
+        "shotgun_id": "number"
+      },
+      
+      "Software": {
+          "name": "string",
+          "short_name": "string",
+          "file_extension": "string",
+          "secondary_extensions": "array"
+        },
+        
+        "WorkingFiles": {
+            "name": "string",
+            "description": "string",
+            "comment": "string",
+            "revision": "number",
+            "size": "number",
+            "checksum": "string",
+            "path": "string",
+            "task_id": "number",
+            "entity_id": "number",
+            "person_id": "number",
+            "software_id": "number",
+            "outputs": "array",
+            "data": "object"
+          }
+```
+
+## Create a 
+
+
+
+## Update a 
+
+## Retrieve a 
+
+
+
+## List 
+
+
+
+## Delete a

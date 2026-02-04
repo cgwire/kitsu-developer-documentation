@@ -124,3 +124,35 @@ events = gazu.client.get("data/events/last?page_size=100&only_files=true")
 * working_file:new
 * output_file:new
 * preview_file:deletion
+
+## object
+
+**ENDPOINTS**
+```
+```
+
+### Attributes
+
+```
+{
+    "name": "string",
+    "user_id": "number",
+    "data": "object"
+  }
+```
+
+## Create a 
+
+
+
+## Update a 
+
+## Retrieve a 
+
+
+
+## List 
+
+
+
+## Delete a

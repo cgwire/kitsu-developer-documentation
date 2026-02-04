@@ -15,3 +15,43 @@ work in progress...
     * task\_id
     * entity\_id
     * task\_type\_id
+
+## object
+
+**ENDPOINTS**
+```
+```
+
+### Attributes
+
+"Notifications": {
+    "read": "boolean",
+    "person_id": "number",
+    "change": "boolean",
+    "author_id": "number",
+    "comment_id": "number",
+    "task_id": "number"
+  },
+
+ "NotificationSubscriptions": {
+    "person_id": "number",
+    "task_id": "number",
+    "entity_id": "number",
+    "task_type_id": "number"
+  },
+
+## Create a 
+
+
+
+## Update a 
+
+## Retrieve a 
+
+
+
+## List 
+
+
+
+## Delete a

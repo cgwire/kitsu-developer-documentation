@@ -97,3 +97,58 @@ asset_instance = get_asset_instance(asset_instance_id)
 asset_instances = all_asset_instances_for_asset(asset_dict)
 asset_instances = all_asset_instances_for_shot(shot_dict)
 ```
+
+## object
+
+**ENDPOINTS**
+```
+```
+
+### Attributes
+
+
+```
+"Assets": {
+    "name": "string",
+    "code": "string",
+    "description": "string",
+    "canceled": "boolean",
+    "project_id": "number",
+    "entity_type_id": "number",
+    "source_id": "number",
+    "preview_file_id": "number",
+    "data": "object",
+    "shotgun_id": "number"
+  },
+
+  "AssetInstances": {
+    "asset_id": "number",
+    "number": "number",
+    "name": "string",
+    "description": "string",
+    "active": "boolean",
+    "data": "object",
+    "scene_id": "number",
+    "target_asset_id": "number"
+  },
+
+  "AssetTypes": {
+    "name": "string"
+  },
+```
+
+## Create a 
+
+
+
+## Update a 
+
+## Retrieve a 
+
+
+
+## List 
+
+
+
+## Delete a

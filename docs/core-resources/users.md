@@ -69,3 +69,43 @@ tasks = gazu.user.all_tasks_for_asset(asset_dict)
 task_types = gazu.user.all_task_types_for_asset(asset_dict)
 task_types = gazu.user.all_task_types_for_shot(shot_dict)
 ```
+
+## object
+
+**ENDPOINTS**
+```
+```
+
+### Attributes
+
+"Persons": {
+    "email": "string",
+    "desktop_login": "string",
+    "first_name": "string",
+    "last_name": "string",
+    "phone": "string",
+    "active": "boolean",
+    "last_presence": "string",
+    "shotgun_id": "number",
+    "timezone": "string",
+    "locale": "string",
+    "role": "string",
+    "has_avatar": "boolean",
+    "data": "object"
+  },
+
+## Create a 
+
+
+
+## Update a 
+
+## Retrieve a 
+
+
+
+## List 
+
+
+
+## Delete a
