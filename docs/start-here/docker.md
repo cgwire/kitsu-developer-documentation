@@ -1,17 +1,17 @@
 # Kitsu Docker
 
-Docker container for [Kitsu](https://kitsu.cg-wire.com/).
+This is the documentation for the [Kitsu Docker container](https://github.com/cgwire/kitsu-docker) for local development and testing. 
 
-If you like the project, please add a star to the [Kitsu repository](https://github.com/cgwire/kitsu).
+It is not recommended to use this image in production.
 
-It is not recommended to use this image in production. It is intended for Kitsu
-testing.
-
-For this purpose, to simplify email testing, we include an email catch-all
-application to intercept all emails sent by Kitsu. These can be viewed in an
+To simplify email testing, we include an email catch-all application to intercept all emails sent by Kitsu. These can be viewed in an
 included webmail.
 
-### Usage
+If you like the project, please add a star to the [Kitsu repository](https://github.com/cgwire/kitsu). Thank you for trying out Kitsu!
+
+The source is [available on Github](https://github.com/cgwire/kitsu-docker.git).
+
+## Docker
 
 ```bash
 $ docker build -t cgwire/cgwire . # or sudo docker pull cgwire/cgwire
@@ -30,18 +30,17 @@ To run the image as a daemon, add the `-d` flag:
 $ docker run --init -d --rm -p 80:80 -p 1080:1080 --name cgwire cgwire/cgwire
 ```
 
-Kitsu credentials:
+Default Kitsu credentials:
 
-* login: admin@example.com
-* password: mysecretpassword
+- login: admin@example.com
+- password: mysecretpassword
 
 Update the profile settings with a working email address to try all features.
 
-URL:
+Default URLs:
 
-Kitsu: [http://127.0.0.1:80/](http://127.0.0.1:80/)
-
-Internal webmail: [http://127.0.0.1:1080/](http://127.0.0.1:1080/)
+- Kitsu: [http://127.0.0.1:80/](http://127.0.0.1:80/)
+- Internal webmail: [http://127.0.0.1:1080/](http://127.0.0.1:1080/)
 
 ### Update
 
@@ -51,10 +50,9 @@ After updating the image, you have to update the database schema. For that run:
 $ docker exec -ti cgwire sh -c "/opt/zou/env/bin/zou upgrade-db"
 ```
 
-### Docker Compose
+## Docker Compose
 
 `docker-compose.yml`
----
 ```yml
 services:
   cgwire:
@@ -88,3 +86,8 @@ Please test if the data is persisting after reboot or recreation. (Only tested i
 
 Also [an implementation by Mathieu Bouzard](https://gitlab.com/mathbou/docker-cgwire)
 is available.
+
+## Next Steps
+
+* Learn about [authentication strategies](/guides/authentication)
+* Learn to [setup a new production](/guides/production-management)

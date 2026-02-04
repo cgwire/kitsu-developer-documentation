@@ -1,43 +1,50 @@
 # Why Kitsu
 
-Kitsu is an open-source pipeline tracker helping animation studios manage production by centralizing data, tracking progress, streamlining communication, and easing automation tasks.
+Kitsu is an open source production tracking system built for animation and VFX pipelines. It centralizes production data, exposes it through structured APIs, and integrates with existing tools to reduce manual work and pipeline friction.
 
-## Single source of truth
+## Open source and built for long term production use
 
-Kitsu centralizes shots, assets, versions, notes, and schedules in one system. Producers, artists, and supervisors work from the same up-to-date information.
+Kitsu is designed as a sustainable open source solution for studios that want ownership and control over their production infrastructure.
 
-## Reliable production tracking
+Development is driven by real production constraints rather than short term commercial goals. The result is stable data models, transparent workflows for artists, and full access and extensibility for technical teams.
 
-Kitsu is designed specifically for animation and VFX workflows. It provides:
+Studios can self host, customize, and maintain Kitsu internally or contribute alongside the community so the platform remains adaptable, auditable, and aligned with evolving pipeline requirements.
 
-* Shot and asset tracking aligned with real pipelines
-* Clear task statuses (e.g. ready, WIP, blocked, approved)
-* Real-time visibility into production progress
+## Single source of truth for production data
 
-Producers can identify issues early and adjust planning before deadlines are affected.
+Shots, assets, tasks, versions, notes, and schedules live in a single system. All departments operate on the same up to date dataset, which reduces synchronization issues, duplicated tooling, and inconsistent state across the pipeline.
 
-## Contextual feedback and approvals
+## Production tracking aligned with real pipelines
 
-Notes and approvals are attached directly to shots and tasks via a review engine.
+Kitsu's tracking model is built specifically for animation and VFX workflows rather than generic project management.
 
-* Reduced scattered communication
-* Context preservation for feedback
-* Increased iteration speed and reduced misunderstandings
+Shot and asset based task hierarchies, production relevant task states such as ready, WIP, blocked, and approved, and real time progress visibility allow producers and supervisors to detect bottlenecks early and adjust planning before deadlines are affected.
 
-Kitsu also maintains a clear approval history for internal and client reviews.
+## Context aware reviews and approvals
 
-## Scales with studio size
+Feedback and approvals are attached directly to the relevant shots, assets, and tasks through an integrated review system.
 
-Kitsu supports small teams, large studios, and multi-studio productions. As projects grow, it maintains structure without adding unnecessary complexity.
+Centralized communication preserves context for decisions, shortens iteration cycles, and reduces misunderstandings. Approval history remains accessible to support both internal validation and client reviews.
 
-## Pipeline integration & Automation
+## Scales with studio size and complexity
 
-Kitsu integrates with common animation and VFX tools (e.g. DCCs, render farms, asset systems), reducing manual updates and errors. It also features multiple developer tools and a plugin ecosystem to help technical directors automate their animation pipeline.
+Kitsu supports small teams, large studios, and multi studio productions. As projects grow in size and complexity, structure is maintained without introducing unnecessary process overhead or fragile workarounds.
 
-## Cost control
+## Pipeline integration and automation
 
-Clear planning and tracking lead to fewer retakes, reduced overtime, and more predictable delivery schedules to help studios stay on budget.
+Kitsu integrates with common DCCs, render farms, and asset systems to minimize manual updates and reduce error prone steps.
 
-## Client visibility
+APIs, developer tooling, and a plugin ecosystem enable technical directors to build automation, custom integrations, and pipeline specific extensions.
 
-Kitsu provides structured progress tracking and review workflows, giving clients clear insight into production without exposing internal complexity.
+## Predictable production and cost control
+
+Clear planning and real time tracking reduce unnecessary retakes, limit overtime, and improve delivery predictability, helping studios stay on budget while maintaining production quality.
+
+## Structured client visibility
+
+Controlled access to production progress and reviews gives clients clear insight into project status without exposing internal pipeline complexity.
+
+## Next Step
+
+* Learn about [Cloud Hosting](/start-here/cloud-hosting)
+* Learn about [Self-Hosting](/guides/self-hosting/vs-cloud-hosting)
