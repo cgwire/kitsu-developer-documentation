@@ -1,58 +1,70 @@
 # Authentication
 
-work in progress
+All API endpoints require a JSON Web Token for authentication.
 
+You can either use regular email authentication to trade against a JSON Web Token or directly use a bot token.
 
-Authenticate gazu with a Kitsu user via the following function call:
+## Email Authentication
 
-```python
-gazu.log_in("user@mail.com", "userpassword")
+Log in using a Kitsu user account:
+
+::: code-group
+```curl
+curl \
+ --request POST 'https://zou-server-url/api/auth/login' \
+ --header "Content-Type: application/json" \
+ --data '{"email":"admin@example.com","password":"mysecretpassword","totp":123456,"email_otp":123456,"fido_authentication_response":{},"recovery_code":"ABCD-EFGH-IJKL-MNOP"}'
 ```
+```py
+import gazu
+
+gazu.set_host("https://zou-server-url/api")
+gazu.log_in("user@yourdomain.com", "password")
+```
+:::
 
 ## Bot Authentication
 
-Authenticate gazu with a Bot token with the following function call:
+You can [create a bot token from your Kitsu dashboard](https://kitsu.cg-wire.com/bots/#how-to-create-a-bot) and use the returned API token directly:
 
 ```python
-gazu.set_token("verylongtoken")
+import gazu
+
+gazu.set_token("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
 ```
 
-### Authentication
+## Use the token
 
-Make the client log in:
+Include the token in the `Authorization` header:
 
-```python
-gazu.client.log_in("user@mail.com", "default")
+```bash
+curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." https://zou-server-url/api/data/projects
 ```
 
-Make the client log out:
+## Get logged-in user info
 
-```python
-gazu.client.log_out()
-```
-
-Get currently logged user:
+To check the current user:
 
 ```python
 gazu.client.get_current_user()
 ```
 
-## Authentication
+## Logout
 
-Before you can use any of the endpoints outline below, you will have to get a JWT to authorize your requests.
+You can log out to delete session tokens from the server.
 
-You can get a authorization token using a (form-encoded) POST request to `/auth/login`. With
-`curl` this would look something like `curl -X POST <server_address>/auth/login -d "email=<youremail>&password=<yourpassword>`.
+```python
+gazu.client.log_out()
+```
 
-The response is a JSON object, specifically you'll need to provide the `access_token` for your future requests. 
- 
-Here is a complete authentication process as an example (again using `curl`):
+## Secret management
 
-    $ curl -X POST <server_address>/api/auth/login -d "email=<youremail>&password=<yourpassword>
-    {"login": true", "access_token": "eyJ0e...", ...}
-    
-    $ jwt=eyJ0e...  # Store the access token for easier use
-    
-    $ curl -H "Authorization: Bearer $jwt" <server_address>/api/data/projects
-    [{...},
-     {...}]
+Secrets like passwords or JSON Web Tokens need to be protected at all times.
+
+- Do not hardcode your secrets
+- Never store JWTs. Even though JWTs have an expiration time, the vulnerability window is still non-negligeable.
+- Use environment variables for emails and passwords
+
+## Next Steps
+
+Go to the next page to to learn about the other side of auth: authorization.

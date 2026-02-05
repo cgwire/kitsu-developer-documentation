@@ -50,6 +50,7 @@ export default {
                 text: "Production Management",
                 link: "/guides/production-management",
               },
+              { text: "Team Management", link: "/guides/team-management" },
               { text: "Asset Management", link: "/guides/asset-management" },
               { text: "Pipeline tracking", link: "/guides/pipeline-tracking" },
               { text: "Review engine", link: "/guides/review-engine" },

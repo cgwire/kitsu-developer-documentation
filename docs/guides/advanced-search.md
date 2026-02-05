@@ -2,6 +2,11 @@
 
 work in progress
 
+- Advanced Search
+    - Raw request functions
+    - get by path
+    - filtering
+    - full-text search
 
 * Search filters
     * list\_type

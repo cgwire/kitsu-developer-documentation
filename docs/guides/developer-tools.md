@@ -2,6 +2,8 @@
 
 work in progress
 
+- API, SDK, CLI, Docker image
+
 ### Raw request functions
 
 Performs a GET request on given path of the API:

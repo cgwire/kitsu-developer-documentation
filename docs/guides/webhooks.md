@@ -2,6 +2,20 @@
 
 work in progress
 
+Typical use case: Reacting to production changes
+
+Updating entity statuses
+
+Tracking approval states
+
+Using events or polling for changes
+
+Common automation triggers
+
+Status change → notify
+
+Task completion → create next task
+
 ## Configuration
 
 It's possible to listen to events and run a callback when it occurs. Because listening to events blocks the current thread, we recommend that you
