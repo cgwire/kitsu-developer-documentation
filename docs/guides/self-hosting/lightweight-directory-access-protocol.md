@@ -1,8 +1,6 @@
-# LDAP
+# Lightweight Directory Access Protocol (LDAP)
 
-Authentication can be managed through a LDAP (or Active Directory) server. It
-allows you to start using Kitsu directly with the accounts listed in your LDAP.
-
+Authentication can be managed through a LDAP (or Active Directory) server. It allows you to start using Kitsu directly with the accounts listed in your LDAP.
 
 ## Activate LDAP
 
@@ -72,7 +70,6 @@ LDAP_EMAIL_DOMAIN=mystudio.com \
 LDAP_EXCLUDED_ACCOUNTS=Administrator,TestAccount \
 zou sync-with-ldap-server
 ```
-
 
 ## Note about Kitsu
 

@@ -1,8 +1,12 @@
 ## Architecture
 
+Kitsu is divided into two parts: the Kitsu app, and Zou (Kitsu API).
+
+## 1. Kitsu App Frontend
+
 Kitsu is based on the [Vue.js](https://vuejs.org/guide/) framework. The Vue.js documentation is exhaustive and very clear. We encourage you to read it before making significant changes to the code.
 
-The architecture is based on [Vuex](https://vuex.vuejs.org) and [vue-router](https://router.vuejs.org). Their documentation is also very good, and we recommend reading it. The main idea is that:
+The frontend architecture is based on [Vuex](https://vuex.vuejs.org) and [vue-router](https://router.vuejs.org). Their documentation is also very good, and we recommend reading it. The main idea is that:
 
 * URL routes give the main context.
 * Views are described in components through HTML, CSS, and small pieces of JavaScript.
@@ -11,3 +15,10 @@ The architecture is based on [Vuex](https://vuex.vuejs.org) and [vue-router](htt
 * Stores provide getters to access state properties from components.
 * Local change logic is kept inside components.
 * Getters, actions, and mutations must be testable without a browser.
+
+## 2. Zou: Kitsu API Backend
+
+- Web framework: Python Flask
+- Main database: Postgres
+- Key-value store: Redis
+- Full-text search & advanced indexing: meilisearch

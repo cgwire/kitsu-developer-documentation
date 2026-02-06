@@ -1,13 +1,13 @@
 # Kitsu Plugin Installation
 
-work in progress
+## 1. Download your plugin folder
 
-Install it:
+## 2. Install your plugin
 
 ```
 python zou/cli.py install-plugin --path ./plugin-name
 ```
 
-Then restart your Zou server.
+## 3. Restart your Zou server
 
 All added routes will live under the path `plugins/plugin-name`.

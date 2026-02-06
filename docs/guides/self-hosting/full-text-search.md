@@ -1,26 +1,10 @@
-## Indexer
+# Full-Text Search
 
-To run Meilisearch, we recommend using Docker again:
-
-```bash
-sudo docker pull getmeili/meilisearch:v1.8.3
-sudo docker run -it --rm \
-    --name meilisearch \
-    -p 7700:7700 \
-    -e MEILI_ENV='development' \
-    -e MEILI_MASTER_KEY='meilimasterkey' \
-    -v $(pwd)/meili_data:/meili_data \
-    -d getmeili/meilisearch:v1.8.3
-```
-
-# Data indexation
-
-To allow full-text search, Kitsu relies on an Indexing engine. It uses the
-[Meilisearch](https://www.meilisearch.com/docs) technology.
+To allow full-text search, Kitsu relies on the [Meilisearch](https://www.meilisearch.com/docs) indexing engine.
 
 The indexer is optional. Kitsu can run without it.
 
-## Setup the indexer
+## 1. Setup the indexer
 
 Create a Meilisearch user:
 
@@ -71,7 +55,7 @@ sudo systemctl start meilisearch
 ```
 
 
-## Configuring the connection to the indexer
+## 2. Configuring the connection to the indexer
 
 To connect to the indexer Kitsu relies on three environment variables.
 Add them to the zou environment variables file.
@@ -94,13 +78,13 @@ INDEXER_PORT="7700"
 Once set, Kitsu will be able to connect to the indexer and will enable
 full-text search.
 
-## Verify the indexer is up and running
+## 3. Verify the indexer is up and running
 
 Browse to [http://localhost/api/status](http://localhost/api/status)
 You should see "indexer-up": "true"
 
 
-## Refreshing indexes
+## 4. Refreshing indexes
 
 If for any reason, the indexer was not running during changes in the Kitsu
 database, you can reset it at any time. Simply use this command (assuming all

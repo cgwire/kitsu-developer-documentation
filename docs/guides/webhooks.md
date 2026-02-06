@@ -1,24 +1,12 @@
 # Webhook Events
 
-work in progress
+You can set up webhooks to react to production changes.
 
-Typical use case: Reacting to production changes
+## Quickstart
 
-Updating entity statuses
+It's possible to listen to events and trigger callbacks as they occur. 
 
-Tracking approval states
-
-Using events or polling for changes
-
-Common automation triggers
-
-Status change → notify
-
-Task completion → create next task
-
-## Configuration
-
-It's possible to listen to events and run a callback when it occurs. Because listening to events blocks the current thread, we recommend that you
+Because listening to events blocks the current thread, we recommend that you
 set it up in a different thread than the main one.
 
 ```python
@@ -40,30 +28,62 @@ gazu.events.run_client(event_client)
 ### Generic events
 
 For each model listed in the *Available data section*, there are three events 
-available: `new`, `update` and `delete`. The event is created that way: 
+available: `new`, `update` and `delete`. Each event follows this naming convention: 
 
-```
+```py
 model_name.lower().replace(' ', '-') + ':' + action
 ```
 
-Exemples:
-
+* person:new
+* person:update
+* person:deletetion
+* notifications:new
+* project:update
+* metadata-descriptor:new
+* metadata-descriptor:update
+* metadata-descriptor:delete
+* asset-type:new
 * asset:new
 * asset:update
 * asset:delete
-* task-type:new
-* task-type:update
-* task-type:delete
+* asset:new-link
+* asset:remove-link
+* asset:deletion
+* casting:update
+* asset_instance:new
+* asset_instance:add-to-shot
+* asset_instance:remove-from-shot
+* asset_instance:new
+* shot:new
+* shot:update
+* shot:deletion
+* scene:new
+* scene:deletion
+* sequence:new
+* episode:new
+* task:new
+* task:update
+* task:deletion
+* task_type:new
+* task:unassign
+* task:assign
+* task:start
+* task:to-review
+* task_status:new
+* task_status:update
+* comment:new
+* comment:deletion
+* preview:add
+* preview-file:set-main
+* working_file:new
+* output_file:new
+* preview_file:deletion
 
-Data: 
-
-All generic events provide the ID of related data.
-
+All generic events provide an ID.
 
 ### Special events
 
-Some actions on the database generate a special event. Here is the list of
-events emitted that way:
+Some actions generate special events:
 
 * asset-instance:add-to-shot
 * asset-instance:remove-from-shot
@@ -77,11 +97,11 @@ events emitted that way:
 * task:assign
 * task:status-changed
 
-## Event table
+## Search Logs
 
-You can access to most recent events by doing a classic request: 
+You can access the latest events with raw functions: 
 
-```
+```py
 events = gazu.client.get("data/events/last?page_size=100")
 events = gazu.client.get("data/events/last?page_size=100&before=2019-02-01")
 events = gazu.client.get("data/events/last?page_size=100&before=2019-02-01&after=2019-01-01")

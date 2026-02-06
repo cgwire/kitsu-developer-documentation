@@ -67,6 +67,19 @@ Assign the user to a studio:
 ```py
 ```
 
+Retrieve all persons listed in the database:
+
+```python
+persons = gazu.person.all_persons()
+```
+
+Get a person by full name or login used on his desktop machine:
+
+```python
+person = gazu.person.get_person_by_full_name("John Doe")
+person = gazu.person.get_person_by_desktop_login("john.doe")
+```
+
 Deactivate or remove users when they leave the project:
 
 ```py

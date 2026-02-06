@@ -16,29 +16,18 @@ export default {
               { text: "Cloud Hosting", link: "/start-here/cloud-hosting" },
               { text: "Docker", link: "/start-here/docker" },
               {
+                text: "Developer Quickstart",
+                link: "/start-here/dev-quickstart",
+              },
+              {
                 text: "Migrate to Kitsu",
                 link: "/start-here/migrate-to-kitsu",
               },
             ],
           },
           {
-            text: "Core Resources",
-            collapsed: true,
-            items: [
-              { text: "Overview", link: "/core-resources/overview" },
-              { text: "Projects", link: "/core-resources/projects" },
-              { text: "Users", link: "/core-resources/users" },
-              { text: "Episodes", link: "/core-resources/episodes" },
-              { text: "Sequences", link: "/core-resources/sequences" },
-              { text: "Shots", link: "/core-resources/shots" },
-              { text: "Assets", link: "/core-resources/assets" },
-              { text: "Tasks", link: "/core-resources/tasks" },
-              { text: "Comments", link: "/core-resources/comments" },
-              { text: "Files", link: "/core-resources/files" },
-              { text: "Events", link: "/core-resources/events" },
-              { text: "Notifications", link: "/core-resources/notifications" },
-              { text: "Playlists", link: "/core-resources/playlists" },
-            ],
+            text: "Core Resources Overview",
+            link: "/core-resources/overview",
           },
           {
             text: "Guides",
@@ -62,7 +51,7 @@ export default {
               { text: "Developer Tools", link: "/guides/developer-tools" },
               {
                 text: "Multi-studio Productions",
-                link: "/guides/multi-studio-production",
+                link: "/guides/multi-studio-productions",
               },
               {
                 text: "Self-hosting",
@@ -77,32 +66,20 @@ export default {
                     link: "/guides/self-hosting/architecture",
                   },
                   {
-                    text: "Hardware prerequisites",
-                    link: "/guides/self-hosting/hardware-prerequisites",
+                    text: "Hardware Requirements",
+                    link: "/guides/self-hosting/hardware-requirements",
                   },
                   {
                     text: "Setup",
                     link: "/guides/self-hosting/setup",
                   },
                   {
-                    text: "Database",
-                    link: "/guides/self-hosting/database",
-                  },
-                  {
-                    text: "Key-Value Store",
-                    link: "/guides/self-hosting/key-value-store",
+                    text: "Environment Variables",
+                    link: "/guides/self-hosting/environment-variables",
                   },
                   {
                     text: "File storage",
                     link: "/guides/self-hosting/file-storage",
-                  },
-                  {
-                    text: "ffmpeg",
-                    link: "/guides/self-hosting/ffmpeg",
-                  },
-                  {
-                    text: "Email",
-                    link: "/guides/self-hosting/email",
                   },
                   {
                     text: "Full-text search",
@@ -146,23 +123,23 @@ export default {
             items: [{ text: "CSV import", link: "/recipes/csv-import" }],
           },
           {
-            text: "Integrations",
+            text: "Kitsu plugins",
             collapsed: false,
             items: [
               {
-                text: "Kitsu plugins",
-                collapsed: true,
-                items: [
-                  {
-                    text: "Installation",
-                    link: "/integrations/kitsu-plugins/installation",
-                  },
-                  {
-                    text: "Development",
-                    link: "/integrations/kitsu-plugins/development",
-                  },
-                ],
+                text: "Installation",
+                link: "/kitsu-plugins/installation",
               },
+              {
+                text: "Development",
+                link: "/kitsu-plugins/development",
+              },
+            ],
+          },
+          {
+            text: "Integrations",
+            collapsed: false,
+            items: [
               {
                 text: "DCC",
                 collapsed: true,
@@ -220,37 +197,17 @@ export default {
             items: [
               {
                 text: "API (zou)",
-                link: "/references/zou",
-                items: [
-                  {
-                    text: "Quickstart",
-                    link: "/references/zou",
-                  },
-                  {
-                    text: "Specifications",
-                    link: "https://api-docs.kitsu.cloud/",
-                  },
-                ],
+                link: "https://api-docs.kitsu.cloud/",
               },
               {
                 text: "Gazu Python SDK",
-                link: "/references/gazu",
-                items: [
-                  {
-                    text: "Quickstart",
-                    link: "/references/gazu",
-                  },
-                  {
-                    text: "Specifications",
-                    link: "https://gazu.cg-wire.com/specs",
-                  },
-                ],
+                link: "https://gazu.cg-wire.com/specs",
               },
               {
                 text: "Javascript SDK",
                 link: "https://github.com/cgwire/kitsu-client-js",
               },
-              { text: "CLI", link: "https://zou.cg-wire.com/development/" },
+              { text: "CLI", link: "/references/cli" },
             ],
           },
           {

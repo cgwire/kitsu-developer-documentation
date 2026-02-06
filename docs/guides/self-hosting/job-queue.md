@@ -1,7 +1,6 @@
-# Job Queue
+# Job Queue
 
-To run jobs asynchronously in a job queue, an additional service
-is required.
+To run jobs asynchronously in a job queue, an additional service is required.
 
 
 ## What will be run in the job queue

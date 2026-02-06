@@ -1,24 +1,27 @@
 # Developer Tools Overview
 
-work in progress
+Kitsu provides multiple ways to interact with internal features:
 
-- API, SDK, CLI, Docker image
+- **API** - All Postgres tables are accessible via REST HTTP APIs. [See specifications for an exhaustive list](https://api-docs.kitsu.cloud/). 
+- **SDK** - [Python (gazu)](https://gazu.cg-wire.com/specs) and [Javascript](https://github.com/cgwire/kitsu-client-js)
+- **CLI** - The [zou CLI](https://zou.cg-wire.com/development/) helps streamline common database operations to run a Kitsu instance.
+- **Docker image** - [The Kitsu Docker container](/start-here/docker) makes it easy to test Kitsu features locally, including scripting.
 
-### Raw request functions
+## Raw queries
 
-Performs a GET request on given path of the API:
-
-```python
-gazu.client.get("data/projects")
-```
-
-Performs a POST request on given path of the API:
+### Create entity
 
 ```python
 gazu.client.post("data/projects", {"name": "My new Project"})
 ```
 
-Performs a PUT request on given path of the API:
+### Find and List entities
+
+```python
+gazu.client.get("data/projects")
+```
+
+### Update entity
 
 ```python
 gazu.client.put(
@@ -27,7 +30,7 @@ gazu.client.put(
 )
 ```
 
-Performs a DELETE request on given path of the API:
+### Delete entity
 
 ```python
 gazu.client.delete("data/projects/<project-id>")

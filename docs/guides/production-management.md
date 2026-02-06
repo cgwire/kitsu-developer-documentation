@@ -30,7 +30,8 @@ A project represents a single production. When creating a project via the API, y
 * Start and end dates
 * Default configuration inherited from the studio
 
-```py
+```python
+project = gazu.project.new_project("Agent 327")
 ```
 
 This project becomes the root container for all assets, shots, tasks, and metadata.
@@ -145,6 +146,27 @@ You can then visualize the metadata in the Kitsu dashboard or by reading the met
 Writing metadata to an asset:
 
 ```py
+```
+
+## Managing your production structure
+
+Retrieve a given project:
+
+```python
+project = gazu.project.get_project(project_id)
+project = gazu.project.get_project_by_name("Agent 327")
+```
+
+Retrieve all projects listed in the database:
+
+```python
+projects = gazu.project.all_projects()
+```
+
+Retrieve all open projects (open means still running on):
+
+```python
+projects = gazu.project.all_open_projects()
 ```
 
 ## Next Steps

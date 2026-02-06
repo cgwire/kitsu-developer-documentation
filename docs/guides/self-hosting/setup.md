@@ -1,364 +1,485 @@
 # Open Source Setup
 
-## Cloud Hosting
+This guide breaks down how to self-host Kitsu in a production environment.
 
-If your version of Kitsu is hosted and maintained by CGWire, you don't have anything to install. Simply connect to the URL provided to you to start using Kitsu!
+## Testing build
 
-## Self-Hosting
+You can start running Kitsu through Docker to try it out. Please [refer to the dedicated guide to get started](/start-here/docker).
 
-To run properly, Kitsu requires Zou, the database API. Information related to the installation of both modules is located in the Zou installation documentation.
+## I. Zou Installation
 
-* [Deploying Zou](https://zou.cg-wire.com/)
-* [Deploying Kitsu](https://zou.cg-wire.com/#deploying-kitsu)
+## Prerequisites
 
-If you have technical skills, you can run Kitsu/Zou through Docker to try it out:
+The installation requires:
 
-```shell
-docker run -d -p 80:80 --name cgwire cgwire/cgwire
-```
+* Ubuntu (version >= 22.04)
+* Python (version >= 3.10)
+* An up-and-running Postgres instance (version >= 9.2)
+* An up-and-running Redis server instance (version >= 2.0)
+* A Nginx instance
+* For video operations, FFMPEG is required.
 
-Then you can access Kitsu through [http://localhost](http://localhost).
+## 1. Installing dependencies
 
-## Development Environment
-
-### Prerequisites
-
-Prior to setting up the Kitsu development environment, make sure you have the following elements installed:
-
-* [Node.js](https://nodejs.org) >= 20.18
-* A [Zou development instance](https://zou.cg-wire.com/development/) up and running on port 5000
-* A [Zou Events development instance](https://zou.cg-wire.com/development/) up and running on port 5001 (optional)
-
-### Using Docker Image
-
-You can use our [Docker image](https://hub.docker.com/r/cgwire/cgwire), but you will need to set two environment variables:
-
-* `KITSU_API_TARGET` (default: http://localhost:5000): The URL where the API can be reached.
-* `KITSU_EVENT_TARGET` (default: http://localhost:5001): The URL where the event stream can be reached.
-
-In that case, run the development environment with the following command:
-
-```shell
-KITSU_API_TARGET=http://localhost/api KITSU_EVENT_TARGET=http://localhost npm run dev
-```
-
-The credentials for the Docker image are: admin@example.com / mysecretpassword
-
-## Development
-
-To start modifying Kitsu, clone the repository:
-
-```shell
-git clone https://github.com/cgwire/kitsu.git
-```
-
-Then download the dependencies:
-
-```shell
-cd kitsu
-npm install
-```
-
-Finally, start the development environment and view the results at `http://localhost:8080`:
-
-```shell
-npm run dev
-```
-
-Any changes will automatically update the page.
-
-## Build
-
-To build your code, run this command:
-
-```shell
-npm run build
-```
-
-## Tests
-
-Run tests with the following command:
-
-```shell
-npm run test:unit
-```
-
-## Source and dependencies
-
-Then get Zou sources:
+First, let's install third-party software:
 
 ```bash
-git clone git@github.com:cgwire/zou.git
+sudo apt-get install postgresql postgresql-client postgresql-server-dev-all
+sudo apt-get install build-essential
+sudo apt-get install redis-server
+sudo apt-get install nginx
+sudo apt-get install xmlsec1
+sudo apt-get install ffmpeg
 ```
 
-Install `virtualenvwrapper`:
+*NB: We recommend installing Postgres on a separate machine.*
+
+### Install Python 3.12
+
+```
+sudo apt-get install software-properties-common
+sudo add-apt-repository ppa:deadsnakes/ppa -y
+sudo apt-get update
+sudo apt-get install python3.12 python3.12-venv python3.12-dev
+```
+
+### Download sources
+
+Create a dedicated zou user:
 
 ```bash
-pip install virtualenvwrapper
+sudo useradd --home /opt/zou zou 
+sudo mkdir /opt/zou
+sudo mkdir /opt/zou/backups
+sudo chown zou: /opt/zou/backups
 ```
 
-Add configuration for `virtualenvwrapper` to your .bashrc:
+Install Zou and its dependencies:
+
+```
+sudo python3.12 -m venv /opt/zou/zouenv
+sudo /opt/zou/zouenv/bin/python -m pip install --upgrade pip
+sudo /opt/zou/zouenv/bin/python -m pip install zou
+```
+
+Create a folder to store the previews:
+
+```
+sudo mkdir /opt/zou/previews
+sudo chown -R zou:www-data /opt/zou/previews
+```
+
+Create a folder to store the temp files:
+
+```
+sudo mkdir /opt/zou/tmp
+sudo chown -R zou:www-data /opt/zou/tmp
+```
+
+## 2. Preparing the Postgres database
+
+To run Postgres, we recommend using Docker (it's simpler, and it won't impact
+your local system):
 
 ```bash
-export WORKON_HOME=directory_for_virtualenvs
-VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-source ~/.local/bin/virtualenvwrapper.sh
+sudo docker pull postgres
+sudo docker run \
+    --name postgres \
+    -p 5432:5432 \
+    -e POSTGRES_PASSWORD=mysecretpassword \
+    -d postgres
 ```
 
-Create a virtual environment with `mkvirtualenv`:
+Create Zou database in Postgres:
+
+```
+sudo -u postgres psql -c 'create database zoudb;' -U postgres
+```
+
+Set a password for your postgres user. For that start the Postgres CLI:
 
 ```bash
-mkvirtualenv zou
-workon zou
+sudo -u postgres psql
 ```
 
-Install dependencies:
+Then set the password (*mysecretpassword* if you want to do some tests).
 
 ```bash
-pip install -r requirements.txt
+psql (9.4.12)
+Type "help" for help.
+
+postgres=# \password postgres
+Enter new password: 
+Enter it again: 
 ```
 
-## Init data
+Then, exit from the Postgres client console.
 
-Create a database in Postgres named `zoudb` with user `postgres` and password
-`mysecretpassword`. Then init db:
+Alternatively, if you want to set the password to avoid interactive prompts, use: 
+```bash
+sudo -u postgres psql -U postgres -d postgres -c "alter user postgres with password 'mysecretpassword';"
+```
+
+`SECRET_KEY` must be generated randomly
+(use `pwgen 16` command for that).
+
+Create the environment variables file for the database:
+
+*Path: /etc/zou/zou.env*
+```bash
+DB_PASSWORD=mysecretpassword
+PREVIEW_FOLDER=/opt/zou/previews
+TMP_DIR=/opt/zou/tmp
+SECRET_KEY=yourrandomsecretkey
+
+# If you add variables above, add the exports below
+export DB_PASSWORD SECRET_KEY PREVIEW_FOLDER TMP_DIR SECRET_KEY
+```
+
+You need to have these variables in memory when you run a `zou` command.
+The easiest way to do this is to run this command:
+
+`. /etc/zou/zou.env`
+
+This line is included with every command in the documentation so that you don't forget it. But you don't have to run it every time.
+
+Finally, create database tables (it is required to leave the Postgres console
+and to activate the Zou virtual environment):
 
 ```bash
-python zou/cli.py clear-db
-python zou/cli.py init-db
-python zou/cli.py init-data
+# Run it in your bash console.
+. /etc/zou/zou.env
+/opt/zou/zouenv/bin/zou init-db
 ```
 
-Create a first user:
+*NB: You can specify a custom username and database. See the [configuration section](https://zou.cg-wire.com/configuration/).*
+
+## 3. Setting up the key-value store Redis
+
+To run Redis, we recommend using Docker again:
 
 ```bash
-python zou/cli.py create-admin super.user@mycgstudio.com --password=mysecretpassword
+sudo docker pull redis
+sudo docker run \
+    --name redis \
+    -p 6379:6379 \
+    -d redis
 ```
 
-Run server:
+Currently, Redis requires no extra configuration. 
+
+To remove warnings in Redis logs and improve background saving success rate,
+you can add this to `/etc/sysctl.conf`:
+
+```
+vm.overcommit_memory = 1
+```
+
+If you want to do performance tuning, have a look at [this
+article](https://www.techandme.se/performance-tips-for-redis-cache-server/).
+
+
+## 4. (optional) Set up the Meilisearch indexer
+
+To allow full-text search, Kitsu relies on an Indexing engine. It uses the
+[Meilisearch](https://www.meilisearch.com/docs) technology.
+
+The indexer is optional. Kitsu can run without it.
+
+To run Meilisearch, we recommend using Docker again:
 
 ```bash
-PREVIEW_FOLDER=$PWD/previews DEBUG=1 MAIL_DEBUG=1 FLASK_DEBUG=1 FLASK_APP=zou.app INDEXER_KEY=meilimasterkey python zou/debug.py
+sudo docker pull getmeili/meilisearch:v1.8.3
+sudo docker run -it --rm \
+    --name meilisearch \
+    -p 7700:7700 \
+    -e MEILI_ENV='development' \
+    -e MEILI_MASTER_KEY='meilimasterkey' \
+    -v $(pwd)/meili_data:/meili_data \
+    -d getmeili/meilisearch:v1.8.3
 ```
 
-You can now use the API by requesting `http://localhost:5000`.
+[Refer to the dedicated section of the documentation on full-text search for more information.](/self-hosting/full-text-search)
 
+## 5. Configure Gunicorn
 
-## Update database
-In case of adding/removing attributes of models, you must generate the DB update file:
+#### Configure the main API server
+
+First, create a configuration folder:
 
 ```
-python zou/cli.py migrate-db
+sudo mkdir /etc/zou
 ```
 
-### Event server
+We need to run the application through *gunicorn*, a WSGI server that will run zou as a daemon. Let's write the *gunicorn* configuration:
 
-To run the Server Events server used to update the web GUI in realtime, use the
-following command.
+*Path: /etc/zou/gunicorn.py*
+
+```
+accesslog = "/opt/zou/logs/gunicorn_access.log"
+errorlog = "/opt/zou/logs/gunicorn_error.log"
+workers = 3
+worker_class = "gevent"
+```
+
+Let's create the log folder:
+
+```
+sudo mkdir /opt/zou/logs
+sudo chown zou: /opt/zou/logs
+```
+
+Then we daemonize the *gunicorn* process via Systemd. For that, we add a new
+file that will add a new daemon to be managed by Systemd:
+
+*Path: /etc/systemd/system/zou.service*
+
+```
+[Unit]
+Description=Gunicorn instance to serve the Zou API
+After=network.target
+
+[Service]
+User=zou
+Group=www-data
+WorkingDirectory=/opt/zou
+# ffmpeg must be in PATH
+Environment="PATH=/opt/zou/zouenv/bin:/usr/bin"
+EnvironmentFile=/etc/zou/zou.env
+ExecStart=/opt/zou/zouenv/bin/gunicorn  -c /etc/zou/gunicorn.py -b 127.0.0.1:5000 zou.app:app
+
+[Install]
+WantedBy=multi-user.target
+```
+
+#### Configure Events Stream API server
+
+
+Let's write the *gunicorn* configuration:
+
+*Path: /etc/zou/gunicorn-events.py*
+
+```
+accesslog = "/opt/zou/logs/gunicorn_events_access.log"
+errorlog = "/opt/zou/logs/gunicorn_events_error.log"
+workers = 1
+worker_class = "geventwebsocket.gunicorn.workers.GeventWebSocketWorker"
+```
+
+Then we daemonize the *gunicorn* process via Systemd:
+
+*Path: /etc/systemd/system/zou-events.service*
+
+```
+[Unit]
+Description=Gunicorn instance to serve the Zou Events API
+After=network.target
+
+[Service]
+User=zou
+Group=www-data
+WorkingDirectory=/opt/zou
+Environment="PATH=/opt/zou/zouenv/bin"
+EnvironmentFile=/etc/zou/zou.env
+ExecStart=/opt/zou/zouenv/bin/gunicorn -c /etc/zou/gunicorn-events.py -b 127.0.0.1:5001 zou.event_stream:app
+
+[Install]
+WantedBy=multi-user.target
+```
+
+## 6. Configure the Nginx reverse proxy server
+
+Finally, we serve the API through a Nginx server. For that, add this
+configuration file to Nginx to redirect the traffic to the Gunicorn servers:
+
+*Path: /etc/nginx/sites-available/zou*
+
+```nginx
+server {
+    listen 80;
+    server_name server_domain_or_IP;
+
+    location /api {
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_pass http://localhost:5000/;
+        client_max_body_size 500M;
+        proxy_connect_timeout 600s;
+        proxy_send_timeout 600s;
+        proxy_read_timeout 600s;
+        send_timeout 600s;
+    }
+
+    location /socket.io {
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_pass http://localhost:5001;
+    }
+}
+```
+
+*NB: We use the 80 port here to make this documentation simpler but the 443 port and https connection are highly recommended.*
+
+Finally, make sure that the default configuration is removed: 
 
 ```bash
-gunicorn --worker-class geventwebsocket.gunicorn.workers.GeventWebSocketWorker -b 127.0.0.1:5001 -w 1 zou.event_stream:app
+sudo rm /etc/nginx/sites-enabled/default
 ```
 
-## Tests
 
-To run unit tests, we recommend using another database. 
+We enable that Nginx configuration with this command:
 
-## Add ffmpeg
-
-To run all tests, `ffmpeg` and `ffprobe` are required.
-
-### Init the search index
-
-The search index can be initialized and reset with the following command:
-
-```
-INDEXER_KEY=meilimasterkey DB_DATABASE=zoutest zou reset-search index
+```bash
+sudo ln -s /etc/nginx/sites-available/zou /etc/nginx/sites-enabled/zou
 ```
 
-### Create a testing database
+Finally, we can start our daemon and restart Nginx:
 
-In the CLI of the hosting, the PostgreSQL DB executes the following:
-*If Docker, connect with: `docker exec -it postgres bash`*
-
-```
-sudo su -l postgres
-psql -c 'create database zoutest;' -U postgres
+```bash
+sudo systemctl enable zou zou-events
+sudo systemctl start zou zou-events
+sudo systemctl restart nginx
 ```
 
-### Run the tests
+## Updating Zou
 
-In your zou environment `workon zou`, execute the tests with the `DB_DATABASE` environment variable:
+### Update package
 
-```
-INDEXER_KEY=meilimasterkey DB_DATABASE=zoutest py.test
-```
+First, you have to upgrade the zou package:
 
-If you want to run a specific test (you can list several):
-
-```
-DB_DATABASE=zoutest py.test tests/models/test_entity_type.py
+```bash
+sudo /opt/zou/zouenv/bin/python -m pip install --upgrade zou
 ```
 
-### Debug email sending
 
-If you set properly the `MAIL_DEBUG=1` flag, the body of each sent email is
-displayed in the console.
+### Update database schema
 
+Then, you need to upgrade the database schema:
 
-# Configuration
-
-Zou requires several configuration parameters. In the following, you will find
-the list of all expected parameters.
-
-## Database
-
-* `DB_HOST` (default: localhost): The database server host.
-* `DB_PORT` (default: 5432): The port on which the database is running.
-* `DB_USERNAME` (default: postgres): The username used to access the database.
-* `DB_PASSWORD` (default: mysecretpassword): The password used to access the
-  database.
-* `DB_DATABASE` (default: zoudb): The database name to use.
-* `DB_POOL_SIZE` (default: 30): The number of connections opened simultaneously 
-  to access the database.
-* `DB_MAX_OVERFLOW` (default: 60): The number of additional connections available 
-  once the pool is full. They are disconnected when the request is finished. They
-  are not reused.
-
-## Key-Value store
-
-* `KV_HOST` (default: localhost): The Redis server host.
-* `KV_PORT` (default: 6379): The Redis server port.
-
-## Indexer
-
-Kitsu uses the Meilisearch service for its indexation.
-
-* `INDEXER_KEY` (default: masterkey): The key required by Meilisearch.
-* `INDEXER_HOST` (default: localhost): The Meilisearch host.
-* `INDEXER_PORT` (default: 7700): The Meilisearch port.
-
-## Authentication
-
-* `AUTH_STRATEGY` (default: auth\_local\_classic): Allow to choose between
-traditional auth and Active Directory auth (auth\_remote\_active\_directory).
-* `SECRET_KEY` (default: mysecretkey) Complex key used for auth token encryption.
-
-## Previews
-
-* `PREVIEW_FOLDER` (default: ./previews): The folder where
-  thumbnails will be stored. The default value is set for development
-  environments. We encourage you to set an absolute path when you use it in
-  production.
-* `REMOVE_FILES` (default: "False"): Delete files when deleting comments and revisions
-
-## Users
-
-* `USER_LIMIT` (default: "100"): Max number of users
-* `MIN_PASSWORD_LENGTH` (default: "8"): The minimum password length
-* `DEFAULT_TIMEZONE` (default: "Europe/Paris"): The default timezone for new user accounts
-* `DEFAULT_LOCALE` (default: "en_US"): The default language for new user accounts
-
-## Emails
-
-The email configuration is required for emails sent after a password reset and,
-email notifications.
-
-* `MAIL_SERVER` (default: "localhost"): The host of your email server
-* `MAIL_PORT` (default: "25"): The port of your email server
-* `MAIL_USERNAME` (default: ""): The username to access to your mail server
-* `MAIL_PASSWORD` (default: ""): The password to access to your mail server
-* `MAIL_DEBUG` (default: "0"): Set 1 if you are in a development environment
-  (emails are printed in the console instead of being sent).
-* `MAIL_USE_TLS` (default: "False"): To use TLS to communicate with the email
-  server.
-* `MAIL_USE_SSL` (default: "False"): To use SSL to communicate with the email
-  server.
-* `MAIL_DEFAULT_SENDER` (default: "no-reply@cg-wire.com"): To set the sender
-  email.
-* `DOMAIN_NAME` (default: "localhost:8080"): To build URLs (for a password reset
-  for instance).
-* `DOMAIN_PROTOCOL` (default: "https"): To build URLs (for a password reset
-  for instance).
-
-You can find more information here:
-https://flask-mail.readthedocs.io/en/latest/
-
-## Indexes
-
-* `INDEXES_FOLDER` (default: "./indexes"): The folder to store your indexes, we
-  recommend to set a full path here.
-
-
-## S3 Storage
-
-If you want to store your previews in an S3 backend, add the following
-variables (we assume that you created a programmatic user that can access
-to S3).
-
-* `FS_BACKEND`: Set this variable with "s3"
-* `FS_BUCKET_PREFIX`: A prefix for your bucket names. It's mandatory to 
-   set it to properly use S3.
-* `FS_S3_REGION`: Example: *eu-west-3*
-* `FS_S3_ENDPOINT`: The url of your region. 
-   Example: *https://s3.eu-west-3.amazonaws.com*
-* `FS_S3_ACCESS_KEY`: Your user access key.
-* `FS_S3_SECRET_KEY`: Your user secret key.
-
-Then install the following package in your virtual environment:
-
-```
-cd /opt/zou
-. zouenv/bin/activate
-pip install boto3
+```bash
+DB_PASSWORD=mysecretpassword /opt/zou/zouenv/bin/zou upgrade-db
 ```
 
-When you restart Zou, it should use S3 to store and retrieve files.
 
-## Swift Storage
+### Restart the Zou service
 
-If you want to store your previews in a Swift backend, add the following
-variables (Only Auth 2.0 and 3.0 are supported).
+Finally, restart the Zou service:
 
-* `FS_BACKEND`: Set this variable with "swift"
-* `FS_BUCKET_PREFIX`: A prefix for your bucket/container names.
-* `FS_SWIFT_AUTH_URL`: Authentication URL of your swift backend.
-* `FS_SWIFT_USER`: Your Swift login.
-* `FS_SWIFT_TENANT_NAME`: The Swift tenant name.
-* `FS_SWIFT_KEY`: Your Swift password.
-* `FS_SWIFT_REGION_NAME`: Your Swift region name.
+```bash
+sudo systemctl restart zou zou-events
+```
 
-## LDAP
+That's it! Your Zou instance is now up to date. 
 
-These variables are active only if auth\_remote\_ldap strategy is selected.
+*NB: Make it sure by getting the API version number from `https://myzoudomain.com/api`.*
 
-* `LDAP_HOST` (default: "127.0.0.1"): The IP address of your LDAP server.
-* `LDAP_PORT` (default: "389"): The listening port of your LDAP server.
-* `LDAP_BASE_DN` (default: "CN=Users,DC=studio,DC=local"): The base domain of your
-   LDAP configuration.
-* `LDAP_DOMAIN` (default: "studio.local"): The domain used for your LDAP
-  authentication (NTLM).
-* `LDAP_FALLBACK` (default: "False"): Set to True if you want to allow admins
-  to fallback on default auth strategy when the LDAP server is down.
-* `LDAP_IS_AD` (default: "False"): Set to True if you use LDAP with an active directory.
+## II. Kitsu App Installation
+
+[Kitsu](https://kitsu.cg-wire.com) is a javascript UI that allows to manage Zou
+data from the browser.
+
+Deploying Kitsu requires retrieving the built version. For that let's grab it
+from Github: 
+
+```
+sudo mkdir -p /opt/kitsu/dist
+curl -L -o /tmp/kitsu.tgz $(curl -v https://api.github.com/repos/cgwire/kitsu/releases/latest | grep 'browser_download_url.*kitsu-.*.tgz' | cut -d : -f 2,3 | tr -d \")
+sudo tar xvzf /tmp/kitsu.tgz -C /opt/kitsu/dist/
+rm /tmp/kitsu.tgz
+```
+
+Then we need to adapt the Nginx configuration to allow it to serve it properly:
+
+```nginx
+server {
+    listen 80;
+    server_name server_domain_or_IP;
+
+    location /api {
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Host $host;
+        proxy_pass http://localhost:5000/;
+        client_max_body_size 500M;
+        proxy_connect_timeout 600s;
+        proxy_send_timeout 600s;
+        proxy_read_timeout 600s;
+        send_timeout 600s;
+    }
+
+    location /socket.io {
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "Upgrade";
+        proxy_pass http://localhost:5001;
+    }
+
+    location / {
+        autoindex on;
+        root  /opt/kitsu/dist;
+        try_files $uri $uri/ /index.html;
+    }
+}
+```
+
+Restart your Nginx server:
+
+```bash
+sudo systemctl restart nginx
+```
+
+You can now connect directly to your server IP through your browser and enjoy
+Kitsu!
 
 
-## Job queue
+### Update Kitsu 
 
-* `ENABLE_JOB_QUEUE` (default: "False"): Set to True if you want to send
-  asynchronous tasks to the `zou-jobs` service.
-* `JOB_QUEUE_TIMEOUT` (default: 3600): Set the timeout (in seconds) for preview and playlist encoding jobs sent to the `zou-jobs` service.
-* `ENABLE_JOB_QUEUE_REMOTE` (default: "False"): Set to True if you want to send
-  playlist builds to a Nomad cluster.
+To update Kitsu, update the files:
 
+```
+sudo rm -rf /opt/kitsu/dist
+sudo mkdir /opt/kitsu/dist
+curl -L -o /tmp/kitsu.tgz $(curl -v https://api.github.com/repos/cgwire/kitsu/releases/latest | grep 'browser_download_url.*kitsu-.*.tgz' | cut -d : -f 2,3 | tr -d \")
+sudo tar xvzf /tmp/kitsu.tgz -C /opt/kitsu/dist/
+rm /tmp/kitsu.tgz
+```
 
-## Misc
+## Seed data
 
-* `TMP_DIR` (default: /tmp): The temporary directory used to handle uploads.
-* `DEBUG` (default: False): Activate the debug mode for development purposes.
-* `CRISP TOKEN` (default: ): Activate the Crisp support chatbox on the bottom right.
+Some basic data are required by Kitsu to work properly (like project status) :
 
-### API configuration
+```
+. /etc/zou/zou.env
+/opt/zou/zouenv/bin/zou init-data
+```
+
+If you have install the indexer, you can also index the data:
+
+```
+. /etc/zou/zou.env
+/opt/zou/zouenv/bin/zou reset-search-index
+```
+
+## Admin users
+
+To start with Zou you need to add an admin user. This user will be able to
+log in and create other users. For that go into the terminal and run the
+`zou` binary:
+
+```
+. /etc/zou/zou.env
+/opt/zou/zouenv/bin/zou create-admin --password 1SecretPass adminemail@yourstudio.com
+```
+
+It expects the password as the first argument. Then your user will be created with
+the email as login, `1SecretPass` as password, and "Super Admin" as first name and
+last name.
+
+## API configuration
 
 Check if API is up:
 

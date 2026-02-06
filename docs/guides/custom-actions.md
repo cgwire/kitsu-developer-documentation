@@ -1,69 +1,76 @@
 # Custom Actions
 
-work in progress
+Custom Actions provide a lightweight integration mechanism between Kitsu and external systems. A Custom Action triggers an HTTP request (typically `POST`, optionally `GET`) from the Kitsu web UI to an endpoint you control, passing contextual data about the current user, project, and selection.
 
-## What are Custom Actions?
+Custom actions allow developers to extend Kitsu’s behavior without modifying Kitsu or Zou core code:
 
-A custom action is a simple HTTP request that sends information from your current Kitsu selection to a custom endpoint. Essentially, when a user is in the Kitsu UI, they can send a request to another server containing the IDs of the selected elements.
+1. A user selects entities in the Kitsu UI
+1. The user runs a Custom Action
+1. Kitsu sends a request to your endpoint with structured JSON payload
+1. Your service processes the request and performs whatever action you define
 
-### Goal
+## Use Cases
 
-The goal is to create an action outside of Kitsu (until a plugin system is available) without modifying the Kitsu/Zou core code. Essentially, it's a web request, usually a POST (but can be a GET) to a page or service you manage yourself. You catch the request and then perform an action with it.
+Custom Actions are intentionally generic. Any workflow that can be triggered by an HTTP request is a valid use case, for example:
 
-Examples include:
+* Debug or inspection endpoints that display all available metadata for selected entities
+* Launching renders via external schedulers (e.g. CGRU, Flamenco)
+* Generating production or APM statistics
+* Creating playlists or collections based on task selections
+* Triggering local or custom protocols to launch DCCs or video players
+* Integrating with external asset managers (e.g. opening Kabaret at a specific context)
 
-- Debug page (displaying all accessible information for given objects, including field names, etc.)
-- Launch render in CGRU or Flamenco
-- Generate statistics pages for the APM
-- Create special playlists
-- Launch a custom protocol (with a service waiting for it) to start a video player, any DCC, etc.
-- Integrate with an asset manager like Kabaret to open it at the right spot or launch some actions
+As long as your service can receive and handle an HTTP request (for example via Flask, FastAPI, Tornado, etc.), it can be integrated as a Custom Action.
 
-Custom actions can be anything as long as you can catch the request (using, for example, a Python web server such as Flask or Tornado.web). They are designed to extend Kitsu to systems you control. 
+For more advanced use cases requiring complex UI, [refer to the Kitsu plugin system]().
 
-Useful information is provided to whatever catches the request, such as the current selection, the page you were on, the user who launched the action, etc. You can adapt the response based on the provided information. 
+## Permissions
 
-Note that you can also run the custom action in the background (using an AJAX request instead of opening a new page) if you don't need to provide feedback to the user.
+Only **Studio Managers** can create or manage Custom Actions.
 
+The Custom Actions configuration page is available in the **Admin** section of the Kitsu dashboard, in the right-hand panel.
 
-## How to Setup a Custom Action
+## Creating a Custom Action
 
-### Creation
+To create a new Custom Action, click the **Add** button in the Custom Actions page. Each action requires the following configuration:
 
-Only studio managers can set up a custom action. The custom action page is available in the right panel of the admin section.
+* **Name** - Human-readable label shown in the Kitsu UI.
 
-When you have access to the custom action page, you can create a new action via the add button on the top right. The action creation requires four pieces of information:
+* **URL** - Target endpoint that will receive the request.
+  Using the same domain as your Kitsu instance is strongly recommended to avoid CORS or authentication issues.
 
-![Add Custom Action]()
+* **Entity Type** - Specifies which entity type the action applies to (e.g. assets, shots). The action will only be available when compatible entities are selected.
 
-- **Name**: The name of the action.
-- **URL**: The target URL (we strongly recommend using the same domain as your Kitsu installation).
-- **Entity Type**: For which kind of entity the custom action will be available.
-- **Use AJAX**: Specify if the request must be sent as an AJAX request or as a form.
+* **Use AJAX** - Determines whether the request is sent via AJAX (background request) or as a standard form submission.
 
-Once your action is created, it will be accessible in the action top bar. When a user selects tasks in the asset or shot lists, by going to the **Run custom action** section, they will be able to execute the custom action for the current selection.
+Once created, the action appears in the **Run Custom Action** menu in the top action bar. Users can trigger it when they have a valid selection in asset or shot task lists.
 
-### Data Sent via a Custom Action
+## Request Format
 
-Data is sent in JSON format. It contains an object with the following fields:
+The request body is sent as JSON with the following structure:
 
-* `personid`: The ID of the user claiming the action.
-* `personemail`:  The email of the user claiming the action.
-* `projectid`:  The ID of the project of selected entities.
-* `currentpath`:  Current url path in Kitsu web application.
-* `currentserver`: Host of the Kitsu sending the custom action.
-* `selection`:  List of selected task IDs.
-* `entitytype`:  Type of entities for which tasks are selected.
+| Field           | Type          | Description                                   |
+| --------------- | ------------- | --------------------------------------------- |
+| `personid`      | string (UUID) | ID of the user triggering the action          |
+| `personemail`   | string        | Email of the user triggering the action       |
+| `projectid`     | string (UUID) | Project ID associated with the selection      |
+| `currentpath`   | string        | Current URL path in the Kitsu web application |
+| `currentserver` | string        | Hostname of the Kitsu instance                |
+| `selection`     | string[]      | List of selected task IDs                     |
+| `entitytype`    | string        | Entity type of the selected tasks             |
 
-Example:
-```
+## Example Request Payload
+
+```json
 {
   "personid": "b01bae1e-f829-458a-a1eb-131bb66628cc",
   "personemail": "admin@example.com",
   "projectid": "fa4d7f04-b8e0-4518-8dbc-2f24997ca76e",
   "currentpath": "/productions/fa4d7f04-b8e0-4518-8dbc-2f24997ca76e/assets",
   "currentserver": "localhost",
-  "selection": "95c171e1-dfff-498f-93e3-548a739e3202",
+  "selection": [
+    "95c171e1-dfff-498f-93e3-548a739e3202"
+  ],
   "entitytype": "asset"
 }
 ```

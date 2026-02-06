@@ -1,6 +1,6 @@
-# File trees descriptors
+# File trees descriptors
 
-To generate file path, Zou relies on JSON-based configuration files.
+To generate file paths, Zou relies on JSON-based configuration files.
 
 Each file contains several sections, each one corresponds to a context (working
 file, output file, preview, etc.)

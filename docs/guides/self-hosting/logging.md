@@ -3,7 +3,6 @@
 Log produced by the API grow quickly and lead to big log files. You will need
 quickly to configure `logrotate` to create a new log file every day.
 
-
 ## Store PID of zou processes
 
 To create a folder on boot to store pid files add a RuntimeDirectory add a line

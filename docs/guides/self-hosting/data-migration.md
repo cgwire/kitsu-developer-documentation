@@ -7,7 +7,7 @@ database and restore it to the new instance. Once done, you have to move all
 the files stored in the preview folder to the preview folder of the new
 instance.
 
-## With Zou CLI
+## With the Zou CLI
 
 We assume here that you are evolving in the zou virtualenv environment and that
 all your environment variables are loaded.

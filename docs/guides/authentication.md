@@ -49,6 +49,42 @@ To check the current user:
 gazu.client.get_current_user()
 ```
 
+Multiple API routes return data related to the currently logged user (for which he has
+assigned tasks linked to expected result):
+
+Projects:
+
+```python
+projects = gazu.user.all_open_projects()
+```
+
+Assets and asset types:
+
+```python
+asset_types = gazu.user.all_asset_types_for_project(project_dict)
+assets = gazu.user.all_assets_for_asset_type_project(
+    project_dict,
+    asset_type_dict
+)
+```
+
+Sequences and shots:
+
+```python
+sequences = gazu.user.all_sequences_for_project(project_dict)
+shots = gazu.user.all_shots_for_sequence(shot_dict)
+scenes = gazu.user.all_scenes_for_sequence(shot_dict)
+```
+
+Tasks:
+
+```python
+tasks = gazu.user.all_tasks_for_shot(shot_dict)
+tasks = gazu.user.all_tasks_for_asset(asset_dict)
+task_types = gazu.user.all_task_types_for_asset(asset_dict)
+task_types = gazu.user.all_task_types_for_shot(shot_dict)
+```
+
 ## Logout
 
 You can log out to delete session tokens from the server.
@@ -64,6 +100,8 @@ Secrets like passwords or JSON Web Tokens need to be protected at all times.
 - Do not hardcode your secrets
 - Never store JWTs. Even though JWTs have an expiration time, the vulnerability window is still non-negligeable.
 - Use environment variables for emails and passwords
+
+If your bot's token is compromised, regenerate a new token to automatically revoke the old one.
 
 ## Next Steps
 

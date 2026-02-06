@@ -1,10 +1,8 @@
-# Events
+# Webhook Events
 
-Events are a mechanism to allow other programs to react to the change happening
-into the API data. 
+Events are a mechanism to allow other programs to react to the change happening into the API data. 
 
 ## Define a location for your event handlers
-
 
 Create the events folder:
 
@@ -13,7 +11,6 @@ mkdir /opt/zou/event_handlers
 ```
 
 Then set `EVENT_HANDLERS_FOLDER` environment variable with the folder that will contain the event handler module: `/opt/zou/event_handlers`.
-
 
 ## Write an event handler
 
@@ -31,7 +28,7 @@ def handle_event(data):
 ```
 
 
-## Register an event handler
+## Register an event handler
 
 To register an event you must fill the `event_map` dict located in the
 `__init__.py` file of your event handlers folder.
@@ -59,7 +56,7 @@ shotgun_wip.py
 shotgun_pending_review.py
 ```
 
-## Listen to events through websocket
+## Listen to events through a websocket connection
 
 You can list to events externally. For that, please read the 
 [events documentation](https://gazu.cg-wire.com/events.html) of the Python client.
