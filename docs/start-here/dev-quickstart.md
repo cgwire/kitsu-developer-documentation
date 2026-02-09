@@ -1,14 +1,14 @@
 # Developer Quickstart
 
-## Installation
+## 1. Kitsu API Server Installation
 
-Three options:
+There are three options to install a Kitsu API server:
 
-1. [Cloud hosting](/start-here/cloud-hosting) - to let the CGWire team handle server and app management for you.
-1. [Self-hosting](/guides/self-hosting/vs-cloud-hosting) - if you have a sysops team to manage your servers.
+1. [Cloud hosting](/start-here/cloud-hosting) - if you want to let the CGWire team handle server and app management for you.
+1. [Self-hosting](/self-hosting/vs-cloud-hosting) - if you have a sysops team to manage your servers.
 1. [Docker](/start-here/docker) - to set up a local dev environment for testing.
 
-## Setting up the API client
+## 2. Setting up the API client
 
 If you're using a SDK, install it first:
 
@@ -35,8 +35,9 @@ gazu.log_in("user@yourdomain.com", "password")
 
 ## Instancing Multiple Clients
 
-Gazu acts a singleton. If you want several instances of the Kitsu client, 
-you can create them and pass them as parameter when you need it:
+You can instantiate multiple API clients to simulate multiple users or connect to different Kitsu servers.
+
+For example, you might want to quickly switch between users to perform specific actions and keep the event history consistent. Or you could migrate data from one instance to another:
 
 ```python
 source_client = gazu.client.create_client("https://mysource.kitsu")

@@ -7,28 +7,28 @@
 3. Click on the "New Application" button.
 4. Give the application a name (for example, "Kitsu") and click "Create".
 
-![Create application]()
+![Create application](./img/create_application.png)
 
 5. Create a Bot User by navigating to the "Bot" tab and clicking "Add Bot".
     - Click "Yes, do it!" to continue.
 
-![Create bot]()
+![Create bot](./img/create_bot_user.png)
 
 6. You can add an icon for the bot by clicking the icon next to "Username". This icon will be used when the bot chats.
 
 7. Ensure that "Public Bot" is ticked if you want others to invite your bot.
 
-![Public Bot ticked]()
+![Public Bot ticked](./img/public_bot.png)
 
 8. Ensure the "Server Members Intent" is ticked to allow the bot to see other members.
 
-![Server Members Intent ticked]()
+![Server Members Intent ticked](./img/server_members_intent.png)
 
 9. Copy the token using the "Copy" button. 
 
 10. Paste the token in Kitsu's "Settings" under the text field "Discord token (optional)" and click "Save settings".
 
-![Add discord token to settings]()
+![Add discord token to settings](./img/add_discord_token_settings.png)
 
 ### Inviting Your Bot
 
@@ -40,11 +40,11 @@ Now that you've created a Bot User, you need to add it to a server. Follow these
 4. Go to the "OAuth2" tab and then to "URL Generator".
 5. In "Scopes", tick "bot" only.
 
-![URL Generator Scopes]()
+![URL Generator Scopes](./img/url_generator_scopes.png)
 
 6. In "Bot Permissions", tick "Send Messages" only.
 
-![URL Generator Bot permissions]()
+![URL Generator Bot permissions](./img/bot_permissions.png)
 
 7. Use the resulting URL to add your bot to a server. Copy and paste the URL into your browser, choose a server to invite the bot to, and click "Authorize".
 
@@ -56,6 +56,6 @@ Now that you've created a Bot User, you need to add it to a server. Follow these
 
 Each user can set notifications to be pushed to Discord in their profile. They need to switch "Discord notifications enabled" to "Yes" and enter their "Discord username" (formatted as username#number).
 
-![Add discord username in profile]()
+![Add discord username in profile](./img/add_discord_username_profile.png)
 
 You're done!

@@ -8,9 +8,9 @@ Prior to setting up the Kitsu development environment, make sure you have the fo
 * A Zou development instance up and running on port 5000
 * A Zou Events development instance up and running on port 5001 (optional)
 
-## Using Docker Image
+## Using the Docker Image
 
-You can use our [Docker image](https://hub.docker.com/r/cgwire/cgwire), but you will need to set two environment variables:
+You can use our [Docker image](/start-here/docker), but you will need to set two environment variables:
 
 * `KITSU_API_TARGET` (default: http://localhost:5000): The URL where the API can be reached.
 * `KITSU_EVENT_TARGET` (default: http://localhost:5001): The URL where the event stream can be reached.
@@ -180,8 +180,9 @@ DB_DATABASE=zoutest py.test tests/models/test_entity_type.py
 
 ## Debug email sending
 
-If you set properly the `MAIL_DEBUG=1` flag, the body of each sent email is
-displayed in the console.
+If you set properly the `MAIL_DEBUG=1` flag, the body of each sent email is displayed in the console.
+
+To simplify email testing, we include an email catch-all application in the Docker image to intercept all emails sent by Kitsu. These can be viewed in an included webmail.
 
 ## Packaging
 

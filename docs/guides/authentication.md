@@ -9,17 +9,17 @@ You can either use regular email authentication to trade against a JSON Web Toke
 Log in using a Kitsu user account:
 
 ::: code-group
-```curl
-curl \
- --request POST 'https://zou-server-url/api/auth/login' \
- --header "Content-Type: application/json" \
- --data '{"email":"admin@example.com","password":"mysecretpassword","totp":123456,"email_otp":123456,"fido_authentication_response":{},"recovery_code":"ABCD-EFGH-IJKL-MNOP"}'
-```
 ```py
 import gazu
 
 gazu.set_host("https://zou-server-url/api")
 gazu.log_in("user@yourdomain.com", "password")
+```
+```curl
+curl \
+ --request POST 'https://zou-server-url/api/auth/login' \
+ --header "Content-Type: application/json" \
+ --data '{"email":"admin@example.com","password":"mysecretpassword","totp":123456,"email_otp":123456,"fido_authentication_response":{},"recovery_code":"ABCD-EFGH-IJKL-MNOP"}'
 ```
 :::
 
@@ -34,6 +34,10 @@ gazu.set_token("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
 ```
 
 ## Use the token
+
+::: info
+SDKs take care of this for you automatically.
+:::
 
 Include the token in the `Authorization` header:
 

@@ -1,33 +1,29 @@
 # Kitsu Docker
 
-This is the documentation for the [Kitsu Docker container](https://github.com/cgwire/kitsu-docker) for local development and testing. 
+You can use the [Kitsu Docker container](https://github.com/cgwire/kitsu-docker) for local development and testing. 
 
+::: warning
 It is not recommended to use this image in production.
+:::
 
-To simplify email testing, we include an email catch-all application to intercept all emails sent by Kitsu. These can be viewed in an
-included webmail.
-
-If you like the project, please add a star to the [Kitsu repository](https://github.com/cgwire/kitsu). Thank you for trying out Kitsu!
-
-The source is [available on Github](https://github.com/cgwire/kitsu-docker.git).
-
-## Docker
+## Docker install
 
 ```bash
-$ docker build -t cgwire/cgwire . # or sudo docker pull cgwire/cgwire
-$ docker run --init -ti --rm -p 80:80 -p 1080:1080 --name cgwire cgwire/cgwire
+docker build -t cgwire/cgwire . # or sudo docker pull cgwire/cgwire
+
+docker run --init -ti --rm -p 80:80 -p 1080:1080 --name cgwire cgwire/cgwire
 ```
 
 In order to enable data persistence, use a named volume for the database and thumbnails:
 
 ```bash
-$ docker run --init -ti --rm -p 80:80 -p 1080:1080 --name cgwire -v zou-storage:/var/lib/postgresql -v zou-storage:/opt/zou/previews cgwire/cgwire
+docker run --init -ti --rm -p 80:80 -p 1080:1080 --name cgwire -v zou-storage:/var/lib/postgresql -v zou-storage:/opt/zou/previews cgwire/cgwire
 ```
 
 To run the image as a daemon, add the `-d` flag:
 
 ```bash
-$ docker run --init -d --rm -p 80:80 -p 1080:1080 --name cgwire cgwire/cgwire
+docker run --init -d --rm -p 80:80 -p 1080:1080 --name cgwire cgwire/cgwire
 ```
 
 Default Kitsu credentials:
@@ -42,15 +38,15 @@ Default URLs:
 - Kitsu: [http://127.0.0.1:80/](http://127.0.0.1:80/)
 - Internal webmail: [http://127.0.0.1:1080/](http://127.0.0.1:1080/)
 
-### Update
+### Updating the image
 
 After updating the image, you have to update the database schema. For that run:
 
 ```bash
-$ docker exec -ti cgwire sh -c "/opt/zou/env/bin/zou upgrade-db"
+docker exec -ti cgwire sh -c "/opt/zou/env/bin/zou upgrade-db"
 ```
 
-## Docker Compose
+## Docker Compose install
 
 `docker-compose.yml`
 ```yml
@@ -82,10 +78,7 @@ volumes:
 * Run `docker compose up-d`.
 * Done...... (Hopefully 🤞🤞)
 
-Please test if the data is persisting after reboot or recreation. (Only tested in windows.)
-
-Also [an implementation by Mathieu Bouzard](https://gitlab.com/mathbou/docker-cgwire)
-is available.
+Please test if the data is persisting after reboot or recreation (only tested on Windows).
 
 ## Next Steps
 

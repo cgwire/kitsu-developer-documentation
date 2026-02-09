@@ -2,8 +2,6 @@
 
 Cloud hosting is the fastest and cheapest way to get started with Kitsu and maintain your instance throughout your studio's lifetime.
 
-For self-hosting, [please refer to the corresponding in-depth guide](/guides/self-hosting/vs-cloud-hosting).
-
 ## 1. Sign up for a demo
 
 The fastest way to get started with Kitsu is to [sign up for a demo](https://account.cg-wire.com/signup).
@@ -19,3 +17,7 @@ If your version of Kitsu is hosted and maintained by CGWire, you don't have anyt
 * Learn about [creating an API client](/start-here/dev-quickstart)
 * Learn about [alternative authentication strategies](/guides/authentication)
 * Learn to [setup a new production](/guides/production-management)
+
+::: info
+For self-hosting, [please refer to the corresponding in-depth guide](/self-hosting/vs-cloud-hosting).
+:::

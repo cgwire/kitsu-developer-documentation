@@ -4,24 +4,21 @@
 
 1. Ensure you are logged in as a system admin account on your Mattermost server.
 2. Check if your Mattermost installation can receive incoming webhooks and set a custom username and profile picture for webhooks. 
-   1. Go to "System Console" --> "Integrations" --> "Integration Management".
-   
-   ![Integration management]()
-   
-   2. Ensure the parameters "Enable incoming Webhooks", "Enable integrations to override usernames", and "Enable integrations to override profile picture icons" are set to true.
-
-   ![Enable incoming webhooks]()
+  - 1. Go to "System Console" --> "Integrations" --> "Integration Management".
+  ![Integration management](./img/integration-management.png)
+  - 2. Ensure the parameters "Enable incoming Webhooks", "Enable integrations to override usernames", and "Enable integrations to override profile picture icons" are set to true.
+  ![Enable incoming webhooks](./img/enable-incoming-webhooks.png)
 
 ### Set a Webhook in Mattermost
 
 1. Ensure you are logged in as a system admin account on your Mattermost server.
 2. Go to "Integrations" --> "Incoming Webhooks" --> "Add incoming Webhook".
 
-   ![Add incoming webhook]()
+   ![Add incoming webhook](./img/add-incoming-webhook.png)
 
 3. Create the incoming webhook:
 
-   ![Create incoming webhook]()
+   ![Create incoming webhook](./img/create-incoming-webhook.png)
 
 * **Title**: Kitsu
 * **Description**: Kitsu
@@ -34,7 +31,7 @@
 
 5. Paste the URL in the "Settings" of Kitsu under the text field "Mattermost Webhooks (optional)" and click "Save settings".
 
-   ![Add mattermost webhook settings]()
+   ![Add mattermost webhook settings](./img/add_mattermost_webhook_settings.png)
 
 > **_Note:_** Users who want notifications enabled must be on the same Mattermost server used in these steps.
 
@@ -42,6 +39,6 @@
 
 Each user can set notifications to be pushed to Mattermost in their profile. They need to switch "Mattermost notifications enabled" to "Yes" and enter their "Mattermost username".
 
-![Add Mattermost username in profile]()
+![Add Mattermost username in profile](./img/add_mattermost_username_profile.png)
 
 You're done!

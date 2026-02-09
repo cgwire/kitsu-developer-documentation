@@ -26,10 +26,6 @@ export default {
             ],
           },
           {
-            text: "Core Resources Overview",
-            link: "/core-resources/overview",
-          },
-          {
             text: "Guides",
             collapsed: false,
             items: [
@@ -53,74 +49,17 @@ export default {
                 text: "Multi-studio Productions",
                 link: "/guides/multi-studio-productions",
               },
-              {
-                text: "Self-hosting",
-                collapsed: true,
-                items: [
-                  {
-                    text: "vs cloud hosting",
-                    link: "/guides/self-hosting/vs-cloud-hosting",
-                  },
-                  {
-                    text: "Architecture",
-                    link: "/guides/self-hosting/architecture",
-                  },
-                  {
-                    text: "Hardware Requirements",
-                    link: "/guides/self-hosting/hardware-requirements",
-                  },
-                  {
-                    text: "Setup",
-                    link: "/guides/self-hosting/setup",
-                  },
-                  {
-                    text: "Environment Variables",
-                    link: "/guides/self-hosting/environment-variables",
-                  },
-                  {
-                    text: "File storage",
-                    link: "/guides/self-hosting/file-storage",
-                  },
-                  {
-                    text: "Full-text search",
-                    link: "/guides/self-hosting/full-text-search",
-                  },
-                  {
-                    text: "Job queue",
-                    link: "/guides/self-hosting/job-queue",
-                  },
-                  {
-                    text: "Lightweight Directory Access Protocol",
-                    link: "/guides/self-hosting/lightweight-directory-access-protocol",
-                  },
-                  {
-                    text: "Logging",
-                    link: "/guides/self-hosting/logging",
-                  },
-                  {
-                    text: "Backup",
-                    link: "/guides/self-hosting/backup",
-                  },
-                  {
-                    text: "Data Migration",
-                    link: "/guides/self-hosting/data-migration",
-                  },
-                  {
-                    text: "Caching",
-                    link: "/guides/self-hosting/caching",
-                  },
-                  {
-                    text: "Troubleshooting",
-                    link: "/guides/self-hosting/troubleshooting",
-                  },
-                ],
-              },
             ],
           },
           {
             text: "Recipes",
             collapsed: false,
-            items: [{ text: "CSV import", link: "/recipes/csv-import" }],
+            items: [
+              {
+                text: "Import Studio Team",
+                link: "/recipes/import-studio-team",
+              },
+            ],
           },
           {
             text: "Kitsu plugins",
@@ -144,7 +83,6 @@ export default {
                 text: "DCC",
                 collapsed: true,
                 items: [
-                  { text: "DCC Utils", link: "/integrations/dcc/dcc-utils" },
                   { text: "Blender", link: "/integrations/dcc/blender" },
                   {
                     text: "Toon Boom Harmony",
@@ -153,11 +91,6 @@ export default {
                   {
                     text: "Unreal Engine",
                     link: "/integrations/dcc/unreal-engine",
-                  },
-                  { text: "Maya", link: "/integrations/dcc/maya" },
-                  {
-                    text: "Adobe Photoshop",
-                    link: "/integrations/dcc/adobe-photoshop",
                   },
                 ],
               },
@@ -188,6 +121,68 @@ export default {
               {
                 text: "Development environment quickstart",
                 link: "/open-source/development-environment-quickstart",
+              },
+            ],
+          },
+          {
+            text: "Self-hosting",
+            collapsed: true,
+            items: [
+              {
+                text: "vs cloud hosting",
+                link: "/self-hosting/vs-cloud-hosting",
+              },
+              {
+                text: "Architecture",
+                link: "/self-hosting/architecture",
+              },
+              {
+                text: "Hardware Requirements",
+                link: "/self-hosting/hardware-requirements",
+              },
+              {
+                text: "Setup",
+                link: "/self-hosting/setup",
+              },
+              {
+                text: "Environment Variables",
+                link: "/self-hosting/environment-variables",
+              },
+              {
+                text: "File storage",
+                link: "/guides/self-hosting/file-storage",
+              },
+              {
+                text: "Full-text search",
+                link: "/self-hosting/full-text-search",
+              },
+              {
+                text: "Job queue",
+                link: "/self-hosting/job-queue",
+              },
+              {
+                text: "Lightweight Directory Access Protocol",
+                link: "/self-hosting/lightweight-directory-access-protocol",
+              },
+              {
+                text: "Logging",
+                link: "/self-hosting/logging",
+              },
+              {
+                text: "Backup",
+                link: "/self-hosting/backup",
+              },
+              {
+                text: "Data Migration",
+                link: "/self-hosting/data-migration",
+              },
+              {
+                text: "Caching",
+                link: "/self-hosting/caching",
+              },
+              {
+                text: "Troubleshooting",
+                link: "/self-hosting/troubleshooting",
               },
             ],
           },

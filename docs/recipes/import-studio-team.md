@@ -1,4 +1,4 @@
-# CSV Import
+# Import Your Studio's Team
 
 By scripting imports from CSV files, studios can:
 
