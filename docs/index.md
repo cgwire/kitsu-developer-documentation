@@ -1,4 +1,4 @@
-[![Kitsu Logo](/kitsu.png)](https://github.com/cgwire/zou)
+![Kitsu Developer Documentation Illustration](/illustration_developer_documentation.png)
 
 # Welcome to the Kitsu Developer Documentation!
 

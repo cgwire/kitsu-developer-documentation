@@ -3,6 +3,7 @@ export default {
   title: "Kitsu Developer",
   description: "Kitsu's unified developer documentation.",
   ignoreDeadLinks: true,
+  // appearance: false,
   themeConfig: {
     logo: "/kitsu.png",
     sidebar: [
