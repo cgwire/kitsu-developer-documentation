@@ -50,6 +50,10 @@ export default {
                 text: "Multi-studio Productions",
                 link: "/guides/multi-studio-productions",
               },
+              {
+                text: "Caching",
+                link: "/guides/caching",
+              },
             ],
           },
           {
@@ -151,7 +155,7 @@ export default {
               },
               {
                 text: "File storage",
-                link: "/guides/self-hosting/file-storage",
+                link: "/self-hosting/file-storage",
               },
               {
                 text: "Full-text search",
@@ -176,10 +180,6 @@ export default {
               {
                 text: "Data Migration",
                 link: "/self-hosting/data-migration",
-              },
-              {
-                text: "Caching",
-                link: "/self-hosting/caching",
               },
               {
                 text: "Troubleshooting",
