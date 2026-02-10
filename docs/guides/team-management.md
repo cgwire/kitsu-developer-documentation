@@ -1,86 +1,150 @@
 # Team Management
 
-This section describes common team management workflows that can be automated or integrated using the Kitsu API.
+Team management covers users, departments, and roles across one or more projects.
 
 ## Overview
 
-Team management in Kitsu revolves around three core concepts:
+Team management in Kitsu revolves around three core data models:
 
 * **Studios** – For multi-studio productions.
 * **Departments** – Organizational units that group users by role or function (e.g. Animation, Lighting, Production).
 * **Users** – Individuals who collaborate on projects and tasks.
 
-The API allows developers to programmatically create and maintain these relationships to match their studio’s structure and production needs.
-
 ## Managing Multi-Studio Contributions
 
-Create a studio:
+### Create a studio
 
-```py
+::: code-group
+```bash [cURL]
+curl -X POST "http://api.example.com/data/studios"  -H "Authorization: Bearer YOUR_API_TOKEN"  -H "Accept: application/json" -H "Content-Type: application/json" -d '{\"name\": \"Studio Name\",\"hours_by_day\": 8}'
+```
+```python [Python]
 
 ```
+:::
 
 ## Creating and Managing Departments
 
-Create a new department
+### Create a new department
 
-```py
+::: code-group
+```python [Python]
+gazu.person.new_department(name: str, color: str = '', archived: bool = False)
 ```
+```bash [cURL]
 
-Retrieve existing departments
-
-```py
 ```
+:::
 
-Update department details as the production evolves
+### Retrieve existing departments
 
-```py
+::: code-group
+```python [Python]
+gazu.person.all_departments()
 ```
+```bash [cURL]
 
-Remove or archive departments that are no longer in use
-
-```py
 ```
+:::
+
+### Update department details as the production evolves
+
+::: code-group
+```python [Python]
+gazu.person.update_department(department: dict)
+```
+```bash [cURL]
+
+```
+:::
+
+### Remove or archive departments that are no longer in use
+
+::: code-group
+```python [Python]
+gazu.person.remove_department(department, force=False)
+```
+```bash [cURL]
+
+```
+:::
 
 ## Inviting and Managing Users
 
-**Typical API use cases**
+### Create a new user
 
-* Bulk-inviting artists at the start of a project
-* Integrating Kitsu with an external identity or HR system
-* Managing freelancers or temporary contributors
-
-Create a new user:
-
-Invite a user using their email address:
-
-```py
+::: code-group
+```python [Python]
+person = gazu.person.new_person(first_name: str, last_name: str, email: str, phone: str = '', role: str = 'user', desktop_login: str = '', departments: list[str | dict] = [], password: str | None = None, active: bool = True, contract_type: str = 'open-ended')
 ```
+```bash [cURL]
 
-Assign the user to one or more departments:
-
-```py
 ```
+:::
 
-Assign the user to a studio:
+### Invite a user
 
-```py
+::: code-group
+```python [Python]
+gazu.person.invite_person(person: str | dict)
 ```
+```bash [cURL]
 
-Retrieve all persons listed in the database:
+```
+:::
 
-```python
+###  Assign the user to one or more departments
+
+::: code-group
+```python [Python]
+gazu.person.add_person_to_department(person: str | dict, department: str | dict)
+```
+```bash [cURL]
+
+```
+:::
+
+### Assign the user to a studio
+
+::: code-group
+```python [Python]
+TODO
+```
+```bash [cURL]
+
+```
+:::
+
+### Retrieve all persons listed in the database
+
+::: code-group
+```python [Python]
 persons = gazu.person.all_persons()
 ```
+```bash [cURL]
 
-Get a person by full name or login used on his desktop machine:
+```
+:::
 
-```python
+### Get a person by full name or login used on his desktop machine
+
+::: code-group
+```python [Python]
 person = gazu.person.get_person_by_full_name("John Doe")
 person = gazu.person.get_person_by_desktop_login("john.doe")
 ```
+```bash [cURL]
 
-Deactivate or remove users when they leave the project:
-
-```py
 ```
+:::
+
+### Deactivate or remove users when they leave the project
+
+::: code-group
+```python [Python]
+gazu.person.remove_person(person: str, department: str, force: bool)
+```
+```bash [cURL]
+
+```
+:::

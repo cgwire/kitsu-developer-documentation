@@ -6,6 +6,7 @@ export default {
   // appearance: false,
   themeConfig: {
     logo: "/kitsu.png",
+    outline: "deep",
     sidebar: [
       {
         items: [

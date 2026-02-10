@@ -9,6 +9,7 @@ Multi-studio production management enables multiple studios or teams to collabor
 * Controlled visibility of assets, tasks, and metadata across studios
 
 ```py
+TODO
 ```
 
 ## Roles, Permissions, and Ownership
@@ -18,6 +19,7 @@ Multi-studio production management enables multiple studios or teams to collabor
 * Permission scoping to prevent unauthorized edits or data leakage
 
 ```py
+TODO
 ```
 
 ## Task Tracking
@@ -27,6 +29,7 @@ Multi-studio production management enables multiple studios or teams to collabor
 * Real-time progress tracking across all contributing studios
 
 ```py
+TODO
 ```
 
 ## Data Consistency and Synchronization
@@ -36,6 +39,7 @@ Multi-studio production management enables multiple studios or teams to collabor
 * Event-driven updates (e.g., status changes, comments, approvals)
 
 ```py
+TODO
 ```
 
 ## Review
@@ -45,4 +49,5 @@ Multi-studio production management enables multiple studios or teams to collabor
 * Clear audit trails for approvals and changes
 
 ```py
+TODO
 ```

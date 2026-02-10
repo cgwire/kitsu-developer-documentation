@@ -9,16 +9,14 @@ You can either use regular email authentication to trade against a JSON Web Toke
 Log in using a Kitsu user account:
 
 ::: code-group
-```py
-import gazu
-
+```py [Python]
 gazu.set_host("https://zou-server-url/api")
 gazu.log_in("user@yourdomain.com", "password")
 ```
-```curl
-curl \
- --request POST 'https://zou-server-url/api/auth/login' \
- --header "Content-Type: application/json" \
+```bash [cURL]
+curl 
+ --request POST 'https://zou-server-url/api/auth/login' 
+ --header "Content-Type: application/json" 
  --data '{"email":"admin@example.com","password":"mysecretpassword","totp":123456,"email_otp":123456,"fido_authentication_response":{},"recovery_code":"ABCD-EFGH-IJKL-MNOP"}'
 ```
 :::
@@ -27,11 +25,14 @@ curl \
 
 You can [create a bot token from your Kitsu dashboard](https://kitsu.cg-wire.com/bots/#how-to-create-a-bot) and use the returned API token directly:
 
-```python
-import gazu
-
+::: code-group
+```python [Python]
 gazu.set_token("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...")
 ```
+```bash [cURL]
+curl -H "Accept: application/json" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."  "http://api.example.com/auth/authenticated"
+```
+:::
 
 ## Use the token
 
@@ -41,7 +42,7 @@ SDKs take care of this for you automatically.
 
 Include the token in the `Authorization` header:
 
-```bash
+```bash [cURL]
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." https://zou-server-url/api/data/projects
 ```
 
@@ -49,53 +50,95 @@ curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." https://
 
 To check the current user:
 
-```python
+::: code-group
+```python [Python]
 gazu.client.get_current_user()
 ```
+```bash [cURL]
+curl "http://api.example.com/data/user/context" -H "Authorization: Bearer YOUR_API_TOKEN" -H "Accept: application/json"
+```
+:::
 
 Multiple API routes return data related to the currently logged user (for which he has
 assigned tasks linked to expected result):
 
 Projects:
 
-```python
+::: code-group
+```python [Python]
 projects = gazu.user.all_open_projects()
 ```
+```bash [cURL]
+curl "http://api.example.com/data/user/projects/open?name=My%20Project"  -H "Authorization: Bearer YOUR_API_TOKEN"  -H "Accept: application/json"
+```
+:::
 
 Assets and asset types:
 
-```python
-asset_types = gazu.user.all_asset_types_for_project(project_dict)
+::: code-group
+```python [Python]
+asset_types = gazu.user.all_asset_types_for_project(project="a24a6ea4...")
 assets = gazu.user.all_assets_for_asset_type_project(
-    project_dict,
-    asset_type_dict
+    project="a24a6ea4...",
+    asset_type="a24a6ea4..."
 )
 ```
+```bash [cURL]
+curl "http://api.example.com/data/user/projects/a24a6ea4-ce75-4665-a070-57453082c25/asset-types" -H "Authorization: Bearer YOUR_API_TOKEN" -H "Accept: application/json"
+
+curl "http://api.example.com/data/user/projects/a24a6ea4-ce75-4665-a070-57453082c25/asset-types/b35b7fb5-df86-5776-b181-68564193d36/assets" -H "Authorization: Bearer YOUR_API_TOKEN"  -H "Accept: application/json"
+```
+:::
 
 Sequences and shots:
 
-```python
-sequences = gazu.user.all_sequences_for_project(project_dict)
-shots = gazu.user.all_shots_for_sequence(shot_dict)
-scenes = gazu.user.all_scenes_for_sequence(shot_dict)
+::: code-group
+```python [Python]
+sequences = gazu.user.all_sequences_for_project(project="a24a6ea4...")
+shots = gazu.user.all_shots_for_sequence(sequence="a24a6ea4...")
+scenes = gazu.user.all_scenes_for_sequence(sequence="a24a6ea4...")
 ```
+```bash [cURL]
+curl "http://api.example.com/data/user/projects/a24a6ea4-ce75-4665-a070-57453082c25/sequences" -H"Authorization: Bearer YOUR_API_TOKEN" -H "Accept: application/json"
+
+curl "http://api.example.com/data/user/sequences/a24a6ea4-ce75-4665-a070-57453082c25/shots" -H "Authorization: Bearer YOUR_API_TOKEN" -H "Accept: application/json"
+
+curl "http://api.example.com/data/user/sequences/a24a6ea4-ce75-4665-a070-57453082c25/scenes" -H "Authorization: Bearer YOUR_API_TOKEN" -H "Accept: application/json"
+```
+:::
 
 Tasks:
 
-```python
-tasks = gazu.user.all_tasks_for_shot(shot_dict)
-tasks = gazu.user.all_tasks_for_asset(asset_dict)
-task_types = gazu.user.all_task_types_for_asset(asset_dict)
-task_types = gazu.user.all_task_types_for_shot(shot_dict)
+::: code-group
+```python [Python]
+tasks = gazu.user.all_tasks_for_shot(shot="a24a6ea4...")
+tasks = gazu.user.all_tasks_for_asset(asset="a24a6ea4...")
+task_types = gazu.user.all_task_types_for_asset(asset="a24a6ea4...")
+task_types = gazu.user.all_task_types_for_shot(shot="a24a6ea4...")
 ```
+```bash [cURL]
+curl "http://api.example.com/data/user/shots/a24a6ea4-ce75-4665-a070-57453082c25/tasks"  -H "Authorization: Bearer YOUR_API_TOKEN"  -H "Accept: application/json"
+
+curl "http://api.example.com/data/user/assets/a24a6ea4-ce75-4665-a070-57453082c25/tasks"  -H "Authorization: Bearer YOUR_API_TOKEN"  -H "Accept: application/json"
+
+curl "http://api.example.com/data/user/assets/a24a6ea4-ce75-4665-a070-57453082c25/task-types"  -H "Authorization: Bearer YOUR_API_TOKEN"  -H "Accept: application/json"
+
+curl "http://api.example.com/data/user/shots/a24a6ea4-ce75-4665-a070-57453082c25/task-types"  -H "Authorization: Bearer YOUR_API_TOKEN"  -H "Accept: application/json"
+```
+:::
 
 ## Logout
 
 You can log out to delete session tokens from the server.
 
-```python
+::: code-group
+```python [Python]
 gazu.client.log_out()
 ```
+```bash [cURL]
+curl "http://api.example.com/auth/logout" -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+:::
 
 ## Secret management
 

@@ -1,54 +1,56 @@
 # Managing Assets and Shots
 
+Asset management is about organizing characters, props, sets, and other production elements in a consistent, queryable structure.
+
 ## Core Concepts
 
-Before diving into workflows, it’s important to understand how Kitsu represents production data.
-
-* **Assets** – reusable production elements (characters, props, environments, etc.)
-* **Shots** – time-based units of work within a sequence
-* **Asset Typess** – classification and categorization
-* **Tasks** – units of work attached to assets or shots
-* **Files** – published media or work files linked to entities
-* **Versions** – iterations of published work
-
-* How assets relate to shots
-* How tasks, files, and versions attach to assets and shots
-* Project and production scoping
+- **Assets** - reusable production elements (characters, props, environments, etc.)
+- **Asset Typess** - classification and categorization
+- **Shots** - time-based units of work within a sequence
+- **Files** - published media, previews, or work files linked to entities
+- **Versions** - iterations of published work
 
 ## Creating Assets and Shots
 
-Programmatically create assets and shots when setting up a new project, sequence, or pipeline stage.
+### Managing assets
 
-* Creating assets with a specific asset type
-* Creating shots within a sequence
-* Setting initial metadata at creation time
-* Assigning assets or shots to a project
-
-Create/update/delete an asset:
-
-```python
+::: code-group
+```python [Python]
 asset = gazu.asset.new_asset(
-    project_dict, 
-    asset_type_dict, 
-    "My new asset",
-    "My asset description"
+    project, 
+    asset_type, 
+    name="My new asset",
+    description="My asset description"
 )
 
-asset = gazu.asset.update_asset(new_values_dict)
+gazu.asset.update_asset(modified_asset)
+
 gazu.asset.remove_asset(asset)
 ```
+```bash [cURL]
 
-Create/update/delete an asset type:
-
-```python
-asset_type = gazu.asset.new_asset_type("my new asset_type")
-asset_type = gazu.asset.update_asset_type(new_values_dict)
-gazu.asset.remove_asset_type(asset)
 ```
+:::
 
-Create shot, sequence, and episode:
+### Managing asset types
 
-```python
+::: code-group
+```python [Python]
+asset_type = gazu.asset.new_asset_type("my new asset_type")
+
+asset_type = gazu.asset.update_asset_type(asset_type)
+
+gazu.asset.remove_asset_type(asset_type)
+```
+```bash [cURL]
+
+```
+:::
+
+### Creating shots, sequences, and episodes
+
+::: code-group
+```python [Python]
 shot = gazu.shot.new_shot(
     project_dict, 
     sequence_dict, 
@@ -60,208 +62,318 @@ shot = gazu.shot.new_shot(
 sequence = gazu.shot.new_sequence(project_dict, episode, name)
 episode = gazu.shot.new_episode(project_dict, "SH01")
 ```
+```bash [cURL]
 
-Update shots:
+```
+:::
 
-```python
+### Update shots
+
+::: code-group
+```python [Python]
 shot = gazu.shot.update_shot(shot, data={})
 ```
+```bash [cURL]
 
-## Retrieve assets
+```
+:::
 
-Get a given asset:
+## Read assets
 
-```python
+### Find an asset
+
+::: code-group
+```python [Python]
 asset = gazu.asset.get_asset(asset_id)
 asset = gazu.asset.get_asset_by_name(project_dict, asset_name)
 ```
+```bash [cURL]
 
-Find all assets:
+```
+:::
 
-```python
+### List all assets
+
+::: code-group
+```python [Python]
 assets = gazu.asset.all_assets_for_project(project_dict)
 assets = gazu.asset.all_assets_for_shot(shot_dict)
 assets = gazu.asset.all_assets_for_project_and_type(project_dict, asset_type_dict)
 ```
+```bash [cURL]
 
-## Retrieve asset types
+```
+:::
 
-Get a given asset type:
+### Find an asset type
 
-```python
+::: code-group
+```python [Python]
 asset_type = gazu.asset.get_asset_type(asset_type_id)
 asset_type = gazu.asset.get_asset_type_by_name(asset_type_name)
 ```
+```bash [cURL]
 
-Find all asset types:
+```
+:::
 
-```python
+### List all asset types
+
+::: code-group
+```python [Python]
 asset_types = gazu.asset.all_asset_types()
 asset_types = gazu.asset.all_asset_types_for_project(project_dict) 
 asset_types = gazu.asset.all_asset_types_for_shot(shot_dict) # casted in given shot
 ```
+```bash [cURL]
 
-## Updating Assets
-
-Modify existing entities as production evolves.
-
-```py
-update asset
 ```
+:::
 
-## Asset instance helpers
+## List Asset Instances
 
-```python
+The asset is the definition (e.g dragon character) and an instance is an occurence of that asset in a shot ("Dragon #1 in Shot 010").
+
+::: code-group
+```python [Python]
 asset_instance = get_asset_instance(asset_instance_id)
 asset_instances = all_asset_instances_for_asset(asset_dict)
 asset_instances = all_asset_instances_for_shot(shot_dict)
 ```
+```bash [cURL]
+
+```
+:::
 
 ## Managing Descriptions, Tags, and Custom Fields
 
-Store production-specific or studio-specific data directly on assets and shots.
+You can store production- or studio-specific data directly in assets and shots as metadata. This is useful for tagging or for use in pipeline tools.
 
-* Text descriptions
-* Tagging assets and shots for organization
-* Using custom fields for pipeline data (e.g. LOD, render complexity, department notes)
-
-```py
-setting custom metadata on an asset
+::: code-group
+```python [Python]
+gazu.asset.new_asset(
+    project: str | dict, 
+    asset_type: str | dict, 
+    name: str, 
+    description: str | None = None, 
+    extra_data: dict = {}, 
+    episode: str | dict = None, 
+    is_shared: bool = False
+)
 ```
+```bash [cURL]
+
+```
+:::
 
 ## Linking Assets to Shots
 
-Define which assets are used in which shots to enable tracking, dependency analysis, or automation.
+Define which assets are used in which shots to support tracking, dependency analysis, or automation.
 
-* Creating relationships between assets and shots
-* Updating asset–shot links
-* Querying linked entities
+Example linking an asset and a shot:
 
-```python
+::: code-group
+```python [Python]
 asset_instance = gazu.shot.new_shot_asset_instance(shot_dict, asset_dict)
+
 asset_instances = gazu.shot.all_asset_instances_for_shot(shot_dict)
 ```
+```bash [cURL]
+
+```
+:::
 
 ## Finding Shots, Sequences, and Episodes
 
-Retrieve all shots for a given project or sequence:
+### List all shots in a project or sequence
 
-```python
+::: code-group
+```python [Python]
 shots = gazu.shot.all_shots_for_project(project_dict)
 shots = gazu.shot.all_shots_for_sequence(sequence_dict)
 ```
+```bash [cURL]
 
-Retrieve all sequences for a given project or episode.
+```
+:::
 
-```python
+### List all sequences in a project or episode
+
+::: code-group
+```python [Python]
 sequences = gazu.shot.all_sequences_for_project(project_id)
 sequences = gazu.shot.all_sequences_for_episode(episode_dict)
 ```
+```bash [cURL]
 
-Retrieve all episodes for a given project:
+```
+:::
 
-```python
+### List all episodes in a project
+
+::: code-group
+```python [Python]
 episodes = gazu.shot.all_episodes_for_project(project_dict)
 ```
+```bash [cURL]
 
-Retrieve given shot:
+```
+:::
 
-```python
+### Find a shot by id or name
+
+::: code-group
+```python [Python]
 shot = gazu.shot.get_shot(shot_id)
 shot = gazu.shot.get_shot_by_name(sequence_dict, "SH01")
 ```
+```bash [cURL]
 
-Retrieve the given sequence:
+```
+:::
 
-```python
+### Find a sequence
+
+::: code-group
+```python [Python]
 sequence = gazu.shot.get_sequence(shot_id)
 sequence = gazu.shot.get_sequence_by_name(project_dict, "SE01", episode=episode_dict)
 ```
+```bash [cURL]
 
-Retrieve given episode:
+```
+:::
 
-```python
+### Find an episode
+
+::: code-group
+```python [Python]
 episode = gazu.shot.get_episode(shot_id)
 episode = gazu.shot.get_episode_by_name(project_dict, "SE01")
 ```
+```bash [cURL]
+
+```
+:::
 
 ## Managing Files and Versions
 
-Track published work, iterations, and approvals.
+Three are 3 types of files in Kitsu: previews, working files, and output files.
 
-* Attaching files to assets or shots
-* Creating new versions
-* Managing version metadata (comments, status, author)
+- A **preview** is a temporary file used for reviews.
+- A **working file** is the artist’s editable source file.
+- An **output file** is what you export or render from the working file. 
 
-Change file tree template for given project:
+### Increment an asset's version
 
-```python
-gazu.files.set_project_file_tree(project_id, file_tree_template_name)
-gazu.files.update_project_file_tree(project_id, {
-  "working": {
-    "mountpoint": "/working_files",
-    "root": "productions",
-    "folder_path": {
-      "shot": "<Project>/shots/<Sequence>/<Shot>/<TaskType>",
-      "asset": "<Project>/assets/<AssetType>/<Asset>/<TaskType>",
-      "sequence": "<Project>/sequences/<Sequence>>/<TaskType>",
-      "style": "lowercase"
-    },
-    "file_name": {
-      "shot": "<Project>_<Sequence>_<Shot>_<TaskType>",
-      "asset": "<Project>_<AssetType>_<Asset>_<TaskType>",
-      "sequence": "<Project>_<Sequence>_<TaskType>",
-      "style": "lowercase"
-    }
-  }
-})
+You can increment an asset's version by attaching a new preview to a linked task.
+
+::: code-group
+```python [Python]
+(comment, preview_file) = gazu.task.publish_preview(
+    task,
+    wip,
+    comment="Change status to work in progress",
+    preview_file_path="/path/to/my/file.mp4"
+)
+
 ```
+```bash [cURL]
 
-Get all output types:
+```
+:::
 
-```python
+### Download a preview
+
+::: code-group
+```python [Python]
+gazu.files.download_preview_file(preview_file, "./target.mp4")
+
+gazu.files.download_preview_file_thumbnail(preview_file, "./target.png")
+```
+```bash [cURL]
+
+```
+:::
+
+### Get all output file types
+
+::: code-group
+```python [Python]
 output_types = gazu.files.all_output_types()
 ```
+```bash [cURL]
 
-Retrieve given output type:
+```
+:::
 
-```python
+### Retrieve given output type
+
+::: code-group
+```python [Python]
 output_type = gazu.files.get_output_type(output_type_id)
 output_type = gazu.files.get_output_type_by_name("Cache")
 output_types = gazu.files.all_output_types_for_entity(asset_dict)
 output_types = gazu.files.all_output_types_for_entity(shot_dict)
 output_types = gazu.files.all_output_types_for_asset_instance(asset_dict)
 ```
+```bash [cURL]
 
-Create a new output file:
+```
+:::
 
-```python
+### Create a new output file
+
+::: code-group
+```python [Python]
 output_type = gazu.files.new_output_type("Geometry", "geo")
 ```
+```bash [cURL]
 
-Get all software:
+```
+:::
 
-```python
+### List all software extensions
+
+Files can be organized by DCC software. For example, Maya or Blender files.
+
+::: code-group
+```python [Python]
 softwares = gazu.files.all_softwares()
 ```
+```bash [cURL]
 
-Retrieve given software:
+```
+:::
 
-```python
+### Find a software extension
+
+::: code-group
+```python [Python]
 software = gazu.files.get_software(software_id)
 software = gazu.files.get_software_by_name("Maya")
 ```
+```bash [cURL]
 
-Retrieve the given output file:
+```
+:::
 
-```python
+### Retrieve an output file
+
+::: code-group
+```python [Python]
 output_file = gazu.files.get_output_file(output_file_id)
 output_file = gazu.files.get_output_file_by_path(path)
 ```
+```bash [cURL]
 
-Retrieve output files related to given entity:
+```
+:::
 
-```python
+### List output files related to a given entity
+
+::: code-group
+```python [Python]
 output_files = gazu.files.all_output_files_for_entity(
     asset_dict, output_type_dict, representation="abc")
 output_files = gazu.files.all_output_files_for_asset_instance(
@@ -271,10 +383,15 @@ output_files_dict = gazu.files.get_last_output_files_for_entity(shot_dict)
 output_files_dict = gazu.files.get_last_output_files_for_asset_instance(
     asset_instance_dict)
 ```
+```bash [cURL]
 
-Manage output file revisions:
+```
+:::
 
-```python
+### Manage output file revisions
+
+::: code-group
+```python [Python]
 next_revision = gazu.files.get_next_entity_ouput_revision(task, output_type)
 last_revision = gazu.files.get_last_entity_ouput_revision(task, output_type)
 next_revision = gazu.files.get_next_asset_instance_ouput_revision(
@@ -282,10 +399,15 @@ next_revision = gazu.files.get_next_asset_instance_ouput_revision(
 last_revision = gazu.files.get_last_asset_instance_ouput_revision(
     task, output_type)
 ```
+```bash [cURL]
 
-Create a new output file:
+```
+:::
 
-```python
+### Create a new output file
+
+::: code-group
+```python [Python]
 output_file = gazu.files.new_entity_output_file(
     asset_dict, # or shot_dict
     output_type_dict,
@@ -312,32 +434,52 @@ output_file = gazu.files.new_asset_instance_output_file(
     sep="/"
 )
 ```
+```bash [cURL]
 
-Get working files:
+```
+:::
 
-```python
+### List working files
+
+::: code-group
+```python [Python]
 working_files = gazu.files.get_working_files_for_task(task)
 working_files = gazu.files.get_last_working_files(task)
 ```
+```bash [cURL]
 
-Get a given working file:
+```
+:::
 
-```python
+### Get a working file
+
+::: code-group
+```python [Python]
 working_file = gazu.files.get_working_file(working_id)
 ```
+```bash [cURL]
 
-Get working files revision:
+```
+:::
 
-```python
+### Get a working file's revision
+
+::: code-group
+```python [Python]
 working_file = gazu.files.get_last_working_file_revision(
     task_dict, 
     name="main"
 )
 ```
+```bash [cURL]
 
-Create a new working file:
+```
+:::
 
-```python
+### Create a new working file
+
+::: code-group
+```python [Python]
 working_file = gazu.files.new_working_file(
     task_dict,
     name="main",
@@ -349,10 +491,15 @@ working_file = gazu.files.new_working_file(
     sep="/"
 )
 ```
+```bash [cURL]
 
-Generate working file path from a given task:
+```
+:::
 
-```python
+### Generate a working file path from a task
+
+::: code-group
+```python [Python]
 file_path = gazu.files.build_working_file_path(
     task_dict, 
     name="main",
@@ -362,10 +509,15 @@ file_path = gazu.files.build_working_file_path(
     sep="/"
 )
 ```
+```bash [cURL]
 
-Generate output file path from a given entity:
+```
+:::
 
-```python
+### Generate an output file path from an entity
+
+::: code-group
+```python [Python]
 file_path = gazu.files.build_entity_output_file_path(
     entity_dict,
     output_type_dict,
@@ -375,10 +527,15 @@ file_path = gazu.files.build_entity_output_file_path(
     revision=1
 )
 ```
+```bash [cURL]
 
-Generate output file path from a given asset instance:
+```
+:::
 
-```python
+### Generate an output file path from an asset instance
+
+::: code-group
+```python [Python]
 file_path = gazu.files.build_asset_instance_output_file_path(
     asset_instance_dict,
     temporal_entity_dict,
@@ -389,44 +546,76 @@ file_path = gazu.files.build_asset_instance_output_file_path(
     revision=1
 )
 ```
+```bash [cURL]
 
-Download files related to a preview:
-
-```python
-gazu.files.download_preview_file(preview_file, "./target.mp4")
-gazu.files.download_preview_file_thumbnail(preview_file, "./target.png")
 ```
+:::
+
+### Change file tree template for given project
+
+Files are stored in a file tree. You can customize your storage structure:
+
+::: code-group
+```python [Python]
+gazu.files.set_project_file_tree(project_id, file_tree_template_name)
+
+gazu.files.update_project_file_tree(project_id, {
+  "working": {
+    "mountpoint": "/working_files",
+    "root": "productions",
+    "folder_path": {
+      "shot": "<Project>/shots/<Sequence>/<Shot>/<TaskType>",
+      "asset": "<Project>/assets/<AssetType>/<Asset>/<TaskType>",
+      "sequence": "<Project>/sequences/<Sequence>>/<TaskType>",
+      "style": "lowercase"
+    },
+    "file_name": {
+      "shot": "<Project>_<Sequence>_<Shot>_<TaskType>",
+      "asset": "<Project>_<AssetType>_<Asset>_<TaskType>",
+      "sequence": "<Project>_<Sequence>_<TaskType>",
+      "style": "lowercase"
+    }
+  }
+})
+```
+```bash [cURL]
+
+```
+:::
 
 ## Archiving or Deleting Assets and Shots
 
 Clean up or retire entities without losing production history.
 
-```py
-One code example: deleting an asset
+::: code-group
+```python [Python]
+gazu.asset.remove_asset(asset: str | dict, force: bool = False)
 ```
+```bash [cURL]
 
-## Querying and Filtering Large Datasets
-
-Efficiently retrieve and process large amounts of production data.
-
-* Filtering by type, status, tags, or custom fields
-* Pagination and batching
-* Sorting and searching
-
-```py
-One code example: searching an asset by type and task status
 ```
+:::
 
-## Files functions
+## Raw Files functions
 
-Upload a given file to given path:
+### Upload a given file to given path
 
-```python
+::: code-group
+```python [Python]
 gazu.client.upload("thumbnails/projects", "my_file.png")
-````
+```
+```bash [cURL]
 
-Download a given file to given path:
+```
+:::
 
-```python
+### Download a given file to given path
+
+::: code-group
+```python [Python]
 gazu.client.download("thumbnails/projects/project-id.png", "my_file.png")
-````
+```
+```bash [cURL]
+
+```
+:::

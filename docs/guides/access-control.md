@@ -102,7 +102,8 @@ It's currently not possible to define a new role when creating or editing person
 
 You can only assign one of `user`, `admin`, `manager`, `supervisor`, `vendor`, or `client`.
 
-```py
+::: code-group
+```python [Python]
 person = gazu.person.new_person(
     first_name="hello",
     last_name="world",
@@ -115,10 +116,46 @@ person['role'] = 'manager'
 
 gazu.person.update_person(person)
 ```
+```bash [cURL]
+curl -X POST "http://api.example.com/data/persons" \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "first_name": "John",
+    "last_name": "Doe",
+    "email": "john.doe@example.com",
+    "password": "securepassword123",
+    "role": "user",
+    "active": true,
+    "contract_type": "permanent",
+    "two_factor_authentication": "none",
+    "expiration_date": "2025-12-31",
+    "is_bot": false
+  }'
+
+curl -X PUT "http://api.example.com/data/persons/a24a6ea4-ce75-4665-a070-57453082c25" \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Accept: application/json" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "first_name": "Jane",
+    "last_name": "Smith",
+    "email": "jane.smith@example.com",
+    "password": "newsecurepassword123",
+    "role": "manager",
+    "active": true,
+    "contract_type": "freelance",
+    "two_factor_authentication": "totp",
+    "expiration_date": "2025-12-31"
+  }'
+```
+:::
 
 ## Check a person's role
 
-```py
+::: code-group
+```python [Python]
 person = gazu.person.get_person(id=user['user']['id'], relations=True)
 
 role = person['role']
@@ -126,12 +163,18 @@ role = person['role']
 if role == "admin":
     ...
 ```
+```bash [cURL]
+curl "http://api.example.com/data/persons/a24a6ea4-ce75-4665-a070-57453082c25?relations=true" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+:::
 
 ## Check a user belongs to a studio
 
 One person can only belong to a single studio.
 
-```py
+::: code-group
+```python [Python]
 person = gazu.person.get_person(id=user['user']['id'], relations=True)
 
 studio = person['studio_id'] 
@@ -139,12 +182,22 @@ studio = person['studio_id']
 if STUDIO_ID == studio:
     ...
 ```
+```bash [cURL]
+curl "http://api.example.com/data/persons/a24a6ea4...?relations=true" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+  
+curl "http://api.example.com/data/studios/a070...?relations=true" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+
+```
+:::
 
 ## Check a person belongs to a department
 
 One person can belong to many departments.
 
-```py
+::: code-group
+```python [Python]
 person = gazu.person.get_person(id=user['user']['id'], relations=True)
 
 departments = person['departments'] 
@@ -152,3 +205,8 @@ departments = person['departments']
 if DEPARTMENT_ID in departments:
     ...
 ```
+```bash [cURL]
+curl "http://api.example.com/data/persons/a24a6ea4-ce75-4665-a070-57453082c25?relations=true" \
+  -H "Authorization: Bearer YOUR_API_TOKEN"
+```
+:::
