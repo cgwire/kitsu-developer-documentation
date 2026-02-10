@@ -44,7 +44,7 @@ export default {
               { text: "Reporting", link: "/guides/reporting" },
               { text: "Custom Actions", link: "/guides/custom-actions" },
               { text: "Bot Automation", link: "/guides/bot-automation" },
-              { text: "Webhooks", link: "/guides/webhooks" },
+              { text: "Event Listeners", link: "/guides/event-listeners" },
               { text: "Advanced Search", link: "/guides/advanced-search" },
               { text: "Developer Tools", link: "/guides/developer-tools" },
               {

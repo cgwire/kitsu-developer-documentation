@@ -1,4 +1,4 @@
-# Webhook Events
+# Event Listeners
 
 Events are a mechanism to allow other programs to react to the change happening into the API data. 
 

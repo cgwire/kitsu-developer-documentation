@@ -96,7 +96,7 @@
 * See comments that they didn't write
 :::
 
-## Create a new role
+## Change a role
 
 It's currently not possible to define a new role when creating or editing persons.
 

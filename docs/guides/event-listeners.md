@@ -1,6 +1,6 @@
-# Webhook Events
+# Event Listeners
 
-You can set up webhooks to react to production changes.
+You can set up event listeners to react to production changes.
 
 ## Quickstart
 

@@ -176,7 +176,7 @@ gazu.task.remove_task_status(task_status: str | dict)
 ```
 :::
 
-You can also [update task status automatically based on pipeline events with webhooks](/guides/webhooks).
+You can also [update task status automatically based on pipeline events with event listeners](/guides/event-listeners).
 
 This structure enables consistent tracking across teams and tools.
 
