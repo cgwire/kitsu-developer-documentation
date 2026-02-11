@@ -1,4 +1,4 @@
-# File trees descriptors
+# File management
 
 To generate file paths, Zou relies on JSON-based configuration files.
 

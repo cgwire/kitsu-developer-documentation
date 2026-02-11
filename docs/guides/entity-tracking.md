@@ -1,6 +1,6 @@
-# Pipeline Tracking
+# Entity Tracking
 
-Pipeline tracking covers tasks, changes, and progress for assets and shots as they move through the pipeline.
+Entity tracking covers tasks, changes, and progress for assets and shots as they move through the pipeline.
 
 The API allows developers to read, edit, and automate production schedules using structured production data (episodes, sequences, shots, assets, tasks, and time spents).
 

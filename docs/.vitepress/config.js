@@ -33,28 +33,28 @@ export default {
             items: [
               { text: "Authentication", link: "/guides/authentication" },
               { text: "Access Control", link: "/guides/access-control" },
+              { text: "Team Management", link: "/guides/team-management" },
               {
                 text: "Production Management",
                 link: "/guides/production-management",
               },
-              { text: "Team Management", link: "/guides/team-management" },
+              { text: "Entity tracking", link: "/guides/entity-tracking" },
+              { text: "Publishing", link: "/guides/publishing" },
               { text: "Asset Management", link: "/guides/asset-management" },
-              { text: "Pipeline tracking", link: "/guides/pipeline-tracking" },
-              { text: "Review engine", link: "/guides/review-engine" },
-              { text: "Reporting", link: "/guides/reporting" },
-              { text: "Custom Actions", link: "/guides/custom-actions" },
+              // { text: "Reporting", link: "/guides/reporting" },
               { text: "Bot Automation", link: "/guides/bot-automation" },
               { text: "Event Listeners", link: "/guides/event-listeners" },
-              { text: "Advanced Search", link: "/guides/advanced-search" },
-              { text: "Developer Tools", link: "/guides/developer-tools" },
-              {
-                text: "Multi-studio Productions",
-                link: "/guides/multi-studio-productions",
-              },
+              { text: "Search", link: "/guides/search" },
+              // { text: "Developer Tools", link: "/guides/developer-tools" },
+              // {
+              //   text: "Multi-studio Productions",
+              //   link: "/guides/multi-studio-productions",
+              // },
               {
                 text: "Caching",
                 link: "/guides/caching",
               },
+              { text: "Custom Actions", link: "/guides/custom-actions" },
             ],
           },
           {
@@ -64,6 +64,14 @@ export default {
               {
                 text: "Import Studio Team",
                 link: "/recipes/import-studio-team",
+              },
+              {
+                text: "Ticket Plugin",
+                link: "/recipes/ticket-plugin",
+              },
+              {
+                text: "File Management",
+                link: "/recipes/file-management",
               },
             ],
           },
@@ -155,19 +163,19 @@ export default {
                 link: "/self-hosting/environment-variables",
               },
               {
-                text: "File storage",
-                link: "/self-hosting/file-storage",
-              },
-              {
                 text: "Full-text search",
                 link: "/self-hosting/full-text-search",
+              },
+              {
+                text: "Preview Storage",
+                link: "/self-hosting/preview-storage",
               },
               {
                 text: "Job queue",
                 link: "/self-hosting/job-queue",
               },
               {
-                text: "Lightweight Directory Access Protocol",
+                text: "LDAP",
                 link: "/self-hosting/lightweight-directory-access-protocol",
               },
               {

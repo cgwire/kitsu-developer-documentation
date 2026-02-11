@@ -1,5 +1,261 @@
 # Managing Assets and Shots
 
+Asset management is about organizing characters, props, sets, and other production elements in a consistent, queryable structure.
+
+## Core Concepts
+
+- **Assets** - reusable production elements (characters, props, environments, etc.)
+- **Asset Typess** - classification and categorization
+- **Shots** - time-based units of work within a sequence
+- **Files** - published media, previews, or work files linked to entities
+- **Versions** - iterations of published work
+
+## Creating Assets and Shots
+
+### Managing assets
+
+::: code-group
+```python [Python]
+asset = gazu.asset.new_asset(
+    project, 
+    asset_type, 
+    name="My new asset",
+    description="My asset description"
+)
+
+gazu.asset.update_asset(modified_asset)
+
+gazu.asset.remove_asset(asset)
+```
+```bash [cURL]
+
+```
+:::
+
+### Managing asset types
+
+::: code-group
+```python [Python]
+asset_type = gazu.asset.new_asset_type("my new asset_type")
+
+asset_type = gazu.asset.update_asset_type(asset_type)
+
+gazu.asset.remove_asset_type(asset_type)
+```
+```bash [cURL]
+
+```
+:::
+
+### Creating shots, sequences, and episodes
+
+::: code-group
+```python [Python]
+shot = gazu.shot.new_shot(
+    project_dict, 
+    sequence_dict, 
+    "SH01", 
+    frame_in=10, 
+    frame_out=20, 
+    data={"extra_data": "value"}
+)
+sequence = gazu.shot.new_sequence(project_dict, episode, name)
+episode = gazu.shot.new_episode(project_dict, "SH01")
+```
+```bash [cURL]
+
+```
+:::
+
+### Update shots
+
+::: code-group
+```python [Python]
+shot = gazu.shot.update_shot(shot, data={})
+```
+```bash [cURL]
+
+```
+:::
+
+## Read assets
+
+### Find an asset
+
+::: code-group
+```python [Python]
+asset = gazu.asset.get_asset(asset_id)
+asset = gazu.asset.get_asset_by_name(project_dict, asset_name)
+```
+```bash [cURL]
+
+```
+:::
+
+### List all assets
+
+::: code-group
+```python [Python]
+assets = gazu.asset.all_assets_for_project(project_dict)
+assets = gazu.asset.all_assets_for_shot(shot_dict)
+assets = gazu.asset.all_assets_for_project_and_type(project_dict, asset_type_dict)
+```
+```bash [cURL]
+
+```
+:::
+
+### Find an asset type
+
+::: code-group
+```python [Python]
+asset_type = gazu.asset.get_asset_type(asset_type_id)
+asset_type = gazu.asset.get_asset_type_by_name(asset_type_name)
+```
+```bash [cURL]
+
+```
+:::
+
+### List all asset types
+
+::: code-group
+```python [Python]
+asset_types = gazu.asset.all_asset_types()
+asset_types = gazu.asset.all_asset_types_for_project(project_dict) 
+asset_types = gazu.asset.all_asset_types_for_shot(shot_dict) # casted in given shot
+```
+```bash [cURL]
+
+```
+:::
+
+## List Asset Instances
+
+The asset is the definition (e.g dragon character) and an instance is an occurence of that asset in a shot ("Dragon #1 in Shot 010").
+
+::: code-group
+```python [Python]
+asset_instance = get_asset_instance(asset_instance_id)
+asset_instances = all_asset_instances_for_asset(asset_dict)
+asset_instances = all_asset_instances_for_shot(shot_dict)
+```
+```bash [cURL]
+
+```
+:::
+
+## Managing Descriptions, Tags, and Custom Fields
+
+You can store production- or studio-specific data directly in assets and shots as metadata. This is useful for tagging or for use in pipeline tools.
+
+::: code-group
+```python [Python]
+gazu.asset.new_asset(
+    project: str | dict, 
+    asset_type: str | dict, 
+    name: str, 
+    description: str | None = None, 
+    extra_data: dict = {}, 
+    episode: str | dict = None, 
+    is_shared: bool = False
+)
+```
+```bash [cURL]
+
+```
+:::
+
+## Linking Assets to Shots
+
+Define which assets are used in which shots to support tracking, dependency analysis, or automation.
+
+Example linking an asset and a shot:
+
+::: code-group
+```python [Python]
+asset_instance = gazu.shot.new_shot_asset_instance(shot_dict, asset_dict)
+
+asset_instances = gazu.shot.all_asset_instances_for_shot(shot_dict)
+```
+```bash [cURL]
+
+```
+:::
+
+## Finding Shots, Sequences, and Episodes
+
+### List all shots in a project or sequence
+
+::: code-group
+```python [Python]
+shots = gazu.shot.all_shots_for_project(project_dict)
+shots = gazu.shot.all_shots_for_sequence(sequence_dict)
+```
+```bash [cURL]
+
+```
+:::
+
+### List all sequences in a project or episode
+
+::: code-group
+```python [Python]
+sequences = gazu.shot.all_sequences_for_project(project_id)
+sequences = gazu.shot.all_sequences_for_episode(episode_dict)
+```
+```bash [cURL]
+
+```
+:::
+
+### List all episodes in a project
+
+::: code-group
+```python [Python]
+episodes = gazu.shot.all_episodes_for_project(project_dict)
+```
+```bash [cURL]
+
+```
+:::
+
+### Find a shot by id or name
+
+::: code-group
+```python [Python]
+shot = gazu.shot.get_shot(shot_id)
+shot = gazu.shot.get_shot_by_name(sequence_dict, "SH01")
+```
+```bash [cURL]
+
+```
+:::
+
+### Find a sequence
+
+::: code-group
+```python [Python]
+sequence = gazu.shot.get_sequence(shot_id)
+sequence = gazu.shot.get_sequence_by_name(project_dict, "SE01", episode=episode_dict)
+```
+```bash [cURL]
+
+```
+:::
+
+### Find an episode
+
+::: code-group
+```python [Python]
+episode = gazu.shot.get_episode(shot_id)
+episode = gazu.shot.get_episode_by_name(project_dict, "SE01")
+```
+```bash [cURL]
+
+```
+:::
+
 ## Managing Files and Versions
 
 Three are 3 types of files in Kitsu: previews, working files, and output files.
@@ -321,6 +577,19 @@ gazu.files.update_project_file_tree(project_id, {
     }
   }
 })
+```
+```bash [cURL]
+
+```
+:::
+
+## Archiving or Deleting Assets and Shots
+
+Clean up or retire entities without losing production history.
+
+::: code-group
+```python [Python]
+gazu.asset.remove_asset(asset: str | dict, force: bool = False)
 ```
 ```bash [cURL]
 
