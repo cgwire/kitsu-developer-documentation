@@ -7,6 +7,8 @@ Both options provide the same core features, but differ significantly in how muc
 * **Cloud hosting** prioritizes ease of use, fast onboarding, and reduced operational burden.
 * **Self-hosting** prioritizes hardware customization.
 
+Alternatively, you can also [consider on-premise cloud hosting](https://www.cg-wire.com/pricing) to get the best of both worlds. 
+
 ## Deployment & Setup
 
 ### Cloud Hosting
@@ -237,3 +239,5 @@ Provides maximum portability.
 | **Upfront Costs**              | No upfront infrastructure investment                             | Infrastructure investment required                      |
 | **Portability**                | Simple migration within supported paths                          | Maximum portability across environments                 |
 | **Support**                    | Priority support included                                        | No official support if conflicts occur                  |
+
+### Choose [On-Premise Cloud Hosting](https://www.cg-wire.com/pricing) if you want the best of both

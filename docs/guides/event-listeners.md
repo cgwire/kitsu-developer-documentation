@@ -34,9 +34,11 @@ available: `new`, `update` and `delete`. Each event follows this naming conventi
 model_name.lower().replace(' ', '-') + ':' + action
 ```
 
+Examples:
+
 * person:new
 * person:update
-* person:deletetion
+* person:delete
 * notifications:new
 * project:update
 * metadata-descriptor:new
@@ -48,7 +50,7 @@ model_name.lower().replace(' ', '-') + ':' + action
 * asset:delete
 * asset:new-link
 * asset:remove-link
-* asset:deletion
+* asset:delete
 * casting:update
 * asset_instance:new
 * asset_instance:add-to-shot
@@ -56,14 +58,14 @@ model_name.lower().replace(' ', '-') + ':' + action
 * asset_instance:new
 * shot:new
 * shot:update
-* shot:deletion
+* shot:delete
 * scene:new
-* scene:deletion
+* scene:delete
 * sequence:new
 * episode:new
 * task:new
 * task:update
-* task:deletion
+* task:delete
 * task_type:new
 * task:unassign
 * task:assign
@@ -72,12 +74,12 @@ model_name.lower().replace(' ', '-') + ':' + action
 * task_status:new
 * task_status:update
 * comment:new
-* comment:deletion
+* comment:delete
 * preview:add
 * preview-file:set-main
 * working_file:new
 * output_file:new
-* preview_file:deletion
+* preview_file:delete
 
 All generic events provide an ID.
 

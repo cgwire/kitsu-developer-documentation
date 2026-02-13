@@ -18,7 +18,12 @@ The frontend architecture is based on [Vuex](https://vuex.vuejs.org) and [vue-ro
 
 ## 2. Zou: Kitsu API Backend
 
-- Web framework: Python Flask
-- Main database: Postgres
-- Key-value store: Redis
-- Full-text search & advanced indexing: meilisearch
+Zou is a Python application implemented with the Flask web framework. Nginx acts as a reverse proxy.
+
+Zou exposes a Flask Restful API that handles all core production data while a companion event service, also Flask-based, provides real-time updates over WebSockets so clients can receive live notifications when data changes.
+
+The primary database is PostgreSQL, which stores structured production data and enforces relational integrity, while Redis is used both as a cache and as a pub/sub backbone to power asynchronous jobs and real-time event broadcasting.
+
+Media processing like preview transcoding is handled by FFmpeg.
+
+We use Meilisearch for full-text search & advanced indexing.
