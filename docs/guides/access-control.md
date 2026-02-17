@@ -1,8 +1,12 @@
-# Access Control & Authorization
+# Permissions and roles (Authorization)
 
-## Default roles
+## Available roles
 
-- `user`, **Artist** - Artists can only access the productions they are part of. They can comment on tasks, upload media, and change statuses only on tasks that have been assigned to them. Their access is limited to a predefined set of statuses as determined by the Studio Manager.
+Only a given subset of roles is available in Kitsu. Each of them has a fixed
+naming in the database but may be displayed in different ways in the Kitsu UI.
+You will find below the list of all the roles you can set on Kitsu users.
+
+`user`, **Artist** - Artists can only access the productions they are part of. They can comment on tasks, upload media, and change statuses only on tasks that have been assigned to them. Their access is limited to a predefined set of statuses as determined by the Studio Manager.
 
 ::: details Artist Permissions
 **They can:**
@@ -15,8 +19,9 @@
 * See client comments.
 * Access anything inside of projects that they haven't been assigned to.
 :::
+___
 
-- `supervisor`, **Supervisor** - Department supervisors inherit Artist permissions. Department supervisors have read and write access to their department(s) they work on: assets, shots, tasks, assignments, statistics, breakdown, and playlists.
+`supervisor`, **Supervisor** - Department supervisors inherit Artist permissions. Department supervisors have read and write access to their department(s) they work on: assets, shots, tasks, assignments, statistics, breakdown, and playlists.
 
 ::: details Supervisor Permissions
 **They can:**
@@ -36,7 +41,9 @@
 * Comment on other departments than theirs; they can't assign artists from other departments.
 :::
 
-- `manager`, **Production Manager** - Production managers inherit Department supervisor permissions. Production managers have read and write access to the productions they are assigned to, including assets, shots, tasks, assignments, statistics, breakdowns, and playlists.
+___
+
+`manager`, **Production Manager** - Production managers inherit Department supervisor permissions. Production managers have read and write access to the productions they are assigned to, including assets, shots, tasks, assignments, statistics, breakdowns, and playlists.
 
 ::: details Production Manager Permissions
 **They can:**
@@ -57,10 +64,13 @@
 * Define task types, task statuses, and asset types.
 :::
 
-- `admin`, **Studio Manager** - A Studio Manager acts in the same way as an Administrator, having read and write access to all productions and settings within Kitsu.
+___
+
+`admin`, **Studio Manager** - A Studio Manager acts in the same way as an Administrator, having read and write access to all productions and settings within Kitsu.
 
 ::: details Studio Manager / Administrator Permissions
-**They can:** 
+
+**They can:**
 
 - Create and edit a production
 - Manage the studio
@@ -75,9 +85,14 @@
 * They are allowed to create custom metadata columns.
 :::
 
-- `vendor`, **Vendor** - Vendors have similar permissions to artists, except they can only see and edit tasks they are specifically assigned to.
+___
 
-- `client`, **Client** - Clients can only see the productions they are part of.
+`vendor`, **Vendor** - Vendors have similar permissions to artists, except they can only see and edit tasks they are specifically assigned to.
+
+___
+
+`client`, **Client** - Clients can only see the productions they are part of.
+
 
 ::: details Clients Permissions
 **They can:**
@@ -177,18 +192,10 @@ One person can only belong to a single studio.
 ```python [Python]
 person = gazu.person.get_person(id=user['user']['id'], relations=True)
 
-studio = person['studio_id'] 
+studio = gazu.studio.get_studio_by_name('Sydney')
 
-if STUDIO_ID == studio:
+if studio['id'] == person['studio_id']:
     ...
-```
-```bash [cURL]
-curl "http://api.example.com/data/persons/a24a6ea4...?relations=true" \
-  -H "Authorization: Bearer YOUR_API_TOKEN"
-  
-curl "http://api.example.com/data/studios/a070...?relations=true" \
-  -H "Authorization: Bearer YOUR_API_TOKEN"
-
 ```
 :::
 
@@ -200,13 +207,10 @@ One person can belong to many departments.
 ```python [Python]
 person = gazu.person.get_person(id=user['user']['id'], relations=True)
 
-departments = person['departments'] 
+department = gazu.person.get_department_by_name('Animation')
+departments = person['departments']
 
-if DEPARTMENT_ID in departments:
+if department['id'] in departments:
     ...
-```
-```bash [cURL]
-curl "http://api.example.com/data/persons/a24a6ea4-ce75-4665-a070-57453082c25?relations=true" \
-  -H "Authorization: Bearer YOUR_API_TOKEN"
 ```
 :::

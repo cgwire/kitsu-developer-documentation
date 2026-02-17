@@ -4,9 +4,9 @@ All API endpoints require a JSON Web Token for authentication.
 
 You can either use regular email authentication to trade against a JSON Web Token or directly use a bot token.
 
-## Email Authentication
+## User Authentication
 
-Log in using a Kitsu user account:
+Log in using a Kitsu user account via the email:
 
 ::: code-group
 ```py [Python]
@@ -14,12 +14,14 @@ gazu.set_host("https://zou-server-url/api")
 gazu.log_in("user@yourdomain.com", "password")
 ```
 ```bash [cURL]
-curl 
- --request POST 'https://zou-server-url/api/auth/login' 
- --header "Content-Type: application/json" 
+curl
+ --request POST 'https://zou-server-url/api/auth/login'
+ --header "Content-Type: application/json"
  --data '{"email":"admin@example.com","password":"mysecretpassword","totp":123456,"email_otp":123456,"fido_authentication_response":{},"recovery_code":"ABCD-EFGH-IJKL-MNOP"}'
 ```
 :::
+
+With this authentication scheme, the token is automatically set.
 
 ## Bot Authentication
 
@@ -152,4 +154,4 @@ If your bot's token is compromised, regenerate a new token to automatically revo
 
 ## Next Steps
 
-Go to the next page to to learn about the other side of auth: authorization.
+Go to the next page to to learn about the other side of auth: [authorization](./access-control.md).

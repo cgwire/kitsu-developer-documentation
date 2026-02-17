@@ -4,7 +4,7 @@
 
 Kitsu is an open-source platform built to help artists create, collaborate, and share their work. We’re proudly artists-first: we believe creative communities thrive when tools are transparent, flexible, and owned by the people who use them.
 
-To support that vision, Kitsu provides a public API that gives developers programmatic access to our core features to build integrations, custom tools, or extend the UI with Kitsu plugins.
+To support that vision, Kitsu provides Python and REST APIs that give developers programmatic access to our core features to build integrations, custom tools, or extend the UI with Kitsu plugins.
 
 ## Next Steps
 

@@ -58,7 +58,32 @@ curl \
  --header "Authorization: $API_KEY" \
  --header "Content-Type: application/json" \
  --data '{"query":"kitsu","project_id":"a24a6ea4-ce75-4665-a070-57453082c25","limit":3,"offset":0,"index_names":["assets"]}'
- ```
+```
+```
+gazu.search.search_entities("bird")
+```
+
+Response example:
+
+```
+{
+  "persons": [
+    {
+      "id": "a24a6ea4-ce75-4665-a070-57453082c25",
+      "...": null,
+      "name": "John Birdoe"
+    }
+  ],
+  "assets": [
+    {
+      "id": "b28a6ea4-ce75-4665-a070-57453082c25",
+      "...": null,
+      "name": "Bird"
+    }
+  ],
+  "shots": []
+}
+```
 
 <!--## Querying and Filtering Large Datasets
 

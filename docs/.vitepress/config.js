@@ -7,6 +7,9 @@ export default {
   themeConfig: {
     logo: "/kitsu.png",
     outline: "deep",
+    search: {
+      provider: "local",
+    },
     sidebar: [
       {
         items: [
@@ -32,24 +35,18 @@ export default {
             collapsed: false,
             items: [
               { text: "Authentication", link: "/guides/authentication" },
-              { text: "Access Control", link: "/guides/access-control" },
+              { text: "Permissions and roles", link: "/guides/access-control" },
               { text: "Team Management", link: "/guides/team-management" },
               {
-                text: "Production Management",
+                text: "Setting up a Production",
                 link: "/guides/production-management",
               },
-              { text: "Entity tracking", link: "/guides/entity-tracking" },
+              { text: "Task tracking", link: "/guides/entity-tracking" },
               { text: "Publishing", link: "/guides/publishing" },
               { text: "Asset Management", link: "/guides/asset-management" },
-              // { text: "Reporting", link: "/guides/reporting" },
               { text: "Bot Automation", link: "/guides/bot-automation" },
               { text: "Event Listeners", link: "/guides/event-listeners" },
               { text: "Search", link: "/guides/search" },
-              // { text: "Developer Tools", link: "/guides/developer-tools" },
-              // {
-              //   text: "Multi-studio Productions",
-              //   link: "/guides/multi-studio-productions",
-              // },
               {
                 text: "Caching",
                 link: "/guides/caching",
@@ -66,7 +63,7 @@ export default {
                 link: "/recipes/import-studio-team",
               },
               {
-                text: "Ticket Plugin",
+                text: "Make your Plugin",
                 link: "/recipes/ticket-plugin",
               },
               {
@@ -107,11 +104,6 @@ export default {
                     link: "/integrations/dcc/unreal-engine",
                   },
                 ],
-              },
-              {
-                text: "UI Frameworks",
-                collapsed: true,
-                items: [{ text: "Vue", link: "/integrations/ui/vue" }],
               },
               {
                 text: "Messaging",
@@ -216,7 +208,7 @@ export default {
             ],
           },
           {
-            text: "Learn",
+            text: "Resources",
             collapsed: false,
             items: [
               { text: "Github", link: "https://github.com/cgwire" },

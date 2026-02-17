@@ -2,13 +2,13 @@
 
 Kitsu's review engine connects published work, previews, and statuses for reviews and approvals.
 
-The API enables teams to manage review playlists, track versions, and facilitate feedback through previews and comments. 
+The API enables teams to manage review playlists, track versions, and facilitate feedback through previews and comments.
 
 ## Core Concepts
 
-- **Playlists** group versions together for review sessions.
-- **Preview versions** represent iterations of work submitted for review.
 - **Comments** are used to leave feedback and communicate task changes.
+- **Preview versions** represent iterations of work submitted for review.
+- **Playlists** group versions together for review sessions.
 
 ## Integrating Review and Feedback Loops
 
@@ -18,14 +18,27 @@ Notes can be attached to tasks to provide targeted feedback.
 
 ::: code-group
 ```python [Python]
-gazu.task.add_comment(task: str | dict, task_status: str | dict, comment: str = '', person: str | dict | None = None, checklist: list[dict] = [], attachments: list[str] = [], created_at: str | None = None, links: list[str] = [])
+gazu.task.add_comment(
+    task,
+    task_status,
+    comment='',
+    person=None,
+    checklist=[],
+    attachments=[],
+    created_at=None,
+    links=[]
+)
 ```
 ```bash [cURL]
 
 ```
 :::
 
-### Attaching Files To Comments
+Attachments can be set at this stage by adding file paths as a list in the
+`attachments` argument.
+
+
+### Setting revisons linked to comments (publishing)
 
 Files can be added to comments to create previews and attachments.
 
@@ -46,6 +59,9 @@ gazu.task.set_main_preview(preview_file) #  Set preview as asset thumbnail
 
 ```
 :::
+
+It creates a new preview entry that is linked to the comment posted (therefore
+to the related task and entity).
 
 Another alternative is to use the `publish` shortcut to post a comment and link a preview file to it:
 
@@ -94,21 +110,61 @@ Retrieve all comments associated with an entity to display review history.
 
 ::: code-group
 ```python [Python]
-gazu.task.all_comments_for_project(project: str | dict)
+gazu.task.all_comments_for_project(project)
 
-gazu.task.all_comments_for_task(task: str | dict)
+gazu.task.all_comments_for_task(task)
 ```
 ```bash [cURL]
 ```
 :::
 
+
+### Download a preview
+
+::: code-group
+```python [Python]
+gazu.files.download_preview_file(preview_file, "./target.mp4")
+
+gazu.files.download_preview_file_thumbnail(preview_file, "./target.png")
+```
+```bash [cURL]
+
+```
+:::
+
+
 ## Managing Playlists
+
+### Creating a playlist
+
+Create a new playlist for organizing previews and versions for review:
+
+::: code-group
+```python [Python]
+project = gazu.project.get_project_by_name("Caminandes")
+
+playlist = gazu.playlist.new_playlist(
+    project,
+    name="Daily Review - Animation",
+    for_client=False,
+    for_entity="shot"
+)
+```
+:::
+
+
+
 
 ### Adding assets and shots to playlists
 
 ::: code-group
 ```python [Python]
-gazu.playlist.add_entity_to_playlist(playlist: dict, entity: str | dict, preview_file: str | dict | None = None, persist: bool = True)
+gazu.playlist.add_entity_to_playlist(
+    playlist,
+    entity,
+    preview_file=None,
+    persist=True
+)
 ```
 ```bash [cURL]
 

@@ -2,7 +2,7 @@
 
 Results of requests can be cached in memory. By default the caching of function
 result is not enabled. Once you enable it, all functions that performs
-read-only operations will have their result cached id memory.
+read-only operations will have their result cached in memory.
 
 Enable cache:
 

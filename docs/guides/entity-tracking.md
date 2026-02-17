@@ -1,4 +1,4 @@
-# Entity Tracking
+# Task Tracking
 
 Entity tracking covers tasks, changes, and progress for assets and shots as they move through the pipeline.
 
@@ -13,19 +13,28 @@ Task types define the production steps (e.g. Animation, Lighting, Compositing).
 
 ::: code-group
 ```python [Python]
-gazu.task.new_task_type()
-
-```
-```bash [cURL]
-
+gazu.task.new_task_type("Modeling")
 ```
 :::
+
+### Creating Task Statuses
+
+Task statuses define the different states a task can be in (e.g. To Do, WIP, Done).
+
+::: code-group
+```python [Python]
+# Create a new task status
+wip = gazu.task.new_task_status("WIP", color="blue")
+done = gazu.task.new_task_status("Done", color="green")
+```
+:::
+
 
 ### Creating Tasks for Assets and Shots
 
 Tasks can be generated automatically when new assets or shots are created.
 
-Create a new task for a given asset: 
+Create a new task for a given asset:
 
 ::: code-group
 ```python [Python]
@@ -52,7 +61,7 @@ tasks = gazu.task.all_tasks_for_scene(scene_dict)
 tasks = gazu.task.all_tasks_for_sequence(sequence_dict)
 tasks = gazu.task.all_tasks_for_entity_and_task_type(entity_dict, task_type)
 tasks = gazu.task.all_tasks_for_task_status(
-    project_dict, 
+    project_dict,
     task_type_dict,
     task_status_dict
 )
@@ -81,7 +90,7 @@ Retrieve a given task:
 
 ::: code-group
 ```python [Python]
-task = gazu.task.get_task_by_name(asset, task_type, "main")
+task = gazu.task.get_task_by_entity(asset, task_type)
 
 ```
 ```bash [cURL]
@@ -121,8 +130,7 @@ Tasks can be assigned to individuals or whole teams.
 
 ::: code-group
 ```python [Python]
-gazu.task.assign_tasks_to_person()
-
+gazu.task.assign_task(task, person)
 ```
 ```bash [cURL]
 
@@ -136,7 +144,7 @@ Task statuses reflect production progress and drive dashboards and reports.
 ::: code-group
 ```python [Python]
 task = gazu.task.get_task(task_id)
-gazu.task.update_task()
+gazu.task.add_comment(task, wip)
 
 ```
 ```bash [cURL]
@@ -144,7 +152,7 @@ gazu.task.update_task()
 ```
 :::
 
-Set a given task status as work in progress:
+Set a given task status as work in progress (shortcut):
 
 ::: code-group
 ```python [Python]

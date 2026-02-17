@@ -4,41 +4,159 @@
 
 Three are 3 types of files in Kitsu: previews, working files, and output files.
 
-- A **preview** is a temporary file used for reviews.
 - A **working file** is the artist’s editable source file.
-- An **output file** is what you export or render from the working file. 
+- An **output file** is what you export or render from the working file.
+- A **preview file** is a file used for reviews, displayed in the Kitsu.
 
-### Increment an asset's version
+## File tree
 
-You can increment an asset's version by attaching a new preview to a linked task.
+To manage the file tree and generate path properly, Zou relies on a template
+you set at the project level. You can create several templates by project but
+in that case, you will have to specify which template to use when generating
+your paths.
+
 
 ::: code-group
 ```python [Python]
-(comment, preview_file) = gazu.task.publish_preview(
-    task,
-    wip,
-    comment="Change status to work in progress",
-    preview_file_path="/path/to/my/file.mp4"
+gazu.files.update_project_file_tree(project_id, {
+  "working": {
+    "mountpoint": "/working_files",
+    "root": "productions",
+    "folder_path": {
+      "shot": "<Project>/shots/<Sequence>/<Shot>/<TaskType>",
+      "asset": "<Project>/assets/<AssetType>/<Asset>/<TaskType>",
+      "sequence": "<Project>/sequences/<Sequence>>/<TaskType>",
+      "style": "lowercase"
+    },
+    "file_name": {
+      "shot": "<Project>_<Sequence>_<Shot>_<TaskType>",
+      "asset": "<Project>_<AssetType>_<Asset>_<TaskType>",
+      "sequence": "<Project>_<Sequence>_<TaskType>",
+      "style": "lowercase"
+    }
+  }
+})
+```
+```bash [cURL]
+
+```
+:::
+
+## Software
+
+### List all software
+
+Files can be organized by DCC software. For example, Maya or Blender files.
+
+::: code-group
+```python [Python]
+softwares = gazu.files.all_softwares()
+```
+```bash [cURL]
+
+```
+:::
+
+### Find a software
+
+::: code-group
+```python [Python]
+software = gazu.files.get_software(software_id)
+software = gazu.files.get_software_by_name("Maya")
+```
+```bash [cURL]
+
+```
+:::
+
+
+## Working files
+
+### List working files
+
+::: code-group
+```python [Python]
+working_files = gazu.files.get_working_files_for_task(task)
+working_files = gazu.files.get_last_working_files(task)
+```
+```bash [cURL]
+
+```
+:::
+
+### Get a working file
+
+::: code-group
+```python [Python]
+working_file = gazu.files.get_working_file(working_id)
+```
+```bash [cURL]
+
+```
+:::
+
+### Get a working file's revision
+
+::: code-group
+```python [Python]
+working_file = gazu.files.get_last_working_file_revision(
+    task_dict,
+    name="main"
 )
-
 ```
 ```bash [cURL]
 
 ```
 :::
 
-### Download a preview
+### Create a new working file
 
 ::: code-group
 ```python [Python]
-gazu.files.download_preview_file(preview_file, "./target.mp4")
-
-gazu.files.download_preview_file_thumbnail(preview_file, "./target.png")
+working_file = gazu.files.new_working_file(
+    task_dict,
+    name="main",
+    software=software_dict,
+    comment="",
+    person=person_dict, # Automatically set as current user if set to None
+    scene=1,
+    revision=0, # If revision == 0, it is set as latest revision + 1
+    sep="/"
+)
 ```
 ```bash [cURL]
 
 ```
 :::
+
+### Generate a working file path from a task
+
+::: code-group
+```python [Python]
+file_path = gazu.files.build_working_file_path(
+    task_dict,
+    name="main",
+    mode="output",
+    software=software_dict,
+    revision=1,
+    sep="/"
+)
+```
+```bash [cURL]
+
+```
+:::
+
+### Store a working file
+
+::: code-group
+```python [Python]
+file_path = gazu.files.upload_working_file(working_file, "/path/to/file")
+```
+:::
+
+
+## Output files
 
 ### Get all output file types
 
@@ -71,31 +189,6 @@ output_types = gazu.files.all_output_types_for_asset_instance(asset_dict)
 ::: code-group
 ```python [Python]
 output_type = gazu.files.new_output_type("Geometry", "geo")
-```
-```bash [cURL]
-
-```
-:::
-
-### List all software extensions
-
-Files can be organized by DCC software. For example, Maya or Blender files.
-
-::: code-group
-```python [Python]
-softwares = gazu.files.all_softwares()
-```
-```bash [cURL]
-
-```
-:::
-
-### Find a software extension
-
-::: code-group
-```python [Python]
-software = gazu.files.get_software(software_id)
-software = gazu.files.get_software_by_name("Maya")
 ```
 ```bash [cURL]
 
@@ -178,102 +271,6 @@ output_file = gazu.files.new_asset_instance_output_file(
     sep="/"
 )
 ```
-```bash [cURL]
-
-```
-:::
-
-### List working files
-
-::: code-group
-```python [Python]
-working_files = gazu.files.get_working_files_for_task(task)
-working_files = gazu.files.get_last_working_files(task)
-```
-```bash [cURL]
-
-```
-:::
-
-### Get a working file
-
-::: code-group
-```python [Python]
-working_file = gazu.files.get_working_file(working_id)
-```
-```bash [cURL]
-
-```
-:::
-
-### Get a working file's revision
-
-::: code-group
-```python [Python]
-working_file = gazu.files.get_last_working_file_revision(
-    task_dict, 
-    name="main"
-)
-```
-```bash [cURL]
-
-```
-:::
-
-### Create a new working file
-
-::: code-group
-```python [Python]
-working_file = gazu.files.new_working_file(
-    task_dict,
-    name="main",
-    software=software_dict,
-    comment="",
-    person=person_dict, # Automatically set as current user if set to None
-    scene=1,
-    revision=0, # If revision == 0, it is set as latest revision + 1
-    sep="/"
-)
-```
-```bash [cURL]
-
-```
-:::
-
-### Generate a working file path from a task
-
-::: code-group
-```python [Python]
-file_path = gazu.files.build_working_file_path(
-    task_dict, 
-    name="main",
-    mode="output", 
-    software=software_dict,
-    revision=1,
-    sep="/"
-)
-```
-```bash [cURL]
-
-```
-:::
-
-### Generate an output file path from an entity
-
-::: code-group
-```python [Python]
-file_path = gazu.files.build_entity_output_file_path(
-    entity_dict,
-    output_type_dict,
-    task_type_dict,
-    name="main",
-    mode="output",
-    revision=1
-)
-```
-```bash [cURL]
-
-```
 :::
 
 ### Generate an output file path from an asset instance
@@ -295,34 +292,22 @@ file_path = gazu.files.build_asset_instance_output_file_path(
 ```
 :::
 
-### Change file tree template for given project
 
-Files are stored in a file tree. You can customize your storage structure:
+### Generate an output file path from an entity
 
 ::: code-group
 ```python [Python]
-gazu.files.set_project_file_tree(project_id, file_tree_template_name)
-
-gazu.files.update_project_file_tree(project_id, {
-  "working": {
-    "mountpoint": "/working_files",
-    "root": "productions",
-    "folder_path": {
-      "shot": "<Project>/shots/<Sequence>/<Shot>/<TaskType>",
-      "asset": "<Project>/assets/<AssetType>/<Asset>/<TaskType>",
-      "sequence": "<Project>/sequences/<Sequence>>/<TaskType>",
-      "style": "lowercase"
-    },
-    "file_name": {
-      "shot": "<Project>_<Sequence>_<Shot>_<TaskType>",
-      "asset": "<Project>_<AssetType>_<Asset>_<TaskType>",
-      "sequence": "<Project>_<Sequence>_<TaskType>",
-      "style": "lowercase"
-    }
-  }
-})
+file_path = gazu.files.build_entity_output_file_path(
+    entity_dict,
+    output_type_dict,
+    task_type_dict,
+    name="main",
+    mode="output",
+    revision=1
+)
 ```
 ```bash [cURL]
+
 
 ```
 :::
