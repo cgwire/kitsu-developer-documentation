@@ -16,7 +16,7 @@ If your version of Kitsu is hosted and maintained by CGWire, you don't have anyt
 
 * Learn about [creating an API client](/start-here/dev-quickstart)
 * Learn about [alternative authentication strategies](/guides/authentication)
-* Learn to [setup a new production](/guides/production-management)
+* Learn to [setup a new production](/guides/production-setup)
 
 ::: info
 For self-hosting, [please refer to the corresponding in-depth guide](/self-hosting/vs-cloud-hosting).

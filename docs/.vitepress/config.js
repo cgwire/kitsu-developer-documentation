@@ -1,7 +1,8 @@
 export default {
   lang: "en-US",
   title: "Kitsu Developer",
-  description: "Kitsu's unified developer documentation.",
+  head: [['link', { rel: 'icon', href: '/kitsu.png' }]],
+  description: "Kitsu provides a public API that gives developers programmatic access to our core features to build integrations, custom tools, or extend the UI with Kitsu plugins.",
   ignoreDeadLinks: true,
   // appearance: false,
   themeConfig: {
@@ -35,13 +36,13 @@ export default {
             collapsed: false,
             items: [
               { text: "Authentication", link: "/guides/authentication" },
-              { text: "Permissions and roles", link: "/guides/access-control" },
+              { text: "Permissions and roles", link: "/guides/permissions-roles" },
               { text: "Team Management", link: "/guides/team-management" },
               {
                 text: "Setting up a Production",
-                link: "/guides/production-management",
+                link: "/guides/production-setup",
               },
-              { text: "Task tracking", link: "/guides/entity-tracking" },
+              { text: "Task tracking", link: "/guides/task-tracking" },
               { text: "Publishing", link: "/guides/publishing" },
               { text: "Asset Management", link: "/guides/asset-management" },
               { text: "Bot Automation", link: "/guides/bot-automation" },
@@ -64,7 +65,7 @@ export default {
               },
               {
                 text: "Make your Plugin",
-                link: "/recipes/ticket-plugin",
+                link: "/recipes/make-your-plugin",
               },
               {
                 text: "File Management",

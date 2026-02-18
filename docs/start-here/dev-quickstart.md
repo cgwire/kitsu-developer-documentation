@@ -19,17 +19,17 @@ pip install gazu
 Then, create an API client to start sending requests:
 
 ::: code-group
-```curl
-curl \
- --request POST 'https://zou-server-url/api/auth/login' \
- --header "Content-Type: application/json" \
- --data '{"email":"admin@example.com","password":"mysecretpassword","totp":123456,"email_otp":123456,"fido_authentication_response":{},"recovery_code":"ABCD-EFGH-IJKL-MNOP"}'
-```
 ```py
 import gazu
 
 gazu.set_host("https://zou-server-url/api")
 gazu.log_in("user@yourdomain.com", "password")
+```
+```bash
+curl \
+ --request POST 'https://zou-server-url/api/auth/login' \
+ --header "Content-Type: application/json" \
+ --data '{"email":"admin@example.com","password":"mysecretpassword","totp":123456,"email_otp":123456,"fido_authentication_response":{},"recovery_code":"ABCD-EFGH-IJKL-MNOP"}'
 ```
 :::
 
@@ -53,4 +53,4 @@ gazu.project.all_open_projects(client=target_client)
 ## Next Steps
 
 * Learn about [alternative authentication strategies](/guides/authentication)
-* Learn to [setup a new production](/guides/production-management)
+* Learn to [setup a new production](/guides/production-setup)

@@ -2,5 +2,5 @@ Kitsu's new unified developer documentation.
 
 ## Usage
 
-- Development: `npm run docs:dev`
-- Static site generation: `npm run docs:build`
+- Development: `npm run dev`
+- Static site generation: `npm run build`

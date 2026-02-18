@@ -83,4 +83,4 @@ Please test if the data is persisting after reboot or recreation (only tested on
 ## Next Steps
 
 * Learn about [authentication strategies](/guides/authentication)
-* Learn to [setup a new production](/guides/production-management)
+* Learn to [setup a new production](/guides/production-setup)
