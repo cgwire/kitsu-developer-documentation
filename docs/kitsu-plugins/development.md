@@ -6,7 +6,7 @@ versioning. Each plugin can add routes to the API and add tables to the database
 
 ## Quickstart
 
-You can [find a full example on Github](https://github.com/frankrousseau/kitsu-tickets).
+You can [find a full example on Github](https://github.com/cgwire/kitsu-tickets).
 
 1. Create your plugin:
 

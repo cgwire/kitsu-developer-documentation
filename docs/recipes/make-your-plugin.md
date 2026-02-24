@@ -2,7 +2,7 @@
 
 This recipe shows the minimal steps required to build, register, and install a Kitsu plugin with database, API, and UI integration.
 
-- [Full Github repository](https://github.com/frankrousseau/kitsu-tickets)
+- [Full Github repository](https://github.com/cgwire/kitsu-tickets)
 
 ## Prerequisites
 
@@ -294,4 +294,4 @@ python zou/cli.py list-plugins
 
 ## Github Repository 
 
-For the full implementation, clone the repository: [github.com/frankrousseau/kitsu-tickets](https://github.com/frankrousseau/kitsu-tickets)
+For the full implementation, clone the repository: [github.com/cgwire/kitsu-tickets](https://github.com/cgwire/kitsu-tickets)
