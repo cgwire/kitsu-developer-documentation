@@ -1,8 +1,9 @@
 export default {
   lang: "en-US",
   title: "Kitsu Developer",
-  head: [['link', { rel: 'icon', href: '/kitsu.png' }]],
-  description: "Kitsu provides a public API that gives developers programmatic access to our core features to build integrations, custom tools, or extend the UI with Kitsu plugins.",
+  head: [["link", { rel: "icon", href: "/kitsu.png" }]],
+  description:
+    "Kitsu provides a public API that gives developers programmatic access to our core features to build integrations, custom tools, or extend the UI with Kitsu plugins.",
   ignoreDeadLinks: true,
   // appearance: false,
   themeConfig: {
@@ -36,7 +37,10 @@ export default {
             collapsed: false,
             items: [
               { text: "Authentication", link: "/guides/authentication" },
-              { text: "Permissions and roles", link: "/guides/permissions-roles" },
+              {
+                text: "Permissions and roles",
+                link: "/guides/permissions-roles",
+              },
               { text: "Team Management", link: "/guides/team-management" },
               {
                 text: "Setting up a Production",
@@ -199,7 +203,7 @@ export default {
               },
               {
                 text: "Gazu Python SDK",
-                link: "https://gazu.cg-wire.com/specs",
+                link: "/references/gazu",
               },
               {
                 text: "Javascript SDK",

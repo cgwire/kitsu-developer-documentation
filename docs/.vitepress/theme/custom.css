@@ -223,3 +223,8 @@
 .title {
     color: var(--vp-c-green-1) !important;
 }
+
+.signature-block code {
+    white-space: pre-wrap;
+    word-break: break-word;
+}
