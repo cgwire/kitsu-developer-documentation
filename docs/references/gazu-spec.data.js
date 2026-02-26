@@ -19,26 +19,47 @@ function removeClientParam(params) {
   return rest;
 }
 
+function getModuleFromName(name) {
+  const parts = name.split(".");
+
+  // gazu.module.function → module
+  if (parts.length === 3) {
+    return parts[1];
+  }
+
+  // gazu.function → gazu root category
+  return "gazu";
+}
+
 export default {
   async load() {
     const spec = await fetch(
       "https://github.com/cgwire/gazu/releases/download/spec-latest/gazu-specs.json",
     ).then((res) => res.json());
 
-    const cleaned = Object.entries(spec).map(([name, def]) => {
+    const grouped = {};
+
+    Object.entries(spec).forEach(([name, def]) => {
+      const module = getModuleFromName(name);
       const inputs = removeClientParam(def.input_params);
 
-      return {
+      const fn = {
         name,
         signature: buildSignature(name, inputs),
         description: def.description,
         inputs,
         outputs: def.output_params,
       };
+
+      if (!grouped[module]) {
+        grouped[module] = [];
+      }
+
+      grouped[module].push(fn);
     });
 
     return {
-      functions: cleaned,
+      modules: grouped,
     };
   },
 };

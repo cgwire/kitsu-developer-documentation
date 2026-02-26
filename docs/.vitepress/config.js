@@ -1,3 +1,30 @@
+const spec = await fetch(
+  "https://github.com/cgwire/gazu/releases/download/spec-latest/gazu-specs.json",
+).then((res) => res.json());
+
+function getModuleFromName(name) {
+  const parts = name.split(".");
+
+  // gazu.module.function → module
+  if (parts.length === 3) {
+    return parts[1];
+  }
+
+  // gazu.function → gazu root category
+  return "gazu";
+}
+
+let modules = new Set();
+
+Object.entries(spec).forEach(([name]) => {
+  modules.add(getModuleFromName(name));
+});
+
+modules = [...modules].map((m) => ({
+  text: m,
+  link: `/references/gazu#${m}`,
+}));
+
 export default {
   lang: "en-US",
   title: "Kitsu Developer",
@@ -204,6 +231,8 @@ export default {
               {
                 text: "Gazu Python SDK",
                 link: "/references/gazu",
+                collapsed: true,
+                items: modules,
               },
               {
                 text: "Javascript SDK",
