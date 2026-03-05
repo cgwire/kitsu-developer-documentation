@@ -47,7 +47,7 @@ On the Bots page, you can manage your bots just like any user:
 
 Here is an example script to retrieve the entire project **MyProduction** using a bot:
 
-```js
+```python
 import gazu
   
 gazu.set_host("yourkitsu.cg-wire.com/api/")
@@ -59,3 +59,8 @@ p = gazu.project.get_project_by_name("MyProduction")
 We use a bot to interact with the Kitsu API without using a real user's login credentials. 
 
 You can give bots different permissions for different needs. For example, if you have a bot that publishes comments, you can give your bot the same rights as a physical user.
+
+## Next Steps
+
+* Learn about [event listeners](/guides/event-listeners)
+* Learn about [custom actions](/guides/custom-actions)

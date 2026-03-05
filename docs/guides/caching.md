@@ -45,3 +45,8 @@ Retrieve statistics about caching:
 ```python
 gazu.person.all_persons.get_cache_infos()
 ```
+
+## Next Steps
+
+* Learn about [advanced search](/guides/search)
+* Learn about [event listeners](/guides/event-listeners)

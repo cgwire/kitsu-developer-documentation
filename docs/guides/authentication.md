@@ -14,10 +14,10 @@ gazu.set_host("https://zou-server-url/api")
 gazu.log_in("user@yourdomain.com", "password")
 ```
 ```bash [cURL]
-curl
- --request POST 'https://zou-server-url/api/auth/login'
- --header "Content-Type: application/json"
- --data '{"email":"admin@example.com","password":"mysecretpassword","totp":123456,"email_otp":123456,"fido_authentication_response":{},"recovery_code":"ABCD-EFGH-IJKL-MNOP"}'
+curl \
+ --request POST 'https://zou-server-url/api/auth/login' \
+ --header "Content-Type: application/json" \
+ --data '{"email":"admin@example.com","password":"mysecretpassword"}'
 ```
 :::
 
@@ -61,8 +61,7 @@ curl "http://api.example.com/data/user/context" -H "Authorization: Bearer YOUR_A
 ```
 :::
 
-Multiple API routes return data related to the currently logged user (for which he has
-assigned tasks linked to expected result):
+Multiple API routes return data scoped to the currently logged-in user:
 
 Projects:
 
@@ -154,4 +153,4 @@ If your bot's token is compromised, regenerate a new token to automatically revo
 
 ## Next Steps
 
-Go to the next page to to learn about the other side of auth: [authorization](./access-control.md).
+Go to the next page to learn about the other side of auth: [authorization](./permissions-roles).

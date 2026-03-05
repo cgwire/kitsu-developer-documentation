@@ -22,7 +22,7 @@ Custom Actions are intentionally generic. Any workflow that can be triggered by 
 
 As long as your service can receive and handle an HTTP request (for example via Flask, FastAPI, Tornado, etc.), it can be integrated as a Custom Action.
 
-For more advanced use cases requiring complex UI, [refer to the Kitsu plugin system]().
+For more advanced use cases requiring complex UI, [refer to the Kitsu plugin system](/kitsu-plugins/development).
 
 ## Permissions
 

@@ -1,5 +1,7 @@
 # Why Kitsu
 
+Production pipelines need tools that are reliable, flexible, and built for the specific demands of animation, VFX, and game production. Generic project management software lacks the structure studios depend on: shot and asset tracking, review workflows, DCC integrations, and API-driven automation. Kitsu was created to fill that gap as an open-source platform that studios can own, extend, and rely on for the long term.
+
 ## Open, durable foundation for real productions
 
 Kitsu is an open source production tracking system built specifically for animation, VFX, and game studios that want long-term ownership of their pipeline. 
@@ -23,6 +25,10 @@ Reviews and feedback are attached directly to shots, assets, and tasks to preser
 ## Scales with your studio and pipeline
 
 Kitsu supports small teams, large studios, and multi-studio productions without adding unnecessary process overhead. It integrates with common DCCs, render farms, and asset management systems, and exposes APIs and developer tools so technical teams can automate workflows and build pipeline-specific extensions. Clear planning and real-time tracking improve predictability, reduce retakes, and help control production costs.
+
+## Built for studios, by studios
+
+Kitsu is developed by [CGWire](https://www.cg-wire.com/) and shaped by feedback from studios of all sizes around the world. Every feature, from the data model to the review engine, comes from real production needs. The codebase is open, the API is documented, and the community is active: studios don't just use Kitsu, they help build it.
 
 ## Next Step
 

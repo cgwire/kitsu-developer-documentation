@@ -55,7 +55,6 @@ Examples:
 * asset_instance:new
 * asset_instance:add-to-shot
 * asset_instance:remove-from-shot
-* asset_instance:new
 * shot:new
 * shot:update
 * shot:delete
@@ -109,3 +108,8 @@ events = gazu.client.get("data/events/last?page_size=100&before=2019-02-01")
 events = gazu.client.get("data/events/last?page_size=100&before=2019-02-01&after=2019-01-01")
 events = gazu.client.get("data/events/last?page_size=100&only_files=true")
 ```
+
+## Next Steps
+
+* Learn about [bot automation](/guides/bot-automation)
+* Learn about [custom actions](/guides/custom-actions)

@@ -16,8 +16,7 @@ in that case, you will have to specify which template to use when generating
 your paths.
 
 
-::: code-group
-```python [Python]
+```python
 gazu.files.update_project_file_tree(project_id, {
   "working": {
     "mountpoint": "/working_files",
@@ -37,10 +36,6 @@ gazu.files.update_project_file_tree(project_id, {
   }
 })
 ```
-```bash [cURL]
-
-```
-:::
 
 ## Software
 
@@ -48,71 +43,45 @@ gazu.files.update_project_file_tree(project_id, {
 
 Files can be organized by DCC software. For example, Maya or Blender files.
 
-::: code-group
-```python [Python]
+```python
 softwares = gazu.files.all_softwares()
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Find a software
 
-::: code-group
-```python [Python]
+```python
 software = gazu.files.get_software(software_id)
 software = gazu.files.get_software_by_name("Maya")
 ```
-```bash [cURL]
-
-```
-:::
 
 
 ## Working files
 
 ### List working files
 
-::: code-group
-```python [Python]
+```python
 working_files = gazu.files.get_working_files_for_task(task)
 working_files = gazu.files.get_last_working_files(task)
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Get a working file
 
-::: code-group
-```python [Python]
+```python
 working_file = gazu.files.get_working_file(working_id)
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Get a working file's revision
 
-::: code-group
-```python [Python]
+```python
 working_file = gazu.files.get_last_working_file_revision(
     task_dict,
     name="main"
 )
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Create a new working file
 
-::: code-group
-```python [Python]
+```python
 working_file = gazu.files.new_working_file(
     task_dict,
     name="main",
@@ -124,15 +93,10 @@ working_file = gazu.files.new_working_file(
     sep="/"
 )
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Generate a working file path from a task
 
-::: code-group
-```python [Python]
+```python
 file_path = gazu.files.build_working_file_path(
     task_dict,
     name="main",
@@ -142,15 +106,10 @@ file_path = gazu.files.build_working_file_path(
     sep="/"
 )
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Store a working file
 
-::: code-group
-```python [Python]
+```python
 file_path = gazu.files.upload_working_file(working_file, "/path/to/file")
 ```
 :::
@@ -164,53 +123,33 @@ file_path = gazu.files.upload_working_file(working_file, "/path/to/file")
 ```python [Python]
 output_types = gazu.files.all_output_types()
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Retrieve given output type
 
-::: code-group
-```python [Python]
+```python
 output_type = gazu.files.get_output_type(output_type_id)
 output_type = gazu.files.get_output_type_by_name("Cache")
 output_types = gazu.files.all_output_types_for_entity(asset_dict)
 output_types = gazu.files.all_output_types_for_entity(shot_dict)
 output_types = gazu.files.all_output_types_for_asset_instance(asset_dict)
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Create a new output file
 
-::: code-group
-```python [Python]
+```python
 output_type = gazu.files.new_output_type("Geometry", "geo")
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Retrieve an output file
 
-::: code-group
-```python [Python]
+```python
 output_file = gazu.files.get_output_file(output_file_id)
 output_file = gazu.files.get_output_file_by_path(path)
 ```
-```bash [cURL]
-
-```
-:::
 
 ### List output files related to a given entity
 
-::: code-group
-```python [Python]
+```python
 output_files = gazu.files.all_output_files_for_entity(
     asset_dict, output_type_dict, representation="abc")
 output_files = gazu.files.all_output_files_for_asset_instance(
@@ -220,15 +159,10 @@ output_files_dict = gazu.files.get_last_output_files_for_entity(shot_dict)
 output_files_dict = gazu.files.get_last_output_files_for_asset_instance(
     asset_instance_dict)
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Manage output file revisions
 
-::: code-group
-```python [Python]
+```python
 next_revision = gazu.files.get_next_entity_ouput_revision(task, output_type)
 last_revision = gazu.files.get_last_entity_ouput_revision(task, output_type)
 next_revision = gazu.files.get_next_asset_instance_ouput_revision(
@@ -236,15 +170,10 @@ next_revision = gazu.files.get_next_asset_instance_ouput_revision(
 last_revision = gazu.files.get_last_asset_instance_ouput_revision(
     task, output_type)
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Create a new output file
 
-::: code-group
-```python [Python]
+```python
 output_file = gazu.files.new_entity_output_file(
     asset_dict, # or shot_dict
     output_type_dict,
@@ -287,16 +216,11 @@ file_path = gazu.files.build_asset_instance_output_file_path(
     revision=1
 )
 ```
-```bash [cURL]
-
-```
-:::
 
 
 ### Generate an output file path from an entity
 
-::: code-group
-```python [Python]
+```python
 file_path = gazu.files.build_entity_output_file_path(
     entity_dict,
     output_type_dict,
@@ -306,32 +230,22 @@ file_path = gazu.files.build_entity_output_file_path(
     revision=1
 )
 ```
-```bash [cURL]
-
-
-```
-:::
 
 ## Raw Files functions
 
 ### Upload a given file to given path
 
-::: code-group
-```python [Python]
+```python
 gazu.client.upload("thumbnails/projects", "my_file.png")
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Download a given file to given path
 
-::: code-group
-```python [Python]
+```python
 gazu.client.download("thumbnails/projects/project-id.png", "my_file.png")
 ```
-```bash [cURL]
 
-```
-:::
+## Next Steps
+
+* Learn about [publishing and reviews](/guides/publishing)
+* Learn about [event listeners](/guides/event-listeners)

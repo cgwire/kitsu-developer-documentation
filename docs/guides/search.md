@@ -14,7 +14,7 @@ gazu.client.fetch_all("tasks?page=2") # Paginate by using 100 entries per page.
 Retrieve one entry for a given data type:
 
 ```python
-gazu.client.fecth_one("projects", "project-id")
+gazu.client.fetch_one("projects", "project-id")
 ```
 
 Get first entry of a given list:
@@ -52,20 +52,22 @@ events = gazu.client.get("data/events/last?page_size=100&only_files=true")
 
 You can use the `search` endpoint to perform full-text searches across indexed tables. By default, persons, assets and shots.
 
-```bash
+::: code-group
+```python [Python]
+gazu.search.search_entities("bird")
+```
+```bash [cURL]
 curl \
  --request POST 'http://api.example.com/data/search' \
  --header "Authorization: $API_KEY" \
  --header "Content-Type: application/json" \
  --data '{"query":"kitsu","project_id":"a24a6ea4-ce75-4665-a070-57453082c25","limit":3,"offset":0,"index_names":["assets"]}'
 ```
-```
-gazu.search.search_entities("bird")
-```
+:::
 
 Response example:
 
-```
+```json
 {
   "persons": [
     {
@@ -85,6 +87,7 @@ Response example:
 }
 ```
 
-<!--## Querying and Filtering Large Datasets
+## Next Steps
 
-TODO-->
+* Learn about [caching](/guides/caching)
+* Learn about [custom actions](/guides/custom-actions)

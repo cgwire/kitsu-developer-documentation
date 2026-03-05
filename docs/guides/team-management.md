@@ -133,3 +133,8 @@ gazu.project.remove_person_from_team(project, person)
 ```
 :::
 
+## Next Steps
+
+* Learn about [task tracking](/guides/task-tracking)
+* Learn about [publishing and reviews](/guides/publishing)
+

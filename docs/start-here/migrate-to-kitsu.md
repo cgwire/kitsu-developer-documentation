@@ -4,7 +4,7 @@ This guide provides a high-level overview for developers migrating an existing p
 
 Most tool migrations involve mapping an existing data schema (spreadsheets, in-house tools, or third-party trackers) to Kitsu's data model and importing data using the API or dashboard.
 
-For studio-specific assistance, [CGWire provides professional support for setup and migration: don't hesitate to reach out]((https://www.cg-wire.com/contact)).
+For studio-specific assistance, [CGWire provides professional support for setup and migration: don't hesitate to reach out](https://www.cg-wire.com/contact).
 
 ## 1. Core Concepts
 

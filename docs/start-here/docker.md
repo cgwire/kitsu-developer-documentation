@@ -75,10 +75,7 @@ volumes:
 * Save this in a file and name it `docker-compose.yml`.
 * Create the folder `zou-storage` in the same folder as the `docker-compose.yml`.
 * Open the terminal in the same folder.
-* Run `docker compose up-d`.
-* Done...... (Hopefully 🤞🤞)
-
-Please test if the data is persisting after reboot or recreation (only tested on Windows).
+* Run `docker compose up -d`.
 
 ## Next Steps
 

@@ -2,11 +2,29 @@
 
 # Welcome to the Kitsu Developer Documentation!
 
-Kitsu is an open-source platform built to help artists create, collaborate, and share their work. We’re proudly artists-first: we believe creative communities thrive when tools are transparent, flexible, and owned by the people who use them.
+Kitsu is an open-source production tracking platform built for animation, VFX, and game studios. It provides structured data models, real-time collaboration tools, and full API access so technical teams can automate workflows, build integrations, and extend the platform.
 
-To support that vision, Kitsu provides Python and REST APIs that give developers programmatic access to our core features to build integrations, custom tools, or extend the UI with Kitsu plugins.
+## Available APIs and SDKs
 
-## Next Steps
+| Tool | Description |
+|---|---|
+| [REST API (Zou)](https://api-docs.kitsu.cloud/) | Full HTTP API with OpenAPI documentation |
+| [Gazu (Python SDK)](/references/gazu) | High-level Python client for scripting and pipeline tools |
+| [Javascript SDK](https://github.com/cgwire/kitsu-client-js) | JS client for web applications and Node.js |
+| [CLI](/references/cli) | Command-line interface for server administration |
 
-- More about [why Kitsu is a must-have for animation and game studios](/start-here/why-kitsu).
-- [Start developing with the Kitsu API](/start-here/dev-quickstart)
+## Where to start
+
+**Setting up** -- Install Kitsu via [cloud hosting](/start-here/cloud-hosting), [Docker](/start-here/docker), or [self-hosting](/self-hosting/setup), then [create your first API client](/start-here/dev-quickstart).
+
+**Building integrations** -- Follow the guides to learn [authentication](/guides/authentication), [production setup](/guides/production-setup), [task tracking](/guides/task-tracking), [publishing and reviews](/guides/publishing), and [event listeners](/guides/event-listeners).
+
+**Extending Kitsu** -- Build [custom actions](/guides/custom-actions) for lightweight integrations, or develop full [Kitsu plugins](/kitsu-plugins/development) with backend routes and embedded UI.
+
+**Migrating** -- Moving from another tool? See the [migration guide](/start-here/migrate-to-kitsu).
+
+## Resources
+
+* [GitHub](https://github.com/cgwire) -- Source code for all Kitsu projects
+* [Blog](https://blog.cg-wire.com/) -- Tutorials and release notes
+* [CGWire](https://www.cg-wire.com/contact) -- Professional support and consulting

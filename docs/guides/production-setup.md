@@ -38,7 +38,7 @@ The next step is defining what is being produced and how work is organized.
 
 ### Defining Shot Structure
 
-A production / project is organized hierarchically into episodes (optional, for episodic productions), sequences (series of shots), and shots ().
+A production / project is organized hierarchically into episodes (optional, for episodic productions), sequences (series of shots), and shots.
 
 Create episodes and sequences:
 
@@ -219,7 +219,7 @@ gazu.asset.new_asset(
 
 ## 4. Managing your production list
 
-## Get a project
+### Get a project
 
 ::: code-group
 ```python [Python]
@@ -228,7 +228,7 @@ project = gazu.project.get_project_by_name(name="Agent 327")
 ```
 :::
 
-## List all projects
+### List all projects
 
 ::: code-group
 ```python [Python]
@@ -236,7 +236,7 @@ projects = gazu.project.all_projects()
 ```
 :::
 
-## List all active projects
+### List all active projects
 
 ::: code-group
 ```python [Python]

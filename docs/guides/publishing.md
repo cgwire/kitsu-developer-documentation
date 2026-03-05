@@ -16,8 +16,7 @@ The API enables teams to manage review playlists, track versions, and facilitate
 
 Notes can be attached to tasks to provide targeted feedback.
 
-::: code-group
-```python [Python]
+```python
 gazu.task.add_comment(
     task,
     task_status,
@@ -29,24 +28,19 @@ gazu.task.add_comment(
     links=[]
 )
 ```
-```bash [cURL]
-
-```
-:::
 
 Attachments can be set at this stage by adding file paths as a list in the
 `attachments` argument.
 
 
-### Setting revisons linked to comments (publishing)
+### Setting revisions linked to comments (publishing)
 
 Files can be added to comments to create previews and attachments.
 
 We assume you have already retrieved the related task and comment. To add a
 preview, you need to specify what you want to upload as a new preview:
 
-::: code-group
-```python [Python]
+```python
 preview_file = gazu.task.add_preview(
     task,
     comment,
@@ -55,18 +49,13 @@ preview_file = gazu.task.add_preview(
 gazu.task.set_main_preview(preview_file) #  Set preview as asset thumbnail
 
 ```
-```bash [cURL]
-
-```
-:::
 
 It creates a new preview entry that is linked to the comment posted (therefore
 to the related task and entity).
 
 Another alternative is to use the `publish` shortcut to post a comment and link a preview file to it:
 
-::: code-group
-```python [Python]
+```python
 (comment, preview_file) = gazu.task.publish_preview(
     task,
     wip,
@@ -75,10 +64,6 @@ Another alternative is to use the `publish` shortcut to post a comment and link 
 )
 
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Linking Comments to Statuses or Versions
 
@@ -87,8 +72,7 @@ Comments can result in a version change or task status update.
 To change the task status, you have to post a new comment with the desired status.
 Comments without text are allowed, too:
 
-::: code-group
-```python [Python]
+```python
 modeling = gazu.task.get_task_type_by_name("modeling")
 wip = gazu.task.get_task_status_by_short_name("wip")
 
@@ -99,38 +83,25 @@ task = gazu.task.get_task_by_entity(asset, modeling)
 comment = gazu.task.add_comment(task, wip, "Change status to work in progress")
 
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Fetching Version / Discussion History
 
 Retrieve all comments associated with an entity to display review history.
 
-::: code-group
-```python [Python]
+```python
 gazu.task.all_comments_for_project(project)
 
 gazu.task.all_comments_for_task(task)
 ```
-```bash [cURL]
-```
-:::
 
 
 ### Download a preview
 
-::: code-group
-```python [Python]
+```python
 gazu.files.download_preview_file(preview_file, "./target.mp4")
 
 gazu.files.download_preview_file_thumbnail(preview_file, "./target.png")
 ```
-```bash [cURL]
-
-```
-:::
 
 
 ## Managing Playlists
@@ -139,8 +110,7 @@ gazu.files.download_preview_file_thumbnail(preview_file, "./target.png")
 
 Create a new playlist for organizing previews and versions for review:
 
-::: code-group
-```python [Python]
+```python
 project = gazu.project.get_project_by_name("Caminandes")
 
 playlist = gazu.playlist.new_playlist(
@@ -150,15 +120,10 @@ playlist = gazu.playlist.new_playlist(
     for_entity="shot"
 )
 ```
-:::
-
-
-
 
 ### Adding assets and shots to playlists
 
-::: code-group
-```python [Python]
+```python
 gazu.playlist.add_entity_to_playlist(
     playlist,
     entity,
@@ -166,7 +131,3 @@ gazu.playlist.add_entity_to_playlist(
     persist=True
 )
 ```
-```bash [cURL]
-
-```
-:::

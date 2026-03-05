@@ -15,21 +15,21 @@ import { data } from './gazu-spec.data.js'
 
 <template v-for="fn in functions" :key="fn.name">
 
-<h3 :id="fn.name">{{ fn.name }}</h3>
+<h3>
+<strong :id="fn.name" class="signature-block"><code class="language-python">{{ fn.signature }}</code></strong>
 
-<pre class="signature-block"><code class="language-python">{{ fn.signature }}</code></pre>
+</h3>
 
-#### Description
 <p v-if="fn.description">
   {{ fn.description }}
 </p>
 
-#### Parameters
 <div v-if="Object.keys(fn.inputs).length">
   <table>
     <thead>
       <tr>
         <th>Name</th>
+        <th>Type</th>
         <th>Default</th>
         <th>Description</th>
       </tr>
@@ -37,6 +37,7 @@ import { data } from './gazu-spec.data.js'
     <tbody>
       <tr v-for="(param, key) in fn.inputs" :key="key">
         <td><code>{{ key }}</code></td>
+        <td>{{ param.type }}</td>
         <td>
           <span v-if="param.default !== null && param.default !== undefined">
             {{ param.default }}
@@ -52,13 +53,14 @@ import { data } from './gazu-spec.data.js'
   </table>
 </div>
 
-#### Results
 <div v-if="fn.outputs && (fn.outputs.annotation || fn.outputs.description)">
-  <p><strong>Type:</strong> {{ fn.outputs.annotation || 'Unknown' }}</p>
   <p v-if="fn.outputs.description">
+    <strong>Returns:</strong>
+    ({{ fn.outputs.annotation || 'Unknown' }})
     {{ fn.outputs.description }}
   </p>
 </div>
+<hr />
 
 </template>
 

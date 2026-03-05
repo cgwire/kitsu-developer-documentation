@@ -11,23 +11,19 @@ The API allows developers to read, edit, and automate production schedules using
 Task types define the production steps (e.g. Animation, Lighting, Compositing).
 
 
-::: code-group
-```python [Python]
+```python
 gazu.task.new_task_type("Modeling")
 ```
-:::
 
 ### Creating Task Statuses
 
 Task statuses define the different states a task can be in (e.g. To Do, WIP, Done).
 
-::: code-group
-```python [Python]
+```python
 # Create a new task status
 wip = gazu.task.new_task_status("WIP", color="blue")
 done = gazu.task.new_task_status("Done", color="green")
 ```
-:::
 
 
 ### Creating Tasks for Assets and Shots
@@ -36,25 +32,18 @@ Tasks can be generated automatically when new assets or shots are created.
 
 Create a new task for a given asset:
 
-::: code-group
-```python [Python]
+```python
 task = gazu.task.new_task(asset, task_type)
 task = gazu.task.new_task(asset, task_type, task_status=wip)
 task = gazu.task.new_task(asset, task_type, assignees=[person_dict])
-
 ```
-```bash [cURL]
-
-```
-:::
 
 
 ### Finding tasks
 
 Retrieve all tasks related to a given asset, shot, or sequence:
 
-::: code-group
-```python [Python]
+```python
 tasks = gazu.task.all_tasks_for_asset(asset_dict)
 tasks = gazu.task.all_tasks_for_shot(shot_dict)
 tasks = gazu.task.all_tasks_for_scene(scene_dict)
@@ -66,103 +55,64 @@ tasks = gazu.task.all_tasks_for_task_status(
     task_status_dict
 )
 ```
-```bash [cURL]
-
-```
-:::
 
 Retrieve all task types or task types for shot or sequence:
 
-::: code-group
-```python [Python]
+```python
 task_types = gazu.task.all_task_types()
-task_types = gazu.task.all_task_types_for_shot(asset)
+task_types = gazu.task.all_task_types_for_asset(asset)
 task_types = gazu.task.all_task_types_for_shot(shot)
 task_types = gazu.task.all_task_types_for_scene(scene)
 task_types = gazu.task.all_task_types_for_sequence(sequence)
 ```
-```bash [cURL]
-
-```
-:::
 
 Retrieve a given task:
 
-::: code-group
-```python [Python]
+```python
 task = gazu.task.get_task_by_entity(asset, task_type)
 
 ```
-```bash [cURL]
-
-```
-:::
 
 Retrieve a given task type:
 
-::: code-group
-```python [Python]
+```python
 task_type = gazu.task.get_task_type(task_status_id)
 task_type = gazu.task.get_task_type_by_name(task_type_name)
 
 ```
-```bash [cURL]
-
-```
-:::
 
 Retrieve a given task status:
 
-::: code-group
-```python [Python]
+```python
 task_status = gazu.task.get_task_status(task_status_id)
 task_status = gazu.task.get_task_status_by_name(task_status_name)
 
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Assigning Tasks to Users or Teams
 
 Tasks can be assigned to individuals or whole teams.
 
-::: code-group
-```python [Python]
+```python
 gazu.task.assign_task(task, person)
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Updating Task Statuses
 
 Task statuses reflect production progress and drive dashboards and reports.
 
-::: code-group
-```python [Python]
+```python
 task = gazu.task.get_task(task_id)
 gazu.task.add_comment(task, wip)
 
 ```
-```bash [cURL]
-
-```
-:::
 
 Set a given task status as work in progress (shortcut):
 
-::: code-group
-```python [Python]
+```python
 gazu.task.start_task(task_dict)
 
 ```
-```bash [cURL]
-
-```
-:::
 
 ## Reading User Workloads
 
@@ -170,15 +120,10 @@ gazu.task.start_task(task_dict)
 
 Developers can retrieve the current user’s assigned tasks to build dashboards or personal tools.
 
-::: code-group
-```python [Python]
+```python
 tasks = gazu.user.all_tasks_to_do()
 
 ```
-```bash [cURL]
-
-```
-:::
 
 ## Tracking Time Spents
 
@@ -190,24 +135,18 @@ Each time spent includes a duration, date, related task, and the person who logg
 
 Add and get time spent:
 
-::: code-group
-```python [Python]
+```python
 time_spent = gazu.task.get_time_spent(task_dict, "2018-03-18")
 time_spent = gazu.task.set_time_spent(task_dict, person_dict, "2018-03-18", 8 * 3600)
 time_spent = gazu.task.add_time_spent(task_dict, person_dict, "2018-03-18", 3600)
 
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Tracking Task Progress and Completion
 
 Progress can be inferred from task status, time spents, or both.
 
-::: code-group
-```python [Python]
+```python
 completed_tasks = [
     task
     for task in gazu.task.all_tasks()
@@ -215,10 +154,6 @@ completed_tasks = [
 ]
 
 ```
-```bash [cURL]
-
-```
-:::
 
 ## Reading Schedules from Kitsu Data
 
@@ -226,38 +161,32 @@ completed_tasks = [
 
 Developers can define or adjust task schedules to reflect production planning changes.
 
-::: code-group
-```python [Python]
+```python
 task = gazu.task.get_task(task_id)
+task["start_date"] = "2024-03-01"
+task["due_date"] = "2024-03-15"
 gazu.task.update_task(task)
 
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Managing Task Estimates
 
 Task estimates can be used to calculate workload, predict delivery dates, and compare planned vs. actual effort.
 
-::: code-group
-```python [Python]
-gazu.task.add_time_spent()
-gazu.task.get_time_spent()
+```python
+task = gazu.task.get_task(task_id)
+task["estimation"] = 5 * 8 * 3600  # 5 days in seconds
+gazu.task.update_task(task)
+
+time_spent = gazu.task.get_time_spent(task, "2024-03-18")
 
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Updating Task Priorities
 
 Priorities help surface critical work in projects and can be adjusted dynamically as schedules shift.
 
-::: code-group
-```bash [cURL]
+```bash
 curl -X POST "http://api.example.com/data/task-type-links" \
   -H "Authorization: Bearer YOUR_API_TOKEN" \
   -H "Accept: application/json" \
@@ -267,18 +196,13 @@ curl -X POST "http://api.example.com/data/task-type-links" \
     "task_type_id": "b24a6ea4-ce75-4665-a070-57453082c25",
     "priority": 1
   }'
-
 ```
-```python [Python]
-```
-:::
 
 ### Reading Production Timelines
 
 Developers can aggregate task dates across assets, shots, sequences, or episodes to build timelines or Gantt charts.
 
-::: code-group
-```python [Python]
+```python
 tasks = gazu.task.all_tasks_for_shot(shot_id)
 
 timeline = [
@@ -291,69 +215,35 @@ timeline = [
 ]
 
 ```
-```bash [cURL]
-
-```
-:::
 
 ### Detecting Schedule Risks Programmatically
 
 Schedule risks can be detected by comparing due dates, estimates, and time spent.
 
-::: code-group
-```python [Python]
-Task {
-  "type": "object",
-  "properties": {
-    "priority": {
-      "type": "integer",
-      "default": "0",
-      "description": "Priority of task"
-    },
-    "duration": {
-      "type": "float",
-      "default": "0",
-      "description": "Duration of task"
-    },
-    "estimation": {
-      "type": "float",
-      "default": "0",
-      "description": "Estimation of duration of task"
-    },
-    "completion_rate": {
-      "type": "integer",
-      "default": "0",
-      "description": "Completion rate of task"
-    },
-    "retake_count": {
-      "type": "integer",
-      "default": "0",
-      "description": "Retake count of task"
-    },
-    "start_date": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "due_date": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "real_start_date": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "end_date": {
-      "type": "string",
-      "format": "date-time"
-    },
-    "last_comment_date": {
-      "type": "string",
-      "format": "date-time"
-    },
-  }
-}
-```
-```bash [cURL]
+```python
+from datetime import datetime
 
+tasks = gazu.task.all_tasks_for_project(project)
+
+at_risk = []
+for task in tasks:
+    if task["due_date"] and task["task_status"]["short_name"] != "done":
+        due = datetime.fromisoformat(task["due_date"])
+        if due < datetime.now():
+            at_risk.append(task)
 ```
-:::
+
+Tasks expose the following schedule-related fields:
+
+| Field | Type | Description |
+|---|---|---|
+| `priority` | integer | Priority of task (default: 0) |
+| `duration` | float | Duration of task |
+| `estimation` | float | Estimated duration of task |
+| `completion_rate` | integer | Completion rate of task |
+| `retake_count` | integer | Retake count of task |
+| `start_date` | date-time | Planned start date |
+| `due_date` | date-time | Planned due date |
+| `real_start_date` | date-time | Actual start date |
+| `end_date` | date-time | Actual end date |
+| `last_comment_date` | date-time | Date of last comment |
