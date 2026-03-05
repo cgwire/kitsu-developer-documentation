@@ -84,6 +84,12 @@ export default {
                 link: "/guides/caching",
               },
               { text: "Custom Actions", link: "/guides/custom-actions" },
+              {
+                text: "Session Management",
+                link: "/guides/session-management",
+              },
+              { text: "Async Client", link: "/guides/async" },
+              { text: "Logging", link: "/guides/logging" },
             ],
           },
           {
