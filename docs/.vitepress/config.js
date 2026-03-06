@@ -105,6 +105,10 @@ export default {
                 link: "/recipes/make-your-plugin",
               },
               {
+                text: "Progress Callbacks",
+                link: "/recipes/progress-callbacks",
+              },
+              {
                 text: "File Management",
                 link: "/recipes/file-management",
               },
