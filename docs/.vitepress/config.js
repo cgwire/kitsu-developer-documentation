@@ -248,6 +248,7 @@ export default {
                 text: "Javascript SDK",
                 link: "https://github.com/cgwire/kitsu-client-js",
               },
+              { text: "Data Models", link: "/references/data-models" },
               { text: "CLI", link: "/references/cli" },
             ],
           },
