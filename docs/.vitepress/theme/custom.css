@@ -228,3 +228,8 @@
     white-space: pre-wrap;
     word-break: break-word;
 }
+
+.param-name,
+.param-type {
+    width: 160px;
+}

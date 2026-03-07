@@ -1,16 +1,22 @@
-function buildSignature(name, params) {
-  if (!params) return `${name}()`;
-
-  const entries = Object.entries(params).filter(([key]) => key !== "client");
-
-  const args = entries.map(([key, param]) => {
-    if (param.default !== null && param.default !== undefined) {
-      return `${key}=${param.default}`;
-    }
-    return key;
-  });
-
-  return `${name}(${args.join(", ")})`;
+function cleanSignature(name, raw) {
+  let sig = raw;
+  // Remove return type annotation
+  sig = sig.replace(/\)\s*->.*$/, ")");
+  // Remove client parameter (with or without default)
+  sig = sig.replace(/,?\s*client:\s*'[^']*'\s*=\s*<[^>]*>/, "");
+  sig = sig.replace(/,?\s*client\s*=\s*<[^>]*>/, "");
+  sig = sig.replace(/,?\s*client\s*=\s*None/, "");
+  sig = sig.replace(/\(\s*,/, "(");
+  // Replace args/kwargs with *args/**kwargs (only when not already prefixed)
+  sig = sig.replace(/(?<!\*)\bkwargs\b/g, "**kwargs");
+  sig = sig.replace(/(?<!\*)\bargs\b/g, "*args");
+  // Remove type annotations from parameters
+  sig = sig.replace(/:\s*'[^']*'/g, "");
+  // Replace object defaults with None
+  sig = sig.replace(/<[^>]*>/g, "None");
+  // Clean up extra spaces
+  sig = sig.replace(/\(\s+/g, "(").replace(/\s+\)/g, ")");
+  return name + sig;
 }
 
 function removeClientParam(params) {
@@ -45,7 +51,7 @@ export default {
 
       const fn = {
         name,
-        signature: buildSignature(name, inputs),
+        signature: cleanSignature(name, def.signature),
         description: def.description,
         inputs,
         outputs: def.output_params,
