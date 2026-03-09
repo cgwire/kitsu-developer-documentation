@@ -1,23 +1,55 @@
 # Cloud Hosting
 
-Cloud hosting is the fastest and cheapest way to get started with Kitsu and maintain your instance throughout your studio's lifetime.
+Kitsu is a web application that requires a server to run. You can either host
+it yourself or let CGWire handle it for you. Cloud hosting is the fastest way
+to get Kitsu up and running: CGWire handles upgrades, backups, security
+patches, and scaling so your team can focus on production.
 
-## 1. Sign up for a demo
+## Why cloud?
 
-The fastest way to get started with Kitsu is to [sign up for a demo](https://account.cg-wire.com/signup).
+| | Cloud | Self-hosted |
+|---|---|---|
+| Setup time | Minutes | Hours to days |
+| Maintenance | Managed by CGWire | Your team |
+| Upgrades | Automatic, zero downtime | Manual |
+| Backups | Daily, automated | Your responsibility |
+| Support | Direct from CGWire | Community |
 
-Alternatively, if you don't need a production-ready environment, you can [have a look at the Docker installation](/start-here/docker) for a quick development setup.
+## Get started
 
-## 2. Build With The Kitsu API
+1. **[Sign up for a free trial](https://account.cg-wire.com/signup)** --
+   your instance is ready in minutes.
+2. **Connect your tools** -- use the API URL provided in your dashboard with
+   the [Python SDK](/start-here/dev-quickstart) or
+   [REST API](https://api-docs.kitsu.cloud/) to start building right away.
+   No server setup, no configuration.
 
-If your version of Kitsu is hosted and maintained by CGWire, you don't have anything to install. Simply connect to the API URL through [an API client](/start-here/dev-quickstart) to start using Kitsu.
+```python
+import gazu
 
-## Next Steps
+gazu.set_host("https://my-studio.kitsu.cloud/api")
+gazu.log_in("me@studio.com", "password")
 
-* Learn about [creating an API client](/start-here/dev-quickstart)
-* Learn about [alternative authentication strategies](/guides/authentication)
-* Learn to [setup a new production](/guides/production-setup)
+projects = gazu.project.all_open_projects()
+```
+
+## What's included
+
+- **Automatic updates** -- always on the latest Kitsu version
+- **Daily backups** with point-in-time recovery
+- **SSL/TLS encryption** on all connections
+- **Preview storage** -- images, videos, and 3D files served from a CDN
+- **Priority support** from the CGWire team
+
+## Next steps
+
+* [Developer quickstart](/start-here/dev-quickstart) -- connect to the API in
+  5 minutes
+* [Authentication](/guides/authentication) -- API keys, tokens, and SSO
+* [Setting up a production](/guides/production-setup) -- create your first
+  project
 
 ::: info
-For self-hosting, [please refer to the corresponding in-depth guide](/self-hosting/vs-cloud-hosting).
+Want to run Kitsu on your own infrastructure instead? See the
+[self-hosting guide](/self-hosting/vs-cloud-hosting).
 :::
