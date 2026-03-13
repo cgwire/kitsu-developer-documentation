@@ -4,6 +4,23 @@ All API endpoints require a JSON Web Token for authentication.
 
 You can either use regular email authentication to trade against a JSON Web Token or directly use a bot token.
 
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant A as API
+    participant D as Database
+    participant R as Redis
+    
+    C->>A: POST /auth/login {email, password}
+    A->>D: Find user by email
+    D-->>A: User data
+    A->>A: Verify password hash
+    A->>A: Generate JWT tokens
+    A->>R: Store session info
+    A-->>C: Set-Cookie (access + refresh tokens)
+    A-->>C: {user, access_token}
+```
+
 ## User Authentication
 
 Log in using a Kitsu user account via the email:

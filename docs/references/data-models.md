@@ -4,6 +4,22 @@ Every entity returned by the Kitsu API (or the Gazu Python client) is a
 dictionary. This page lists all available fields for each model. Every dict
 includes `id` (string), `created_at`, and `updated_at` (ISO 8601 timestamps).
 
+```mermaid
+graph TD
+    O[Organisation] --> P[Project]
+    P --> E[Episode]
+    E --> SEQ[Sequence]
+    SEQ --> S[Shot]
+    P --> AT[AssetType]
+    AT --> A[Asset]
+    P --> C[Concept]
+    A --> T[Task]
+    S --> T
+    C --> T
+    T --> CM[Comment]
+    T --> PF[PreviewFile]
+```
+
 ## Project
 
 ### Project
@@ -681,4 +697,3 @@ A specific instance of an asset placed in a shot or scene.
 | `frontend_project_enabled` | bool | `false` |
 | `frontend_studio_enabled` | bool | `false` |
 | `icon` | string | |
-

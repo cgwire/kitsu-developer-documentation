@@ -14,5 +14,8 @@
     "vitepress": "^2.0.0-alpha.16",
     "vue": "^3.5.13",
     "wrangler": "^4.61.1"
+  },
+  "dependencies": {
+    "mermaid": "^11.13.0"
   }
 }

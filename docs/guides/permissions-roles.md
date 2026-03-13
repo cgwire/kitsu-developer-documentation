@@ -6,6 +6,26 @@ Only a given subset of roles is available in Kitsu. Each of them has a fixed
 naming in the database but may be displayed in different ways in the Kitsu UI.
 You will find below the list of all the roles you can set on Kitsu users.
 
+### Role Definitions
+
+| Role | Code | Description | Typical Users |
+|------|------|-------------|---------------|
+| **Admin** | `admin` | Studio Manager | IT, Studio heads |
+| **Manager** | `manager` | Production Manager | Producers, coordinators |
+| **Supervisor** | `supervisor` | Department Lead | CG supervisors, leads |
+| **User** | `user` | Artist | Modelers, animators, etc. |
+| **Client** | `client` | External Reviewer | Clients, directors |
+| **Vendor** | `vendor` | External Studio | Outsourcing partners |
+
+```mermaid
+graph TD
+    ADMIN[Admin] --> MANAGER[Manager]
+    MANAGER --> SUPERVISOR[Supervisor]
+    SUPERVISOR --> USER[User/Artist]
+    USER --> CLIENT[Client]
+    USER --> VENDOR[Vendor]
+```
+
 `user`, **Artist** - Artists can only access the productions they are part of. They can comment on tasks, upload media, and change statuses only on tasks that have been assigned to them. Their access is limited to a predefined set of statuses as determined by the Studio Manager.
 
 ::: details Artist Permissions

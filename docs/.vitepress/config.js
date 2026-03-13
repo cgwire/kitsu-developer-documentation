@@ -1,3 +1,5 @@
+import MermaidExample from "./mermaid-markdown-all.js";
+
 const spec = await fetch(
   "https://github.com/cgwire/gazu/releases/download/spec-latest/gazu-specs.json",
 ).then((res) => res.json());
@@ -25,6 +27,17 @@ modules = [...modules].map((m) => ({
   link: `/references/gazu#${m}`,
 }));
 
+const allMarkdownTransformers = {
+  theme: {
+    light: "github-light",
+    dark: "github-dark",
+  },
+
+  config: (md) => {
+    MermaidExample(md);
+  },
+};
+
 export default {
   lang: "en-US",
   title: "Kitsu Developer",
@@ -33,6 +46,7 @@ export default {
     "Kitsu provides a public API that gives developers programmatic access to our core features to build integrations, custom tools, or extend the UI with Kitsu plugins.",
   ignoreDeadLinks: true,
   // appearance: false,
+  markdown: allMarkdownTransformers,
   themeConfig: {
     logo: "/kitsu.png",
     outline: "deep",
