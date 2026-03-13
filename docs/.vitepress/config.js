@@ -68,6 +68,10 @@ export default {
                 link: "/start-here/dev-quickstart",
               },
               {
+                text: "Getting Started for Agents",
+                link: "/start-here/agent-quickstart",
+              },
+              {
                 text: "Migrate to Kitsu",
                 link: "/start-here/migrate-to-kitsu",
               },
