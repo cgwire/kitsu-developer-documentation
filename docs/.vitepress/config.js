@@ -68,7 +68,7 @@ export default {
                 link: "/start-here/dev-quickstart",
               },
               {
-                text: "Getting Started for Agents",
+                text: "AI Agent Quickstart",
                 link: "/start-here/agent-quickstart",
               },
               {

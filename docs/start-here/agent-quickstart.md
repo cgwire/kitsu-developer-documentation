@@ -1,4 +1,4 @@
-# Getting Started for Agents
+# AI Agent Quickstart
 
 This page is for AI agents (LLM-based tools, copilots, automation frameworks)
 that interact with the Kitsu API. It serves as a map to the rest of this
