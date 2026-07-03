@@ -75,6 +75,12 @@ See [OIDC SSO](/self-hosting/openid-connect-sso) for the full setup guide.
   environments. We encourage you to set an absolute path when you use it in
   production.
 * `REMOVE_FILES` (default: "False"): Delete files when deleting comments and revisions
+* `MAX_IMAGE_PIXELS` (default: "400000000"): Maximum number of pixels an
+  uploaded image may decode to before Pillow rejects it. This guards against
+  decompression bombs (a tiny file declaring huge dimensions) that would
+  otherwise exhaust worker memory. The default (20000×20000) is kept high so
+  legitimate large plates are accepted; lower it on memory-constrained
+  deployments.
 
 ## Users
 
