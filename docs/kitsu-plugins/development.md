@@ -54,7 +54,7 @@ my_plugin/
 ├── __init__.py          # Routes and lifecycle hooks
 ├── manifest.toml        # Plugin metadata
 ├── models.py            # SQLAlchemy models
-├── resources.py         # Flask-RESTful API endpoints
+├── resources.py         # Flask MethodView API endpoints
 ├── services.py          # Business logic (optional)
 ├── frontend/            # Vue 3 or Nuxt frontend (optional)
 │   ├── package.json
@@ -97,7 +97,7 @@ frontend_studio_enabled = true          # Show in studio context
 
 ### `__init__.py`
 
-Routes are defined as a list of `(path, Resource)` tuples. Paths are
+Routes are defined as a list of `(path, resource class)` tuples. Paths are
 relative — Zou automatically prefixes them with `/api/plugins/<plugin_id>/`.
 
 Four optional lifecycle hooks are called during install/uninstall:
@@ -196,7 +196,7 @@ your plugin's `migrations/versions/` directory.
 
 ### `resources.py`
 
-Define Flask-RESTful resources for your API endpoints.
+Define Flask MethodView resources for your API endpoints.
 
 - Use `@jwt_required()` on every endpoint for authentication
 - Use `permissions.check_admin_permissions()` for admin-only endpoints
@@ -205,7 +205,7 @@ Define Flask-RESTful resources for your API endpoints.
 
 ```python
 from flask import request
-from flask_restful import Resource
+from flask.views import MethodView
 from flask_jwt_extended import jwt_required
 from zou.app.mixin import ArgsMixin
 from zou.app.utils import permissions
@@ -213,7 +213,7 @@ from zou.app.utils import permissions
 from .models import Ticket
 
 
-class TicketsResource(Resource, ArgsMixin):
+class TicketsResource(MethodView, ArgsMixin):
 
     @jwt_required()
     def get(self):
@@ -232,7 +232,7 @@ class TicketsResource(Resource, ArgsMixin):
         return ticket.present(), 201
 
 
-class TicketResource(Resource, ArgsMixin):
+class TicketResource(MethodView, ArgsMixin):
 
     @jwt_required()
     def get(self, ticket_id):

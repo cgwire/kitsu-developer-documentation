@@ -181,7 +181,7 @@ python zou/cli.py migrate-plugin-db --path ./plugins/my-plugin
 
 ## 4. Define Routes and Hooks (`__init__.py`)
 
-Routes are defined as a list of `(path, Resource)` tuples. Paths are
+Routes are defined as a list of `(path, resource class)` tuples. Paths are
 relative — Zou automatically prefixes them with `/api/plugins/<plugin_id>/`.
 
 ```python
@@ -209,7 +209,7 @@ def post_uninstall(manifest):
 
 ## 5. Register API Routes
 
-Define Flask-RESTful resources in `resources.py`.
+Define Flask MethodView resources in `resources.py`.
 
 ### Authentication and Permissions
 
@@ -222,7 +222,7 @@ Define Flask-RESTful resources in `resources.py`.
 
 ```python
 from flask import request
-from flask_restful import Resource
+from flask.views import MethodView
 from flask_jwt_extended import jwt_required
 from zou.app.mixin import ArgsMixin
 from zou.app.services import persons_service
@@ -231,7 +231,7 @@ from zou.app.utils import permissions
 from .models import Ticket
 
 
-class TicketsResource(Resource, ArgsMixin):
+class TicketsResource(MethodView, ArgsMixin):
 
     @jwt_required()
     def get(self):
@@ -255,7 +255,7 @@ class TicketsResource(Resource, ArgsMixin):
         return ticket.present(), 201
 
 
-class TicketResource(Resource, ArgsMixin):
+class TicketResource(MethodView, ArgsMixin):
 
     @jwt_required()
     def get(self, ticket_id):
