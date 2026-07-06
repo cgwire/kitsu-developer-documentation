@@ -44,6 +44,8 @@ setup guide.
 * `SAML_ENABLED` (default: "False"): Set to True to enable SAML SSO.
 * `SAML_IDP_NAME` (default: ""): Display name shown on the SAML login button.
 * `SAML_METADATA_URL` (default: ""): Identity provider SAML metadata URL.
+* `SAML_SKIP_2FA` (default: "False"): When True, SAML sessions skip Kitsu's 2FA
+  setup gate. When False, `ENFORCE_2FA` applies as usual.
 
 ### OIDC SSO
 
