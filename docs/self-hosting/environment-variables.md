@@ -81,6 +81,10 @@ See [OIDC SSO](/self-hosting/openid-connect-sso) for the full setup guide.
   otherwise exhaust worker memory. The default (20000×20000) is kept high so
   legitimate large plates are accepted; lower it on memory-constrained
   deployments.
+* `MAX_CONTENT_LENGTH` (default: "10737418240", 10 GiB): Maximum size in bytes
+  of any request body, uploads included. Requests above the limit are rejected
+  with a 413 error. The default is generous so multi-GB movie uploads keep
+  working; set it to 0 to disable the limit entirely.
 
 ## Users
 
