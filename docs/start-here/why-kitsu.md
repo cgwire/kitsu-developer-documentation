@@ -1,3 +1,7 @@
+<script setup>
+import CTAButton from '../.vitepress/theme/CTAButton.vue'
+</script>
+
 # Why Kitsu
 
 Production pipelines need tools that are reliable, flexible, and built for the specific demands of animation, VFX, and game production. Generic project management software lacks the structure studios depend on: shot and asset tracking, review workflows, DCC integrations, and API-driven automation. Kitsu was created to fill that gap as an open-source platform that studios can own, extend, and rely on for the long term.
@@ -34,3 +38,5 @@ Kitsu is developed by [CGWire](https://www.cg-wire.com/) and shaped by feedback 
 
 * Learn about [Cloud Hosting](/start-here/cloud-hosting)
 * Learn about [Self-Hosting](/self-hosting/vs-cloud-hosting)
+
+<CTAButton/>

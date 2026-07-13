@@ -1,3 +1,7 @@
+<script setup>
+import CTAButton from '../.vitepress/theme/CTAButton.vue'
+</script>
+
 # Developer Quickstart
 
 ## 1. Kitsu API Server Installation
@@ -7,6 +11,8 @@ There are three options to install a Kitsu API server:
 1. [Cloud hosting](/start-here/cloud-hosting) - if you want to let the CGWire team handle server and app management for you.
 1. [Self-hosting](/self-hosting/vs-cloud-hosting) - if you have a sysops team to manage your servers.
 1. [Docker](/start-here/docker) - to set up a local dev environment for testing.
+
+<CTAButton/>
 
 ## 2. Setting up the API client
 

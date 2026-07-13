@@ -1,3 +1,7 @@
+<script setup>
+import CTAButton from '../.vitepress/theme/CTAButton.vue'
+</script>
+
 # Self-hosting vs Cloud Hosting
 
 Choosing how to host Kitsu has a direct impact on setup time, operational overhead, scalability, and long-term flexibility. This page outlines the key differences between cloud-hosted Kitsu and self-hosted Kitsu to help animation studios decide which approach best fits their needs.
@@ -8,6 +12,8 @@ Both options provide the same core features, but differ significantly in how muc
 * **Self-hosting** prioritizes hardware customization.
 
 Alternatively, you can also [consider on-premise cloud hosting](https://www.cg-wire.com/pricing) to get the best of both worlds. 
+
+<CTAButton/>
 
 ## Deployment & Setup
 
@@ -240,4 +246,6 @@ Provides maximum portability.
 | **Portability**                | Simple migration within supported paths                          | Maximum portability across environments                 |
 | **Support**                    | Priority support included                                        | No official support if conflicts occur                  |
 
-### Choose [On-Premise Cloud Hosting](https://www.cg-wire.com/pricing) if you want the best of both
+### Choose [On-Premise Cloud Hosting](https://www.cg-wire.com/pricing) if you want the best of both worlds.
+
+<CTAButton/>

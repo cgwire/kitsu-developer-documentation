@@ -1,3 +1,7 @@
+<script setup>
+import CTAButton from '../.vitepress/theme/CTAButton.vue'
+</script>
+
 # Cloud Hosting
 
 Kitsu is a web application that requires a server to run. You can either host
@@ -32,6 +36,8 @@ gazu.log_in("me@studio.com", "password")
 
 projects = gazu.project.all_open_projects()
 ```
+
+<CTAButton/>
 
 ## What's included
 

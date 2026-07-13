@@ -1,3 +1,7 @@
+<script setup>
+import CTAButton from '../.vitepress/theme/CTAButton.vue'
+</script>
+
 # Migrate To Kitsu
 
 This guide provides a high-level overview for developers migrating an existing production tracking system to **Kitsu**, CGWire's open-source production management platform for animation, VFX, and games.
@@ -85,3 +89,5 @@ Every studio pipeline is unique. CGWire provides professional services to assist
 * Minimizing production downtime during transition
 
 [Contact the CGWire team for setup and migration assistance!](https://www.cg-wire.com/contact)
+
+<CTAButton/>
