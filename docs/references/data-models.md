@@ -430,6 +430,8 @@ A specific instance of an asset placed in a shot or scene.
 | `preferred_two_factor_authentication` | string (`"totp"`, `"email_otp"`, `"fido"`) | |
 | `timezone` | string | |
 | `locale` | string | |
+| `use_12_hour_clock` | bool | `false` |
+| `display_date_format` | string (`"YYYY-MM-DD"`, `"DD/MM/YYYY"`, `"MM/DD/YYYY"`) | `"YYYY-MM-DD"` |
 | `data` | dict | |
 | `role` | string (`"user"`, `"admin"`, `"supervisor"`, `"manager"`, `"client"`, `"vendor"`) | `"user"` |
 | `position` | string (`"supervisor"`, `"lead"`, `"artist"`) | `"artist"` |
