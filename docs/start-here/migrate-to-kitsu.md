@@ -10,6 +10,8 @@ Most tool migrations involve mapping an existing data schema (spreadsheets, in-h
 
 For studio-specific assistance, [CGWire provides professional support for setup and migration: don't hesitate to reach out](https://www.cg-wire.com/contact).
 
+If you are coming from ShotGrid and wonder how to translate your `sg.find()` queries, see [Coming from ShotGrid](/start-here/coming-from-shotgrid).
+
 ## 1. Core Concepts
 
 Before migrating, you need to get familiar with Kitsu's data model:

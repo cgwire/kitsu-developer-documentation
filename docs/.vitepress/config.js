@@ -88,6 +88,10 @@ export default {
                 text: "Migrate to Kitsu",
                 link: "/start-here/migrate-to-kitsu",
               },
+              {
+                text: "Coming from ShotGrid",
+                link: "/start-here/coming-from-shotgrid",
+              },
             ],
           },
           {
