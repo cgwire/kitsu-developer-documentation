@@ -114,7 +114,7 @@ Each entry in `metadata_descriptors` has the shape:
 | `field_name` | string | Slugified key used in the entity `data` dict |
 | `entity_type` | string (`"Asset"`, `"Shot"`, `"Edit"`, `"Task"`, ...) | |
 | `task_type_id` | string (UUID) or `None` | Only set for `"Task"` descriptors: the task type the column is scoped to |
-| `data_type` | string (`"string"`, `"number"`, `"list"`, `"taglist"`, `"boolean"`, `"checklist"`) | |
+| `data_type` | string (`"string"`, `"number"`, `"list"`, `"taglist"`, `"boolean"`, `"checklist"`, `"date"`) | |
 | `choices` | list of strings | Empty for free-form types |
 | `for_client` | bool | Whether the field is exposed to clients |
 | `departments` | list of department IDs | |
@@ -573,7 +573,7 @@ A specific instance of an asset placed in a shot or scene.
 | `entity_type` | string | |
 | `task_type_id` | string (UUID) | `None`, set only when `entity_type` is `"Task"` |
 | `name` | string | |
-| `data_type` | string (`"string"`, `"number"`, `"list"`, `"taglist"`, `"boolean"`, `"checklist"`) | |
+| `data_type` | string (`"string"`, `"number"`, `"list"`, `"taglist"`, `"boolean"`, `"checklist"`, `"date"`) | |
 | `field_name` | string | |
 | `choices` | list of strings | |
 | `for_client` | bool | `false` |
