@@ -187,12 +187,42 @@ Most studios need to track data that goes beyond built-in fields. Kitsu supports
 gazu.project.add_metadata_descriptor(
     project,
     name,
-    entity_type="asset",
+    entity_type="Asset",
     data_type='string',
     choices=[],
     for_client=False,
     departments=[]
 )
+```
+:::
+
+Valid entity types are `"Asset"`, `"Shot"`, `"Edit"`, `"Episode"`,
+`"Sequence"`, `"Project"` and `"Task"`.
+
+### Task Metadata Descriptors
+
+Task descriptors are scoped to one task type of the project: pass the
+`task_type_id` argument (required for the `"Task"` entity type, forbidden for
+the others). The column then shows up on the task type page in Kitsu.
+
+::: code-group
+```python [Python]
+task_type = gazu.task.get_task_type_by_name("Compositing")
+gazu.project.add_metadata_descriptor(
+    project,
+    "Render layer",
+    entity_type="Task",
+    task_type_id=task_type["id"],
+)
+```
+:::
+
+Values live in the `data` dict of each task. Write them with the merge helper
+so other keys are preserved:
+
+::: code-group
+```python [Python]
+gazu.task.update_task_data(task, {"render_layer": "bg"})
 ```
 :::
 

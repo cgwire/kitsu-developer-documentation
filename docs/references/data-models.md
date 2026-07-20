@@ -112,7 +112,8 @@ Each entry in `metadata_descriptors` has the shape:
 |---|---|---|
 | `name` | string | Human-readable label |
 | `field_name` | string | Slugified key used in the entity `data` dict |
-| `entity_type` | string (`"Asset"`, `"Shot"`, `"Edit"`, ...) | |
+| `entity_type` | string (`"Asset"`, `"Shot"`, `"Edit"`, `"Task"`, ...) | |
+| `task_type_id` | string (UUID) or `None` | Only set for `"Task"` descriptors: the task type the column is scoped to |
 | `data_type` | string (`"string"`, `"number"`, `"list"`, `"taglist"`, `"boolean"`, `"checklist"`) | |
 | `choices` | list of strings | Empty for free-form types |
 | `for_client` | bool | Whether the field is exposed to clients |
@@ -570,6 +571,7 @@ A specific instance of an asset placed in a shot or scene.
 |---|---|---|
 | `project_id` | string (UUID) | |
 | `entity_type` | string | |
+| `task_type_id` | string (UUID) | `None`, set only when `entity_type` is `"Task"` |
 | `name` | string | |
 | `data_type` | string (`"string"`, `"number"`, `"list"`, `"taglist"`, `"boolean"`, `"checklist"`) | |
 | `field_name` | string | |
@@ -577,6 +579,11 @@ A specific instance of an asset placed in a shot or scene.
 | `for_client` | bool | `false` |
 | `position` | int | |
 | `departments` | list of department IDs | |
+
+Valid `entity_type` values are `"Asset"`, `"Shot"`, `"Edit"`, `"Episode"`,
+`"Sequence"`, `"Project"` and `"Task"`. A `"Task"` descriptor is scoped to one
+task type of the project through `task_type_id` (required at creation) and its
+values are stored in the `data` dict of the matching tasks.
 
 ## Schedule and budget
 

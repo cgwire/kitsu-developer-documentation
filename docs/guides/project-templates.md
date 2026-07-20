@@ -132,6 +132,15 @@ descriptors = [
         "for_client": True,
         "departments": [],
     },
+    {
+        "name": "Render layer",
+        "entity_type": "Task",
+        "task_type_id": task_type["id"],
+        "data_type": "string",
+        "choices": [],
+        "for_client": False,
+        "departments": [],
+    },
 ]
 
 gazu.project_template.set_project_template_metadata_descriptors(
@@ -141,7 +150,9 @@ gazu.project_template.set_project_template_metadata_descriptors(
 :::
 
 When the template is later applied to a project, each descriptor in the
-snapshot becomes a regular `MetadataDescriptor` row on that project.
+snapshot becomes a regular `MetadataDescriptor` row on that project. Task
+descriptors keep their `task_type_id`; a `"Task"` entry without a
+`task_type_id` is skipped at apply time.
 
 ## Creating a template from an existing project
 
