@@ -111,6 +111,9 @@ person = gazu.person.get_person_by_desktop_login("john.doe")
 
 ### Get team for a project
 
+Each member dict carries a `project_role` key: the role explicitly set for
+this production, or `None` when the person's global role applies.
+
 ::: code-group
 ```python [Python]
 team = gazu.project.get_team(project)
@@ -119,9 +122,26 @@ team = gazu.project.get_team(project)
 
 ### Add a person to the project team
 
+The optional `role` argument gives the person a different role on this
+production only (see [per-project roles](/guides/permissions-roles)).
+
 ::: code-group
 ```python [Python]
 gazu.project.add_person_to_team(project, person)
+
+gazu.project.add_person_to_team(project, person, role="supervisor")
+```
+:::
+
+### Set the role of a team member
+
+Pass `None` to restore inheritance of the person's global role.
+
+::: code-group
+```python [Python]
+gazu.project.update_team_member_role(project, person, "manager")
+
+gazu.project.update_team_member_role(project, person, None)
 ```
 :::
 

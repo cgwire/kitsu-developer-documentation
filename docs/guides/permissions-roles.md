@@ -187,6 +187,44 @@ curl -X PUT "http://api.example.com/data/persons/a24a6ea4-ce75-4665-a070-5745308
 ```
 :::
 
+## Per-project roles
+
+A person has one global role, but can be given a different role on a
+specific production: someone working as an artist on most projects can act
+as a supervisor on one of them. The project role only applies inside that
+production; the global role keeps applying everywhere else.
+
+Set the role when adding the person to the team, or change it later:
+
+::: code-group
+```python [Python]
+gazu.project.add_person_to_team(project, person, role="supervisor")
+
+gazu.project.update_team_member_role(project, person, "manager")
+
+# Back to the global role
+gazu.project.update_team_member_role(project, person, None)
+```
+```bash [cURL]
+curl -X PUT "http://api.example.com/data/projects/a24a6ea4-ce75-4665-a070-57453082c25/team/b35b7fb5-df86-5776-b181-68564193d36" \
+  -H "Authorization: Bearer YOUR_API_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"role": "supervisor"}'
+```
+:::
+
+Rules to know:
+
+* Assignable project roles: `user`, `supervisor`, `manager`, `client` and
+  `vendor`. `admin` stays a global-only role and is rejected with a 400.
+* A person without an explicit project role inherits their global role, and
+  keeps following it when the global role changes later.
+* Changing a project role requires manager rights on that project: a
+  per-project manager can manage the roles of their own production.
+* The team listing exposes the explicit role of each member under the
+  `project_role` key (`None` means the global role applies). The update
+  response returns the same value under a `role` key.
+
 ## Check a person's role
 
 ::: code-group
