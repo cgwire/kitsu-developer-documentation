@@ -66,6 +66,12 @@ returns the bare revision integer. It is the minimum number of digits a
 client should use when showing a revision (`0` = no padding, `3` turns
 revision `7` into `v007`).
 
+`team` stays a plain list of person IDs. The member dicts returned by
+`GET /data/projects/<project_id>/team` additionally carry a `project_role`
+key: the role explicitly set for this production, or `None` when the
+person's global `role` applies. See the
+[per-project roles section](/guides/permissions-roles#per-project-roles).
+
 ### ProjectStatus
 
 | Field | Type | Default |
@@ -435,6 +441,7 @@ A specific instance of an asset placed in a shot or scene.
 | `display_date_format` | string (`"YYYY-MM-DD"`, `"DD/MM/YYYY"`, `"MM/DD/YYYY"`) | `"YYYY-MM-DD"` |
 | `data` | dict | |
 | `role` | string (`"user"`, `"admin"`, `"supervisor"`, `"manager"`, `"client"`, `"vendor"`) | `"user"` |
+| `project_role` | string or `None`, only in team listings | `None` |
 | `position` | string (`"supervisor"`, `"lead"`, `"artist"`) | `"artist"` |
 | `seniority` | string (`"senior"`, `"mid"`, `"junior"`) | `"mid"` |
 | `daily_salary` | int | `0` |
