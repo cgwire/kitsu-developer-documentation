@@ -115,6 +115,7 @@ export default {
               { text: "Task tracking", link: "/guides/task-tracking" },
               { text: "Publishing", link: "/guides/publishing" },
               { text: "Asset Management", link: "/guides/asset-management" },
+              { text: "Casting", link: "/guides/casting" },
               { text: "Bot Automation", link: "/guides/bot-automation" },
               { text: "Event Listeners", link: "/guides/event-listeners" },
               { text: "Search", link: "/guides/search" },
