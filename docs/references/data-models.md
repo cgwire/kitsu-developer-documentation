@@ -183,6 +183,12 @@ in which shots).
 | `nb_occurences` | int | `1` |
 | `label` | string | `""` |
 
+Casting an asset in a shot also casts it in the parent episode. The episode
+link created that way carries `data: {"auto": true}` and is removed again once
+the asset is cast in none of the episode's shots. A link set from the episode
+side (no `auto` flag) is a decision of its own and only goes away when removed
+from the episode. See the [Casting](/guides/casting) guide.
+
 ### AssetInstance
 
 A specific instance of an asset placed in a shot or scene.
