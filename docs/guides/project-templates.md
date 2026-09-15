@@ -70,6 +70,17 @@ gazu.project_template.add_task_type_to_project_template(
 ```
 :::
 
+A task type link can carry its own movie bitrates in Mbit/s, applied to the
+projects created from the template:
+
+::: code-group
+```python [Python]
+gazu.project_template.add_task_type_to_project_template(
+    template, animation, hd_bitrate_compression=12, ld_bitrate_compression=3
+)
+```
+:::
+
 ### Attach task statuses
 
 ::: code-group
