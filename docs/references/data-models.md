@@ -72,6 +72,13 @@ key: the role explicitly set for this production, or `None` when the
 person's global `role` applies. See the
 [per-project roles section](/guides/permissions-roles#per-project-roles).
 
+`hd_bitrate_compression` and `ld_bitrate_compression` are the bitrates, in
+Mbit/s, of the high and low definition movies encoded for the project's
+previews. A task type linked to the project can override each of them: the
+project lists expose the links as `task_type_links`, a dict keyed by task type
+id with `priority`, `hd_bitrate_compression` and `ld_bitrate_compression`
+(null inherits the project value).
+
 ### ProjectStatus
 
 | Field | Type | Default |

@@ -188,6 +188,11 @@ It does **not** include:
 - the project status
 - any production data (tasks, entities, comments)
 
+Task type links are copied with their priority and their movie bitrates
+(`hd_bitrate_compression`, `ld_bitrate_compression`), so a template carries the
+encoding settings of the project it was extracted from and applies them to new
+projects.
+
 ## Applying a template
 
 There are two ways to apply a template to a project.

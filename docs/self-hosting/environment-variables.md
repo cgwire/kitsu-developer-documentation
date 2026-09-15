@@ -87,6 +87,18 @@ See [OIDC SSO](/self-hosting/openid-connect-sso) for the full setup guide.
   of any request body, uploads included. Requests above the limit are rejected
   with a 413 error. The default is generous so multi-GB movie uploads keep
   working; set it to 0 to disable the limit entirely.
+* `MOVIE_HIGHDEF_BITRATE` (default: "28") and `MOVIE_LOWDEF_BITRATE` (default:
+  "6"): Bitrates in Mbit/s of the high and low definition movies encoded for
+  previews, used when the project and its task type link do not set
+  `hd_bitrate_compression` / `ld_bitrate_compression`.
+* `MOVIE_VBV_BUFSIZE_FACTOR` (default: "2"): The bitrate also caps the rate
+  the encoder may reach over a buffer of that many times the bitrate, so a
+  player receiving the bitrate never starves. Set it to 0 to keep a plain
+  average bitrate target without cap.
+* `MOVIE_ENCODING_PRESET` (default: "medium"): x264 preset used for the
+  preview movies. Previews keep a keyframe every two frames, so slower
+  presets bring no visible gain; use "slow" to get the encoding of releases
+  before this setting existed.
 
 ## Users
 

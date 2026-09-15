@@ -135,7 +135,22 @@ Define task types:
 ::: code-group
 ```python [Python]
 task_type = gazu.task.get_task_type_by_name('Animation')
-gazu.project.add_task_type(project, task_type)
+gazu.project.add_task_type(project, task_type, priority=1)
+```
+:::
+
+Movies uploaded on a task are encoded at the project's `hd_bitrate_compression`
+and `ld_bitrate_compression` (Mbit/s, 28 and 6 by default). A task type can
+use its own values in the project, for instance a lighter encoding for
+animatics or a heavier one for final lighting. Calling `add_task_type` again
+on a linked task type updates its bitrates and keeps its priority:
+
+::: code-group
+```python [Python]
+gazu.project.update_project({**project, "hd_bitrate_compression": 20})
+gazu.project.add_task_type(
+    project, task_type, priority=1, hd_bitrate_compression=12, ld_bitrate_compression=3
+)
 ```
 :::
 
