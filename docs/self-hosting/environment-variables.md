@@ -90,7 +90,9 @@ See [OIDC SSO](/self-hosting/openid-connect-sso) for the full setup guide.
 * `MOVIE_HIGHDEF_BITRATE` (default: "28") and `MOVIE_LOWDEF_BITRATE` (default:
   "6"): Bitrates in Mbit/s of the high and low definition movies encoded for
   previews, used when the project and its task type link do not set
-  `hd_bitrate_compression` / `ld_bitrate_compression`.
+  `hd_bitrate_compression` / `ld_bitrate_compression`. The high definition
+  default is also the ceiling of every bitrate set on a project, a template
+  or a task type link.
 * `MOVIE_VBV_BUFSIZE_FACTOR` (default: "2"): The bitrate also caps the rate
   the encoder may reach over a buffer of that many times the bitrate, so a
   player receiving the bitrate never starves. Set it to 0 to keep a plain

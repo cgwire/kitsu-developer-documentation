@@ -77,7 +77,10 @@ Mbit/s, of the high and low definition movies encoded for the project's
 previews. A task type linked to the project can override each of them: the
 project lists expose the links as `task_type_links`, a dict keyed by task type
 id with `priority`, `hd_bitrate_compression` and `ld_bitrate_compression`
-(null inherits the project value).
+(null inherits the project value). A bitrate cannot exceed the instance high
+definition bitrate (28 Mbit/s by default), and a low definition bitrate cannot
+exceed the high definition one it goes with, inherited when unset; the API
+refuses such writes.
 
 ### ProjectStatus
 
