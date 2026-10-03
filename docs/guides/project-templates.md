@@ -70,6 +70,17 @@ gazu.project_template.add_task_type_to_project_template(
 ```
 :::
 
+A task type link can carry its own movie bitrates in Mbit/s, applied to the
+projects created from the template:
+
+::: code-group
+```python [Python]
+gazu.project_template.add_task_type_to_project_template(
+    template, animation, hd_bitrate_compression=12, ld_bitrate_compression=3
+)
+```
+:::
+
 ### Attach task statuses
 
 ::: code-group
@@ -187,6 +198,11 @@ It does **not** include:
 - preview backgrounds
 - the project status
 - any production data (tasks, entities, comments)
+
+Task type links are copied with their priority and their movie bitrates
+(`hd_bitrate_compression`, `ld_bitrate_compression`), so a template carries the
+encoding settings of the project it was extracted from and applies them to new
+projects.
 
 ## Applying a template
 
