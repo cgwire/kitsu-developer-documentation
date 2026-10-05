@@ -13,6 +13,8 @@ graph TD
     P --> AT[AssetType]
     AT --> A[Asset]
     P --> C[Concept]
+    P --> CF[ConceptFolder]
+    CF --> C
     A --> T[Task]
     S --> T
     C --> T
@@ -143,8 +145,8 @@ is materialized into a regular `MetadataDescriptor` row on that project.
 
 ### Entity
 
-Entities represent assets, shots, sequences, episodes, and scenes. The
-`entity_type_id` determines which kind of entity it is.
+Entities represent assets, shots, sequences, episodes, scenes, concepts and
+concept folders. The `entity_type_id` determines which kind of entity it is.
 
 | Field | Type | Default |
 |---|---|---|
@@ -167,10 +169,77 @@ Entities represent assets, shots, sequences, episodes, and scenes. The
 | `created_by` | string (UUID, person) | |
 | `entities_out` | list of entity IDs | |
 
+`parent_id` names the container of the entity: the sequence of a shot, the
+episode of a sequence, the concept folder of a concept. It is empty for a
+concept that sits at the root of its project.
+
+### ConceptFolder
+
+Concept folders sort the concepts of a project. They are entities too: a
+folder carries a `name` and a `project_id`, and a concept names its folder
+through its `parent_id`. Folders hold concepts only, on a single level, and
+never show up among the assets or the concepts of the project.
+
+Everyone who can see the concepts of a project can list its folders.
+Creating, renaming, deleting a folder and moving concepts are reserved to the
+managers and the supervisors of the project. Deleting a folder keeps its
+concepts: they go back to the root of the project.
+
+::: code-group
+
+```python [Python]
+import gazu
+
+project = gazu.project.get_project_by_name("My Production")
+
+folder = gazu.concept.new_concept_folder(project, "Characters")
+folders = gazu.concept.all_concept_folders_for_project(project)
+
+# Publish a concept straight into the folder
+concept = gazu.concept.new_concept(project, "Hero", concept_folder=folder)
+
+# Move existing concepts to the folder, then back to the root
+concepts = gazu.concept.all_concepts_for_project(project)
+gazu.concept.move_concepts(project, concepts, folder)
+gazu.concept.move_concepts(project, concepts)
+
+folder["name"] = "Creatures"
+gazu.concept.update_concept_folder(folder)
+gazu.concept.remove_concept_folder(folder)
+```
+
+```bash [cURL]
+# List the concept folders of a project
+curl -H "Authorization: Bearer $TOKEN" \
+  "$KITSU_URL/api/data/projects/$PROJECT_ID/concept-folders"
+
+# Create a concept folder
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Characters"}' \
+  "$KITSU_URL/api/data/projects/$PROJECT_ID/concept-folders"
+
+# Move concepts to a folder (omit concept_folder_id to move them to the root)
+curl -X POST -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"concept_ids": ["'$CONCEPT_ID'"], "concept_folder_id": "'$FOLDER_ID'"}' \
+  "$KITSU_URL/api/actions/projects/$PROJECT_ID/move-concepts"
+
+# Rename, then delete a concept folder
+curl -X PUT -H "Authorization: Bearer $TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"name": "Creatures"}' \
+  "$KITSU_URL/api/data/concept-folders/$FOLDER_ID"
+curl -X DELETE -H "Authorization: Bearer $TOKEN" \
+  "$KITSU_URL/api/data/concept-folders/$FOLDER_ID"
+```
+
+:::
+
 ### EntityType
 
 Used for asset types (Character, Prop, Environment, etc.) and built-in types
-(Shot, Sequence, Episode, Scene).
+(Shot, Sequence, Episode, Scene, Edit, Concept, ConceptFolder).
 
 | Field | Type | Default |
 |---|---|---|
