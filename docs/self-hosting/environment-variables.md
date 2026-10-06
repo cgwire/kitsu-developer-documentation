@@ -46,6 +46,9 @@ setup guide.
 * `SAML_METADATA_URL` (default: ""): Identity provider SAML metadata URL.
 * `SAML_SKIP_2FA` (default: "False"): When True, SAML sessions skip Kitsu's 2FA
   setup gate. When False, `ENFORCE_2FA` applies as usual.
+* `SAML_SUBJECT_ATTRIBUTE` (default: ""): Assertion attribute holding the
+  provider's stable user id. When set, accounts are bound to it instead of
+  being matched by email on every login.
 
 ### OIDC SSO
 

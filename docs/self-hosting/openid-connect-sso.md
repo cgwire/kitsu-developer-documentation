@@ -3,8 +3,8 @@
 Authentication can be delegated to an OpenID Connect identity provider
 (Keycloak, Microsoft Entra ID / Azure AD, Okta, Google, ...). When enabled, a
 "Login with &lt;provider&gt;" button appears on the Kitsu login page. Users are
-redirected to the provider and, on return, a matching Kitsu account is found by
-email (or created on first login).
+redirected to the provider and, on return, the Kitsu account bound to their
+identity is signed in (or created on first login).
 
 ## Activate OIDC
 
@@ -68,19 +68,69 @@ set: it already is in any standard deployment.
 The standard OIDC claim names work out of the box. Override the `OIDC_*_CLAIM`
 variables only for providers that use non-standard names.
 
-## Account linking and provisioning
+## Account binding and provisioning
 
-* **Linking**: on login, Zou looks up the Kitsu account whose email matches
-  the `OIDC_EMAIL_CLAIM` value and signs that user in. First and last names are
-  refreshed from the provider's claims.
+An email is mutable and set by the administrators of the identity provider, so
+it does not prove who is signing in. Zou identifies an account by the issuer
+and subject of the ID token (the `iss` and `sub` claims), which never change.
+
+* **First login**: Zou looks up the Kitsu account whose email matches the
+  `OIDC_EMAIL_CLAIM` value and binds it to the identity. An account created
+  beforehand in Kitsu is therefore picked up on its first OIDC login.
+* **Next logins**: the account is found by its identity. The email is no longer
+  used, so renaming a user at the provider keeps them on the same Kitsu
+  account. The email stored in Kitsu is not changed by the login.
 * **Provisioning**: when no account matches, one is created with the `user`
-  role on first login. Anyone who can authenticate with the configured provider
-  therefore gets a Kitsu account; scope membership in your identity provider
-  accordingly.
+  role and bound to the identity. Anyone who can authenticate with the
+  configured provider therefore gets a Kitsu account; scope membership in your
+  identity provider accordingly.
 * **Email verification**: with `OIDC_REQUIRE_EMAIL_VERIFIED` enabled (the
-  default), an explicit `email_verified == true` claim is required before
-  linking or provisioning, which prevents account takeover through providers
-  that allow unverified addresses.
+  default), an explicit `email_verified == true` claim is required on the first
+  login, before binding or provisioning.
+* **Names**: first and last names are refreshed from the provider's claims on
+  each login.
+
+### Refused logins
+
+A login is refused with a 400 error in two cases:
+
+* The email belongs to an account already bound to **another identity** of the
+  same provider. This is what happens when an address is given to somebody
+  else: the newcomer does not inherit the previous account.
+* The email belongs to an account listed in `PROTECTED_ACCOUNTS`. These
+  accounts are never bound through their email.
+
+### Unbind an account
+
+To let another identity take over an account (a recycled address, a user
+recreated at the provider), an administrator clears the stored identity. The
+next OIDC login with the matching email binds the account again.
+
+::: code-group
+```python [Python]
+gazu.raw.put(
+    f"data/persons/{person_id}",
+    {"oidc_issuer": None, "oidc_subject": None},
+)
+```
+```bash [cURL]
+curl \
+ --request PUT "https://kitsu.example.com/api/data/persons/$PERSON_ID" \
+ --header "Authorization: Bearer $TOKEN" \
+ --header "Content-Type: application/json" \
+ --data '{"oidc_issuer": null, "oidc_subject": null}'
+```
+:::
+
+The same route binds a protected account explicitly: set `oidc_issuer` to the
+provider's issuer URL and `oidc_subject` to the user's `sub`.
+
+### Upgrade and provider change
+
+* **Existing deployments**: nothing to do. Each account is bound at its next
+  login, through its email.
+* **New provider**: when `OIDC_DISCOVERY_URL` points at another issuer,
+  accounts are bound again through their email at their next login.
 
 ## Provider notes
 
