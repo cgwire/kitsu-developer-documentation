@@ -161,6 +161,16 @@ and, when relevant, a `project_id`.
 | `concept:update` | `concept_id` |
 | `concept:delete` | `concept_id` |
 
+Moving a concept to another folder emits `concept:update`.
+
+### Concept folder
+
+| Event | Data |
+|---|---|
+| `concept-folder:new` | `concept_folder_id` |
+| `concept-folder:update` | `concept_folder_id` |
+| `concept-folder:delete` | `concept_folder_id` |
+
 ### Playlist
 
 | Event | Data |
