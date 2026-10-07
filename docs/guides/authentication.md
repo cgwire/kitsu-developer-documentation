@@ -40,6 +40,76 @@ curl \
 
 With this authentication scheme, the token is automatically set.
 
+## Browser login
+
+Desktop apps, DCC plugins and scripts can log the user in through the Kitsu web page instead of asking for a password. Every login method Kitsu supports works this way (password, 2FA, SAML, OIDC), with no method-specific code in your integration. Use it whenever your users log in with SSO or 2FA.
+
+```python
+gazu.set_host("https://zou-server-url/api")
+tokens = gazu.log_in_with_browser(app_name="My Tool", timeout=300)
+```
+
+gazu opens the browser on the Kitsu `/app-login` page. The user logs in if needed, then clicks **Authorize** on a consent page showing `app_name`. gazu receives a one-time code on a local port, trades it for a token pair, sets the tokens on the client and returns the same dict as `gazu.log_in()`.
+
+```mermaid
+sequenceDiagram
+    participant G as gazu (script)
+    participant B as Browser / Kitsu
+    participant A as API
+
+    G->>G: Listen on 127.0.0.1:PORT
+    G->>B: Open /app-login?port&code_challenge&state&app_name
+    B->>B: Log in if needed (any method)
+    B->>B: User clicks "Authorize"
+    B->>A: POST /auth/app-login/code {code_challenge}
+    A-->>B: {code}
+    B->>G: GET http://127.0.0.1:PORT/?code&state
+    G->>A: POST /auth/app-login/token {code, code_verifier}
+    A-->>G: {login, user, organisation, access_token, refresh_token}
+```
+
+Requirements and behavior:
+
+- **Versions**: Zou 1.0.94, Kitsu 1.0.70 and gazu 1.3.2 or later. On an older Zou, gazu raises an error before opening the browser.
+- **Same machine**: the browser must run on the machine that runs the script, since it redirects to `127.0.0.1`. Headless machines and remote sessions without a local browser cannot use it.
+- **Blocking call**: it waits until the user answers or `timeout` seconds pass. In a GUI, run it in a worker thread.
+- **Errors**: `gazu.exception.AuthFailedException` is raised when the server is too old, the user clicks **Cancel**, the timeout expires (the message includes the URL to open by hand) or the code exchange is rejected.
+- **Independent session**: the returned tokens are a new pair, logging out of the browser does not log out the script, and vice versa.
+
+To keep the user logged in across runs, see [Session Management](/guides/session-management).
+
+### HTTP routes
+
+For integrations not using gazu, implement the same flow (loopback redirect, one-time code and PKCE with `S256`):
+
+1. Generate a `code_verifier` (43 to 128 characters from `A-Z a-z 0-9 - . _ ~`), its `code_challenge` (base64url SHA-256 without padding, 43 characters) and a random `state`.
+2. Listen on `127.0.0.1` with a free port, then open `https://kitsu-url/app-login?port=PORT&code_challenge=CHALLENGE&state=STATE&app_name=My%20Tool` in the browser. The port must be between 1024 and 65535.
+3. Wait for a request on the listener carrying your `state`. It has either `code` or `error=access_denied`. Ignore requests without the right `state`.
+4. Trade the code within 60 seconds. A code can be used only once.
+
+The Kitsu page mints the code with `POST /auth/app-login/code` (body `{"code_challenge": "..."}`, returns `201 {"code": "..."}`). It requires a logged-in user and rejects bot tokens. You only call the exchange route:
+
+```bash [cURL]
+curl \
+ --request POST 'https://zou-server-url/api/auth/app-login/token' \
+ --header "Content-Type: application/json" \
+ --data '{"code":"CODE","code_verifier":"VERIFIER"}'
+```
+
+On success it returns `200` with the same body as `/auth/login`, and never sets cookies:
+
+```json
+{
+  "login": true,
+  "user": {"id": "a24a6ea4-...", "email": "user@yourdomain.com", ...},
+  "organisation": {...},
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+}
+```
+
+Any failure (unknown, expired or already used code, wrong verifier, inactive user) returns `400 {"login": false, "message": "Wrong or expired code."}`, without telling which check failed.
+
 ## Bot Authentication
 
 You can [create a bot token from your Kitsu dashboard](https://kitsu.cg-wire.com/bots/#how-to-create-a-bot) and use the returned API token directly:

@@ -58,3 +58,7 @@ with gazu.create_session(
 ) as client:
     projects = gazu.project.all_open_projects(client=client)
 ```
+
+## Browser login
+
+[`gazu.log_in_with_browser()`](/guides/authentication#browser-login) returns a token dict: store it securely (for example in the OS keyring) and restore it in the next run with `gazu.set_token(tokens)` instead of opening the browser again.
