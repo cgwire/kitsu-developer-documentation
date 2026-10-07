@@ -70,10 +70,10 @@ sequenceDiagram
 
 Requirements and behavior:
 
-- **Versions**: Zou 1.0.94, Kitsu 1.0.70 and gazu 1.3.2 or later. On an older Zou, gazu raises an error before opening the browser.
+- **Versions**: Zou 1.0.95, Kitsu 1.0.71 and gazu 1.3.2 or later. If no browser can be opened, gazu logs the login URL so you can open it by hand.
 - **Same machine**: the browser must run on the machine that runs the script, since it redirects to `127.0.0.1`. Headless machines and remote sessions without a local browser cannot use it.
 - **Blocking call**: it waits until the user answers or `timeout` seconds pass. In a GUI, run it in a worker thread.
-- **Errors**: `gazu.exception.AuthFailedException` is raised when the server is too old, the user clicks **Cancel**, the timeout expires (the message includes the URL to open by hand) or the code exchange is rejected.
+- **Errors**: `gazu.exception.AuthFailedException` is raised when the user clicks **Cancel**, the timeout expires (the message includes the URL to open by hand) or the code exchange is rejected.
 - **Independent session**: the returned tokens are a new pair, logging out of the browser does not log out the script, and vice versa.
 
 To keep the user logged in across runs, see [Session Management](/guides/session-management).
