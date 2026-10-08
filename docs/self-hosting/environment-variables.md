@@ -16,11 +16,22 @@ the list of all expected parameters.
 * `DB_MAX_OVERFLOW` (default: 60): The number of additional connections available 
   once the pool is full. They are disconnected when the request is finished. They
   are not reused.
+* `DB_DRIVER` (default: postgresql+psycopg): The SQLAlchemy driver used to
+  connect to the database.
+* `DB_POOL_PRE_PING` (default: "True"): Check each connection before using it,
+  so a connection closed by the server is replaced instead of failing.
+* `DB_POOL_RECYCLE` (default: 3600): Seconds after which a pooled connection is
+  replaced.
+* `DB_POOL_RESET_ON_RETURN` (default: commit): What to do with the transaction
+  state of a connection returned to the pool ("commit", "rollback" or "none").
 
 ## Key-Value store
 
 * `KV_HOST` (default: localhost): The Redis server host.
 * `KV_PORT` (default: 6379): The Redis server port.
+* `KV_PASSWORD` (default: none): The Redis server password.
+* `CACHE_TYPE` (default: none): Cache backend. When unset, the cache is stored
+  in Redis. Set it to "simple" for an in-memory cache (development only).
 
 ## Indexer
 
@@ -29,12 +40,24 @@ Kitsu uses the Meilisearch service for its indexation.
 * `INDEXER_KEY` (default: masterkey): The key required by Meilisearch.
 * `INDEXER_HOST` (default: localhost): The Meilisearch host.
 * `INDEXER_PORT` (default: 7700): The Meilisearch port.
+* `INDEXER_PROTOCOL` (default: http): The protocol used to reach Meilisearch.
+* `INDEXER_TIMEOUT` (default: 5000): Timeout in milliseconds of Meilisearch
+  requests.
 
 ## Authentication
 
 * `AUTH_STRATEGY` (default: auth\_local\_classic): Allow to choose between
 traditional auth and Active Directory auth (auth\_remote\_active\_directory).
 * `SECRET_KEY` (default: mysecretkey) Complex key used for auth token encryption.
+* `ENFORCE_2FA` (default: "False"): When True, users without two-factor
+  authentication get restricted tokens at login and must set up 2FA before
+  using Kitsu.
+* `2FA_EXEMPT_USERS` (default: ""): Comma-separated list of user emails exempt
+  from `ENFORCE_2FA`.
+* `BCRYPT_LOG_ROUNDS` (default: 12): Cost factor of the password hashing.
+* `CORS_ALLOWED_ORIGINS` (default: ""): Semicolon-separated list of origins
+  allowed to call the API from a browser. Leave it empty when Kitsu and Zou
+  are served from the same domain.
 
 ### SAML SSO
 
@@ -80,6 +103,28 @@ See [OIDC SSO](/self-hosting/openid-connect-sso) for the full setup guide.
   environments. We encourage you to set an absolute path when you use it in
   production.
 * `REMOVE_FILES` (default: "False"): Delete files when deleting comments and revisions
+* `PREVIEW_SAVE_SOURCE_FILE` (default: "False"): Keep the uploaded source file
+  of movie previews next to the normalized version.
+* `SKIP_NORMALIZATION_FULL` (default: "False"): Skip the movie normalization
+  entirely: the uploaded movie is stored as is and serves as the preview.
+* `SKIP_NORMALIZATION_HIGHDEF` (default: "False"): Skip only the high
+  definition encoding: the low definition movie is the only one stored and
+  the full quality route falls back on it.
+* `SYNC_SOURCE_MOVIE_FILES` (default: "False"): Replicate the source movies
+  when syncing from another instance. Required when that instance skips the
+  normalization, since its previews are then the source movies.
+* `CLIENT_CACHE_MAX_AGE` (default: 604800): Seconds browsers may cache
+  thumbnails and preview files.
+* `MEDIA_MAX_CONCURRENT_REQUESTS` (default: 0): Picture and movie downloads a
+  worker process serves at once; the others wait for a slot, so a burst of
+  thumbnails cannot starve the rest of the API. 0 disables the limit.
+* `MEDIA_SLOT_WAIT_TIMEOUT` (default: 30): Seconds a media download waits for
+  a slot before being answered with a 503 error. 0 waits without limit.
+* `PREVIEW_MISSING_FILE_RECHECK_DELAY` (default: 3600): Seconds during which a
+  preview file known as missing is answered 404 without asking the storage
+  again.
+* `LOG_FILE_NOT_FOUND` (default: "False"): Log the requests for preview files
+  missing from the storage.
 * `MAX_IMAGE_PIXELS` (default: "400000000"): Maximum number of pixels an
   uploaded image may decode to before Pillow rejects it. This guards against
   decompression bombs (a tiny file declaring huge dimensions) that would
@@ -127,12 +172,16 @@ email notifications.
   server.
 * `MAIL_USE_SSL` (default: "False"): To use SSL to communicate with the email
   server.
-* `MAIL_DEFAULT_SENDER` (default: "no-reply@cg-wire.com"): To set the sender
-  email.
+* `MAIL_DEFAULT_SENDER` (default: "no-reply@your-studio.com"): To set the
+  sender email.
 * `DOMAIN_NAME` (default: "localhost:8080"): To build URLs (for a password reset
   for instance).
 * `DOMAIN_PROTOCOL` (default: "https"): To build URLs (for a password reset
   for instance).
+* `MAIL_ENABLED` (default: "True"): Set to False to disable every email.
+* `MAIL_DEBUG_BODY` (default: "False"): Log the body of every email sent.
+* `MAIL_CHECK_DELIVERABILITY` (default: "True"): Check that the domain of an
+  email address accepts mail before saving it.
 
 You can find more information here:
 https://flask-mail.readthedocs.io/en/latest/
@@ -157,6 +206,11 @@ to S3).
    Example: *https://s3.eu-west-3.amazonaws.com*
 * `FS_S3_ACCESS_KEY`: Your user access key.
 * `FS_S3_SECRET_KEY`: Your user secret key.
+* `FS_S3_CREATE_BUCKET` (default: "False"): Create the buckets when they do
+  not exist.
+* `FS_S3_AES256_ENCRYPTED` (default: "False"): Encrypt the stored files on the
+  client side with AES-256.
+* `FS_S3_AES256_KEY`: The AES-256 key used when encryption is enabled.
 
 Then install the following package in your virtual environment:
 
@@ -175,11 +229,26 @@ variables (Only Auth 2.0 and 3.0 are supported).
 
 * `FS_BACKEND`: Set this variable with "swift"
 * `FS_BUCKET_PREFIX`: A prefix for your bucket/container names.
-* `FS_SWIFT_AUTH_URL`: Authentication URL of your swift backend.
+* `FS_SWIFT_AUTHURL`: Authentication URL of your swift backend.
 * `FS_SWIFT_USER`: Your Swift login.
 * `FS_SWIFT_TENANT_NAME`: The Swift tenant name.
 * `FS_SWIFT_KEY`: Your Swift password.
 * `FS_SWIFT_REGION_NAME`: Your Swift region name.
+* `FS_SWIFT_AUTH_VERSION` (default: 3): The Keystone authentication version.
+* `FS_SWIFT_CREATE_CONTAINER` (default: "False"): Create the containers when
+  they do not exist.
+* `FS_SWIFT_AES256_ENCRYPTED` (default: "False"): Encrypt the stored files on
+  the client side with AES-256.
+* `FS_SWIFT_AES256_KEY`: The AES-256 key used when encryption is enabled.
+* `FS_SWIFT_POOL_SIZE` (default: 20): Number of connections kept open to Swift.
+* `FS_SWIFT_TIMEOUT` (default: 60): Timeout in seconds of Swift requests.
+* `FS_SWIFT_RETRIES` (default: 5): Number of retries of a failed Swift request.
+* `FS_SWIFT_TOKEN_CACHE_TTL` (default: 3600): Seconds a Keystone token is
+  shared through Redis between processes. 0 authenticates on every new
+  connection. Keep it below the token lifetime set on the Keystone side.
+* `FS_SWIFT_ETAG_MISMATCH_POLICY` (default: log): What to do when the ETag
+  returned by Swift does not match the uploaded content: "log", "raise" or
+  "raise_and_delete".
 
 ## LDAP
 
@@ -194,6 +263,11 @@ These variables are active only if auth\_remote\_ldap strategy is selected.
 * `LDAP_FALLBACK` (default: "False"): Set to True if you want to allow admins
   to fallback on default auth strategy when the LDAP server is down.
 * `LDAP_IS_AD` (default: "False"): Set to True if you use LDAP with an active directory.
+* `LDAP_IS_AD_SIMPLE` (default: "False"): Set to True to authenticate against
+  an Active Directory with a simple bind instead of NTLM.
+* `LDAP_SSL` (default: "False"): Set to True to connect to the LDAP server over
+  SSL.
+* `LDAP_GROUP` (default: ""): Only synchronize the members of this group.
 
 
 ## Job queue
@@ -203,10 +277,43 @@ These variables are active only if auth\_remote\_ldap strategy is selected.
 * `JOB_QUEUE_TIMEOUT` (default: 3600): Set the timeout (in seconds) for preview and playlist encoding jobs sent to the `zou-jobs` service.
 * `ENABLE_JOB_QUEUE_REMOTE` (default: "False"): Set to True if you want to send
   playlist builds to a Nomad cluster.
+* `JOB_QUEUE_NOMAD_HOST` (default: zou-nomad-01.zou): The Nomad server host.
+* `JOB_QUEUE_NOMAD_PLAYLIST_JOB` (default: zou-playlist): The Nomad job used to
+  build playlists.
+* `JOB_QUEUE_NOMAD_NORMALIZE_JOB` (default: ""): The Nomad job used to
+  normalize movie previews.
+* `JOB_QUEUE_NOMAD_TILE_JOB` (default: ""): The Nomad job used to generate
+  movie tiles.
+
+## Monitoring
+
+* `SENTRY_ENABLED` (default: "False"): Send the API errors to Sentry.
+* `SENTRY_DSN` (default: ""): The Sentry DSN of the API.
+* `SENTRY_SR` (default: 1.0): Sample rate of the API performance traces.
+* `SENTRY_DEBUG_URL` (default: none): Route that raises an error, to check the
+  Sentry setup.
+* `SENTRY_KITSU_ENABLED` (default: "False"): Send the Kitsu frontend errors to
+  Sentry.
+* `SENTRY_KITSU_DSN` (default: ""): The Sentry DSN of the Kitsu frontend.
+* `SENTRY_KITSU_SR` (default: 0.1): Sample rate of the frontend traces.
+* `PROMETHEUS_METRICS_ENABLED` (default: "False"): Expose Prometheus metrics
+  (requires the `prometheus_flask_exporter` package).
 
 
 ## Misc
 
 * `TMP_DIR` (default: /tmp): The temporary directory used to handle uploads.
 * `DEBUG` (default: False): Activate the debug mode for development purposes.
-* `CRISP TOKEN` (default: ): Activate the Crisp support chatbox on the bottom right.
+* `CRISP_TOKEN` (default: ""): Activate the Crisp support chatbox on the bottom right.
+* `DEBUG_HOST` (default: 127.0.0.1) and `DEBUG_PORT` (default: 5000): Address
+  of the development server.
+* `EVENT_STREAM_HOST` (default: localhost) and `EVENT_STREAM_PORT` (default:
+  5001): Address of the event stream (websocket) server.
+* `NB_RECORDS_PER_PAGE` (default: 100): Default page size of paginated
+  routes.
+* `PLUGIN_FOLDER` (default: ./plugins): The folder where plugins are installed.
+* `DEFAULT_FILE_TREE` (default: default): File tree applied to projects
+  imported from Shotgun.
+* `ADMIN_TOKEN` (default: ""): When set, enables the `/admin/config/check`
+  route, called with this token as Bearer.
+* `LOGLEVEL` (default: INFO): Log level of the `zou sync-*` commands.

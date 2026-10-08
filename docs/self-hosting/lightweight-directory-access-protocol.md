@@ -50,7 +50,7 @@ This command requires additional environment variables:
 
 * `LDAP_USER`: Username of a LDAP user that can lists all LDAP users.
 * `LDAP_PASSWORD`: Password of a LDAP user that can lists all LDAP users.
-* `LDAP_EMAIL_DOMAIN`: User email will be built with username + @ + email domain.
+* `EMAIL_DOMAIN` (default: "studio.local"): User email will be built with username + @ + email domain.
 * `LDAP_EXCLUDED_ACCOUNTS`: Set the list of people that should not be created
   in Kitsu API (Zou).
 
