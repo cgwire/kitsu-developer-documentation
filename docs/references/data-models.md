@@ -46,6 +46,9 @@ graph TD
 | `episode_span` | int | `0` |
 | `max_retakes` | int | `0` |
 | `is_clients_isolated` | bool | `false` |
+| `is_client_stats_visible` | bool | `true` |
+| `is_client_task_list_visible` | bool | `true` |
+| `is_client_task_panel_visible` | bool | `true` |
 | `is_preview_download_allowed` | bool | `false` |
 | `is_set_preview_automated` | bool | `false` |
 | `homepage` | string | `"assets"` |
@@ -78,11 +81,22 @@ person's global `role` applies. See the
 Mbit/s, of the high and low definition movies encoded for the project's
 previews. A task type linked to the project can override each of them: the
 project lists expose the links as `task_type_links`, a dict keyed by task type
-id with `priority`, `hd_bitrate_compression` and `ld_bitrate_compression`
-(null inherits the project value). A bitrate cannot exceed the instance high
+id with `priority`, `hd_bitrate_compression`, `ld_bitrate_compression` and
+`is_client_visible` (null inherits the project value). A bitrate cannot exceed the instance high
 definition bitrate (28 Mbit/s by default), and a low definition bitrate cannot
 exceed the high definition one it goes with, inherited when unset; the API
 refuses such writes.
+
+`is_client_stats_visible`, `is_client_task_list_visible` and
+`is_client_task_panel_visible` choose what the clients of the production see in
+Kitsu: the statistics pages, the asset, shot and edit lists and pages, and the
+task panel. They default to `true` (null is treated as `true`) and are read and
+written through `GET` and `PUT /data/projects/<project_id>`. When
+`is_client_stats_visible` is `false`,
+`GET /data/projects/<project_id>/episodes/stats` answers `403` to a client of
+the production. `is_client_visible` on a task type link is a boolean set with
+`POST /data/projects/<project_id>/settings/task-types` (manager only; omitted
+means unchanged). Project templates copy the three project settings.
 
 ### ProjectStatus
 
@@ -108,6 +122,9 @@ production data — no team, no dates, no tasks, no entities. See the
 | `production_style` | string (same choices as Project) | `"2d3d"` |
 | `max_retakes` | int | `0` |
 | `is_clients_isolated` | bool | `false` |
+| `is_client_stats_visible` | bool | `true` |
+| `is_client_task_list_visible` | bool | `true` |
+| `is_client_task_panel_visible` | bool | `true` |
 | `is_preview_download_allowed` | bool | `false` |
 | `is_set_preview_automated` | bool | `false` |
 | `is_publish_default_for_artists` | bool | `false` |
