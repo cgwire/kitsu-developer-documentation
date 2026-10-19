@@ -103,6 +103,16 @@ clients) and is set with `POST /data/projects/<project_id>/settings/task-types`
 project settings and the per task type `is_client_visible` of their task type
 links.
 
+The project lists also expose `task_statuses_link`, a dict keyed by task status
+id with `priority`, `roles_for_board` and `is_client_allowed`. A non-null
+`is_client_allowed` overrides, for this production, the `is_client_allowed` of
+the task status: whether a client can set that status when commenting,
+including guests of a shared playlist. Null follows the task status value. It
+is set with `PUT /data/projects/<project_id>/settings/task-status/<task_status_id>`
+and the body `{"is_client_allowed": true | false | null}` (manager only; null
+goes back to the task status value). Project templates copy it with their task
+status links.
+
 ### ProjectStatus
 
 | Field | Type | Default |
