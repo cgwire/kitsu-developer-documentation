@@ -82,10 +82,10 @@ Mbit/s, of the high and low definition movies encoded for the project's
 previews. A task type linked to the project can override each of them: the
 project lists expose the links as `task_type_links`, a dict keyed by task type
 id with `priority`, `hd_bitrate_compression`, `ld_bitrate_compression` and
-`is_client_visible` (null inherits the project value). A bitrate cannot exceed the instance high
-definition bitrate (28 Mbit/s by default), and a low definition bitrate cannot
-exceed the high definition one it goes with, inherited when unset; the API
-refuses such writes.
+`is_client_visible`. A null bitrate inherits the project value. A bitrate
+cannot exceed the instance high definition bitrate (28 Mbit/s by default), and
+a low definition bitrate cannot exceed the high definition one it goes with,
+inherited when unset; the API refuses such writes.
 
 `is_client_stats_visible`, `is_client_task_list_visible` and
 `is_client_task_panel_visible` choose what the clients of the production see in
@@ -94,9 +94,14 @@ task panel. They default to `true` (null is treated as `true`) and are read and
 written through `GET` and `PUT /data/projects/<project_id>`. When
 `is_client_stats_visible` is `false`,
 `GET /data/projects/<project_id>/episodes/stats` answers `403` to a client of
-the production. `is_client_visible` on a task type link is a boolean set with
-`POST /data/projects/<project_id>/settings/task-types` (manager only; omitted
-means unchanged). Project templates copy the three project settings.
+the production.
+
+`is_client_visible` on a task type link says whether clients see that task
+type. It defaults to `true` (null is treated as `true`, i.e. visible to
+clients) and is set with `POST /data/projects/<project_id>/settings/task-types`
+(manager only; omitted means unchanged). Project templates copy the three
+project settings and the per task type `is_client_visible` of their task type
+links.
 
 ### ProjectStatus
 
@@ -140,6 +145,9 @@ production data — no team, no dates, no tasks, no entities. See the
 | `task_statuses` | list of task status IDs | |
 | `asset_types` | list of entity type IDs | |
 | `status_automations` | list of status automation IDs | |
+
+The template's task type links also carry `priority`, the bitrates and
+`is_client_visible` (default `true`), copied to and from projects.
 
 Each entry in `metadata_descriptors` has the shape:
 
