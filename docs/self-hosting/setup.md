@@ -13,7 +13,7 @@ You can start running Kitsu through Docker to try it out. Please [refer to the d
 The installation requires:
 
 * Ubuntu (version >= 22.04)
-* Python (version >= 3.10)
+* Python (version >= 3.11)
 * An up-and-running Postgres instance (version >= 9.2)
 * An up-and-running Redis server instance (version >= 2.0)
 * A Nginx instance
