@@ -24,6 +24,10 @@ must point at the provider's OpenID configuration document (it ends with
 `/.well-known/openid-configuration`); Zou reads the endpoints, signing keys and
 supported features from it.
 
+Zou only accepts ID tokens signed with an algorithm the provider lists in
+`id_token_signing_alg_values_supported`. When the document has no such list,
+only RS256, ES256, and HS256 are accepted.
+
 Register this redirect URI on the provider's client:
 
 ```
