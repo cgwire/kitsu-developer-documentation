@@ -738,6 +738,9 @@ values are stored in the `data` dict of the matching tasks.
 | `name` | string | |
 | `project_id` | string (UUID) | |
 | `task_type_id` | string (UUID) | |
+| `department_id` | string (UUID) | |
+| `color` | string (hex, `#RRGGBB`) | |
+| `milestone_type` | string (`kickoff`, `review`, `approval`, `delivery`, `other`) | `"other"` |
 
 ### DayOff
 
