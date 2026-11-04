@@ -131,6 +131,10 @@ the task types must be asset task types: anything else returns a 400 error. You
 must be a manager of the production. The project dict lists the workflows it
 sets in `asset_type_workflows`.
 
+Removing a task type from the production settings also removes it from the
+workflows of the production. A workflow left empty is gone, so its asset type
+follows the studio workflow again. Removing an asset type removes its workflow.
+
 The workflow in effect drives the creation of tasks:
 
 - Creating the tasks of an asset, a CSV import and the bulk creation for a task
