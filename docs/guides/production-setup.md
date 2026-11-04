@@ -103,6 +103,48 @@ gazu.asset.update_asset_type(asset_type)
 ```
 :::
 
+### Asset Type Workflows
+
+The workflow of an asset type lists the task types its assets accept. The asset
+type's `task_types` field sets the studio workflow, shared by all productions.
+An empty list accepts every asset task type.
+
+A production can replace the studio workflow of an asset type with its own:
+
+::: code-group
+```python [Python]
+gazu.project.update_asset_type_workflow(project, asset_type, [modeling, rigging])
+
+# An empty list goes back to the studio workflow.
+gazu.project.update_asset_type_workflow(project, asset_type, [])
+```
+```bash [cURL]
+curl -X PUT "$KITSU_URL/api/data/projects/$PROJECT_ID/settings/asset-types/$ASSET_TYPE_ID/task-types" \
+  -H "Authorization: Bearer $KITSU_TOKEN" \
+  -H "Content-Type: application/json" \
+  -d '{"task_type_ids": ["'$MODELING_ID'", "'$RIGGING_ID'"]}'
+```
+:::
+
+The asset type and the task types must be part of the production settings, and
+the task types must be asset task types: anything else returns a 400 error. You
+must be a manager of the production. The project dict lists the workflows it
+sets in `asset_type_workflows`.
+
+The workflow in effect drives the creation of tasks:
+
+- Creating the tasks of an asset, a CSV import and the bulk creation for a task
+  type only create tasks the workflow accepts.
+- Asking for a task type outside the workflow on a single asset returns an
+  error. The bulk creation skips these assets instead.
+
+::: warning Tasks are not deleted
+Changing a workflow removes no task. In Kitsu, the tasks outside the workflow
+are masked in the asset list, the task type page, the asset page and the asset
+type statistics. They show again once their task type is back in the workflow.
+They are still returned by the API.
+:::
+
 ### Creating Assets
 
 Once asset types are defined, you can begin creating assets for your production. Assets can be any kind of production element you want to track, organize, or assign work to (e.g. characters, props, locations, FX elements).

@@ -108,6 +108,30 @@ gazu.project_template.add_asset_type_to_project_template(template, prop)
 ```
 :::
 
+### Set asset type workflows
+
+A template can carry its own
+[workflow](/guides/production-setup#asset-type-workflows) for an asset type.
+The asset type and the task types must be attached to the template first.
+Without one, the asset type follows the studio workflow. You must be an
+administrator.
+
+::: code-group
+```python [Python]
+gazu.project_template.update_project_template_asset_type_workflow(
+    template, prop, [modeling, shading]
+)
+
+# An empty list goes back to the studio workflow.
+gazu.project_template.update_project_template_asset_type_workflow(
+    template, prop, []
+)
+```
+:::
+
+Each asset type returned by `all_asset_types_for_project_template()` lists its
+workflow in `workflow`, empty when the studio one applies.
+
 ### Attach status automations
 
 ::: code-group
@@ -187,6 +211,7 @@ The snapshot includes:
 - task type links (with priorities)
 - task status links (with priorities and `roles_for_board`)
 - asset type links
+- asset type workflows
 - status automation links
 - metadata descriptors
 
@@ -244,7 +269,8 @@ project = gazu.project.new_project(
 Use `apply_project_template()` to add the template's configuration to a
 project that's already created. The strategy is **additive**: existing links
 are preserved, and any duplicate (same task type, status, asset type, etc.)
-is skipped silently.
+is skipped silently. A workflow the project already sets for an asset type is
+kept as it is.
 
 ::: code-group
 ```python [Python]
