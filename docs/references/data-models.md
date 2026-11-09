@@ -65,6 +65,11 @@ graph TD
 | `asset_types` | list of entity type IDs | |
 | `task_statuses` | list of task status IDs | |
 | `task_types` | list of task type IDs | |
+| `asset_type_workflows` | dict of asset type ID to list of task type IDs | `{}` |
+
+`asset_type_workflows` lists the asset types whose production workflow replaces
+the studio one. It comes with a project read by its ID and with the open
+projects.
 
 `revision_padding` is a display-only setting: the API always stores and
 returns the bare revision integer. It is the minimum number of digits a
@@ -283,6 +288,10 @@ Used for asset types (Character, Prop, Environment, etc.) and built-in types
 | `description` | string | |
 | `archived` | bool | `false` |
 | `task_types` | list of task type IDs | |
+
+`task_types` is the studio workflow of an asset type: an empty list accepts
+every asset task type. A project can replace it, see
+[Asset Type Workflows](/guides/production-setup#asset-type-workflows).
 
 ### EntityLink
 
