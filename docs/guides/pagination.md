@@ -16,7 +16,8 @@ did.
 ## By page
 
 Send `page` (the first page is 1) and optionally `limit`, the number of
-entries per page. The default is 100 entries.
+entries per page. The default is the `NB_RECORDS_PER_PAGE` setting of the
+server, 100 entries unless your instance changed it.
 
 ::: code-group
 ```python [Python]
@@ -109,10 +110,11 @@ Things to know:
   of the route: several lists come last modified first. Sort them locally once
   the list is complete.
 * `limit` alone is a quick way to get the latest entries created.
-* `cursor_id` alone, without `limit`, returns 100 entries.
+* `cursor_id` alone, without `limit`, returns the default number of entries.
 * A `cursor_id` that is not a valid id, or that matches no entry, is refused
   with a 400 error. It happens when the entry used as cursor is deleted before
-  the next request: start the walk again.
+  the next request. gazu then reads the list again in a single request. In
+  your own loop, start the walk again.
 
 The async client does the same:
 
@@ -151,7 +153,7 @@ Both modes work on:
   shared assets used by a production,
   `data/projects/<project_id>/assets/shared-used`.
 
-The other routes ignore these parameters and return their whole list.
+The other routes have their own paging, or none.
 
 ## Next Steps
 
