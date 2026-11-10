@@ -67,15 +67,15 @@ it. A response shorter than `limit` is the last one.
 Entries created or deleted during the walk do not shift anything, and the
 server never counts the whole list.
 
-gazu runs the loop for you:
+gazu runs the loop for you. `fetch_all` reads every list this way by default:
 
 ```python
-tasks = gazu.client.fetch_all(
-    "tasks", {"project_id": project["id"]}, by_cursor=True
-)
+tasks = gazu.client.fetch_all("tasks", {"project_id": project["id"]})
 ```
 
-It asks for 1000 entries per request. Pass `limit` to change it.
+It asks for 1000 entries per request. Pass `limit` to change it, or
+`by_cursor=False` to get the list in a single request. A request that already
+holds a page, a limit or a cursor is sent as it is.
 
 The same loop written by hand:
 
@@ -114,32 +114,24 @@ Things to know:
   with a 400 error. It happens when the entry used as cursor is deleted before
   the next request: start the walk again.
 
-The async client takes the same argument:
+The async client does the same:
 
 ```python
-tasks = await gazu.aio.fetch_all("tasks", by_cursor=True, client=client)
+tasks = await gazu.aio.fetch_all("tasks", client=client)
 ```
 
-## gazu functions that load by cursor
+## What it changes for your gazu scripts
 
-These functions already read their list by cursor. Your scripts do not need to
-change. The lists that came sorted by name or newest first still do.
-`all_tasks_for_task_status`, `all_tasks_for_task_type` and `all_entities`
-return their entries newest created first:
+The gazu functions that return a list, such as
+`gazu.task.all_tasks_for_project` or `gazu.asset.all_assets_for_project`, go
+through `fetch_all`. Your scripts do not need to change:
 
-* `gazu.asset.all_assets_for_project`
-* `gazu.asset.all_assets_for_episode`
-* `gazu.shot.all_shots_for_project`
-* `gazu.task.all_tasks_for_project`
-* `gazu.task.all_tasks_for_task_status`
-* `gazu.task.all_tasks_for_task_type`
-* `gazu.task.all_comments_for_project`
-* `gazu.task.all_notifications_for_project`
-* `gazu.task.all_preview_files_for_project`
-* `gazu.entity.all_entities`
-
-Against a Kitsu API that does not know the cursor yet, they get the whole list
-in one request, as before.
+* The lists that came sorted, by name or last modified first, still do.
+* The lists read from the model routes without a sort of their own, such as
+  `gazu.entity.all_entities` or `gazu.task.all_tasks_for_task_type`, come
+  newest created first.
+* On a route without cursor, or against a Kitsu API that does not know the
+  cursor yet, gazu gets the whole list in one request, as before.
 
 ## Routes that support it
 
@@ -150,8 +142,14 @@ Both modes work on:
   [the OpenAPI specifications](https://api-docs.kitsu.cloud/).
 * The lists of a production: `data/projects/<project_id>/` followed by
   `tasks`, `comments`, `notifications`, `preview-files`, `time-spents`,
-  `shots` or `assets`.
-* The asset lists: `data/assets` and `data/assets/all`.
+  `assets`, `shots`, `sequences`, `episodes`, `scenes`, `edits` or `concepts`.
+* The entity lists: `data/assets`, `data/shots`, `data/sequences`,
+  `data/episodes`, `data/edits`, `data/concepts`, and `data/assets/all`,
+  `data/shots/all`, `data/scenes/all`, `data/edits/all`.
+* The assets of a type,
+  `data/projects/<project_id>/asset-types/<asset_type_id>/assets`, and the
+  shared assets used by a production,
+  `data/projects/<project_id>/assets/shared-used`.
 
 The other routes ignore these parameters and return their whole list.
 
