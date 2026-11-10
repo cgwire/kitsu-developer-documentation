@@ -16,7 +16,7 @@ did.
 ## Loading a whole list in one call
 
 With gazu, one call is enough. It sends as many requests as the list needs,
-1000 entries each, and returns the whole list once the last one is in:
+200 entries each, and returns the whole list once the last one is in:
 
 ```python
 tasks = gazu.task.all_tasks_for_project(project)
@@ -160,7 +160,29 @@ Both modes work on:
   shared assets used by a production,
   `data/projects/<project_id>/assets/shared-used`.
 
-The other routes have their own paging, or none.
+## Lists with their own paging
+
+Three lists were paged before these two modes existed. Their dedicated routes
+keep their own parameters:
+
+| List | Route | How to read it |
+|------|-------|----------------|
+| Events | `data/events/last` | `limit`, 100 by default and 1000 at most, and `cursor_event_id`, the id of the last event received. `before` and `after` bound the dates. |
+| Notifications of the logged in user | `data/user/notifications` | The 100 latest. Send the creation date of the last one as `before` to get the 100 before it. |
+| News feed | `data/projects/news` and `data/projects/<project_id>/news` | `page` and `limit`, 50 by default, in the envelope of the page mode. |
+
+```python
+events = gazu.client.get("data/events/last", params={"limit": 500})
+older = gazu.client.get(
+    "data/events/last",
+    params={"limit": 500, "cursor_event_id": events[-1]["id"]},
+)
+```
+
+The model routes of the same data, `data/events`, `data/notifications` and
+`data/news`, follow the two modes of this guide.
+
+The other routes return their whole list.
 
 ## Next Steps
 
