@@ -45,10 +45,10 @@ The large lists can be read page by page or by cursor: see the
 The events route has its own pagination and filters:
 
 ```py
-events = gazu.client.get("data/events/last?page_size=100")
-events = gazu.client.get("data/events/last?page_size=100&before=2019-02-01")
-events = gazu.client.get("data/events/last?page_size=100&before=2019-02-01&after=2019-01-01")
-events = gazu.client.get("data/events/last?page_size=100&only_files=true")
+events = gazu.client.get("data/events/last?limit=100")
+events = gazu.client.get("data/events/last?limit=100&before=2019-02-01")
+events = gazu.client.get("data/events/last?limit=100&before=2019-02-01&after=2019-01-01")
+events = gazu.client.get("data/events/last?limit=100&only_files=true")
 ```
 
 ## Full-text search

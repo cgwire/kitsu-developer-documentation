@@ -250,10 +250,10 @@ Moving a concept to another folder emits `concept:update`.
 You can access the latest events with raw functions: 
 
 ```py
-events = gazu.client.get("data/events/last?page_size=100")
-events = gazu.client.get("data/events/last?page_size=100&before=2019-02-01")
-events = gazu.client.get("data/events/last?page_size=100&before=2019-02-01&after=2019-01-01")
-events = gazu.client.get("data/events/last?page_size=100&only_files=true")
+events = gazu.client.get("data/events/last?limit=100")
+events = gazu.client.get("data/events/last?limit=100&before=2019-02-01")
+events = gazu.client.get("data/events/last?limit=100&before=2019-02-01&after=2019-01-01")
+events = gazu.client.get("data/events/last?limit=100&only_files=true")
 ```
 
 ## Next Steps
