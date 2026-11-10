@@ -13,6 +13,22 @@ in smaller requests instead, in two ways:
 Without any of these parameters, a route returns its whole list, as it always
 did.
 
+## Loading a whole list in one call
+
+With gazu, one call is enough. It sends as many requests as the list needs,
+1000 entries each, and returns the whole list once the last one is in:
+
+```python
+tasks = gazu.task.all_tasks_for_project(project)
+tasks = gazu.client.fetch_all("tasks", {"project_id": project["id"]})
+```
+
+There is nothing to set up: `fetch_all` and the gazu functions that return a
+list read it by cursor, the mode described below. Pass `limit` to `fetch_all`
+to change the size of the requests, or `by_cursor=False` to get the list in a
+single request. A request that already holds a page, a limit or a cursor is
+sent as it is.
+
 ## By page
 
 Send `page` (the first page is 1) and optionally `limit`, the number of
@@ -68,17 +84,8 @@ it. A response shorter than `limit` is the last one.
 Entries created or deleted during the walk do not shift anything, and the
 server never counts the whole list.
 
-gazu runs the loop for you. `fetch_all` reads every list this way by default:
-
-```python
-tasks = gazu.client.fetch_all("tasks", {"project_id": project["id"]})
-```
-
-It asks for 1000 entries per request. Pass `limit` to change it, or
-`by_cursor=False` to get the list in a single request. A request that already
-holds a page, a limit or a cursor is sent as it is.
-
-The same loop written by hand:
+gazu runs this loop for you, as shown
+[above](#loading-a-whole-list-in-one-call). The same loop written by hand:
 
 ::: code-group
 ```python [Python]
