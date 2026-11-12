@@ -181,10 +181,19 @@ curl -X PUT "http://api.example.com/data/persons/a24a6ea4-ce75-4665-a070-5745308
     "role": "manager",
     "active": true,
     "contract_type": "freelance",
-    "two_factor_authentication": "totp",
-    "expiration_date": "2025-12-31"
+    "two_factor_authentication": "totp"
   }'
 ```
+:::
+
+::: info
+To change **your own** email, send `current_password` in the same request,
+plus one of `totp`, `email_otp` or `recovery_code` when two-factor
+authentication is enabled on your account. An administrator changing the
+email of someone else sends nothing more.
+
+`expiration_date` only applies to bots: an administrator who updates it on a
+bot gets a new `access_token` in the response. It does nothing on a person.
 :::
 
 ## Per-project roles
