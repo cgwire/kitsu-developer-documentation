@@ -119,6 +119,7 @@ export default {
               { text: "Bot Automation", link: "/guides/bot-automation" },
               { text: "Event Listeners", link: "/guides/event-listeners" },
               { text: "Search", link: "/guides/search" },
+              { text: "Pagination", link: "/guides/pagination" },
               {
                 text: "Caching",
                 link: "/guides/caching",

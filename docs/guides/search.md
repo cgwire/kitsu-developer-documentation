@@ -39,13 +39,16 @@ gazu.client.get("data/projects")
 
 ## Pagination & Filtering
 
-Some API endpoints provide pagination and filter support out-of-the-box:
+The large lists can be read page by page or by cursor: see the
+[pagination guide](/guides/pagination).
+
+The events route has its own pagination and filters:
 
 ```py
-events = gazu.client.get("data/events/last?page_size=100")
-events = gazu.client.get("data/events/last?page_size=100&before=2019-02-01")
-events = gazu.client.get("data/events/last?page_size=100&before=2019-02-01&after=2019-01-01")
-events = gazu.client.get("data/events/last?page_size=100&only_files=true")
+events = gazu.client.get("data/events/last?limit=100")
+events = gazu.client.get("data/events/last?limit=100&before=2019-02-01")
+events = gazu.client.get("data/events/last?limit=100&before=2019-02-01&after=2019-01-01")
+events = gazu.client.get("data/events/last?limit=100&only_files=true")
 ```
 
 ## Full-text search
@@ -89,5 +92,6 @@ Response example:
 
 ## Next Steps
 
+* Learn about [pagination](/guides/pagination)
 * Learn about [caching](/guides/caching)
 * Learn about [custom actions](/guides/custom-actions)
