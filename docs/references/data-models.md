@@ -213,6 +213,25 @@ concept folders. The `entity_type_id` determines which kind of entity it is.
 episode of a sequence, the concept folder of a concept. It is empty for a
 concept that sits at the root of its project.
 
+#### Built-in keys of `data`
+
+Besides the values of the metadata columns, the `data` dict of an entity holds
+the keys of some built-in fields:
+
+| Key | Meaning |
+|---|---|
+| `fps` | Frame rate of the shot |
+| `frame_in` | First frame of the shot range |
+| `frame_out` | Last frame of the shot range |
+| `handle_in` | Movie frame where the Kitsu player starts the shot or asset movie, the first frame of the movie being 0 |
+| `handle_out` | Movie frame where the Kitsu player stops the shot or asset movie |
+| `max_retakes` | Retake cap of the shot |
+| `resolution` | Size of the shot previews, such as `"1920x1080"` |
+
+The metadata columns of the entities cannot take one of these keys as field
+name: Kitsu refuses it. The project and task columns can, as their values live
+in the project or task data. The full-text search skips these keys.
+
 ### ConceptFolder
 
 Concept folders sort the concepts of a project. They are entities too: a

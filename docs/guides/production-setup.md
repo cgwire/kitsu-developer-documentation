@@ -85,6 +85,18 @@ gazu.shot.update_shot(shot)
 ```
 :::
 
+Trim the movie of a shot: the Kitsu player starts it on `handle_in` and stops
+it on `handle_out`, both counted in frames from the start of the movie (the
+first frame is 0). Assets take the same keys:
+
+::: code-group
+```python [Python]
+gazu.shot.update_shot_data(shot, {"handle_in": 8, "handle_out": 96})
+
+gazu.asset.update_asset_data(asset, {"handle_in": 8, "handle_out": 96})
+```
+:::
+
 This hierarchy is critical for scheduling, task assignment, and reporting, so make sure to get it right from the start.
 
 ### Defining Asset Types
@@ -259,6 +271,10 @@ gazu.project.add_metadata_descriptor(
 
 Valid entity types are `"Asset"`, `"Shot"`, `"Edit"`, `"Episode"`,
 `"Sequence"`, `"Project"` and `"Task"`.
+
+The field name of an entity column cannot be the key of a built-in field,
+such as `frame_in` or `handle_in`: see
+[the built-in keys of `data`](/references/data-models#built-in-keys-of-data).
 
 ### Task Metadata Descriptors
 
