@@ -305,6 +305,10 @@ These variables are active only if auth\_remote\_ldap strategy is selected.
 * `TMP_DIR` (default: /tmp): The temporary directory used to handle uploads.
 * `DEBUG` (default: False): Activate the debug mode for development purposes.
 * `CRISP_TOKEN` (default: ""): Activate the Crisp support chatbox on the bottom right.
+* `EXPERT_MODE_ENABLED` (default: False): Let administrators edit the real
+  dates of tasks (WIP, Feedback, and Approval dates). They can edit them in
+  Kitsu and with the estimations CSV import. `GET /config` gives this value
+  as `expert_mode_enabled`.
 * `DEBUG_HOST` (default: 127.0.0.1) and `DEBUG_PORT` (default: 5000): Address
   of the development server.
 * `EVENT_STREAM_HOST` (default: localhost) and `EVENT_STREAM_PORT` (default:
