@@ -267,7 +267,21 @@ These variables are active only if auth\_remote\_ldap strategy is selected.
   an Active Directory with a simple bind instead of NTLM.
 * `LDAP_SSL` (default: "False"): Set to True to connect to the LDAP server over
   SSL.
-* `LDAP_GROUP` (default: ""): Only synchronize the members of this group.
+* `LDAP_GROUP` (default: ""): Only synchronize the members of this group. With
+  `LDAP_SEARCH_BIND`, only the members of this group can log in.
+* `LDAP_SEARCH_BIND` (default: "False"): Set to True to find the user anywhere
+  under `LDAP_BASE_DN` with the service account, then to check the password
+  with a bind as this user. It requires `LDAP_USER` and `LDAP_PASSWORD`.
+* `LDAP_USER` (default: ""): The service account used by the user list
+  synchronization and by the search then bind login.
+* `LDAP_PASSWORD` (default: "password"): The password of the service account.
+* `LDAP_EXCLUDED_ACCOUNTS` (default: ""): Comma-separated logins that the
+  synchronization ignores and that cannot log in with `LDAP_SEARCH_BIND`.
+* `EMAIL_DOMAIN` (default: "studio.local"): The domain of the email built for
+  a directory user who has no email address.
+
+See [LDAP](/self-hosting/lightweight-directory-access-protocol) for the full
+setup guide.
 
 
 ## Job queue
