@@ -11,7 +11,7 @@ the following value:
 AUTH_STRATEGY=auth_remote_ldap
 ```
 
-*NB: If you are using Active directory you must set the `IS_LDAP` flag to true.* 
+*NB: If you are using Active directory you must set the `LDAP_IS_AD` flag to true.* 
 
 
 ## Required environment variables
@@ -60,13 +60,13 @@ Example:
 LC_ALL=C.UTF-8 \
 LANG=C.UTF-8 \
 DB_HOST=yourdbhost \
-LDAP_HOST=192.168.1.10
+LDAP_HOST=192.168.1.10 \
 LDAP_PORT=389 \
 LDAP_BASE_DN=CN=Users,DC=mystudio,DC=local \
 LDAP_DOMAIN=mystudio.com \
 LDAP_USER=myusername \
 LDAP_PASSWORD=myuserpassword \
-LDAP_EMAIL_DOMAIN=mystudio.com \
+EMAIL_DOMAIN=mystudio.com \
 LDAP_EXCLUDED_ACCOUNTS=Administrator,TestAccount \
 zou sync-with-ldap-server
 ```
