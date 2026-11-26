@@ -39,6 +39,43 @@ LDAP_FALLBACK=True
 ```
 
 
+## Login by search then bind
+
+By default, Zou builds the DN of the user from the login and `LDAP_BASE_DN`.
+Thus all the users must be directly under `LDAP_BASE_DN`, and their account
+must exist in Kitsu before their first login (see the synchronization below).
+
+Set `LDAP_SEARCH_BIND` to True to change this behavior. Zou then uses a
+service account to find the user, and checks the password with a bind as this
+user:
+
+* The user can be anywhere under `LDAP_BASE_DN`, sub-OUs included.
+* The user can log in with a login or an email address (or a UPN with Active
+  Directory).
+* The Kitsu account is created at the first login. It is updated from the
+  directory at each login.
+* If `LDAP_GROUP` is set, only the members of this group can log in.
+* A user who is removed from the directory, disabled, out of `LDAP_GROUP` or
+  listed in `LDAP_EXCLUDED_ACCOUNTS` cannot log in. The Kitsu account is
+  deactivated at this login attempt.
+* A Kitsu account that was not created from the LDAP is never linked to a
+  directory user.
+* The accounts listed in `PROTECTED_ACCOUNTS` keep the default login.
+
+This mode requires the service account in the environment of the Zou server
+(/etc/zou/zou.env), not only for the synchronization command:
+
+```
+LDAP_SEARCH_BIND=True
+LDAP_USER=myserviceaccount
+LDAP_PASSWORD=myservicepassword
+```
+
+An account is deactivated only when somebody tries to log in with it. Keep
+the synchronization below on a schedule to deactivate the users who left and
+never come back.
+
+
 ## User list synchronization
 
 You will have to synchronize the user list with users from the LDAP. A good
@@ -53,6 +90,11 @@ This command requires additional environment variables:
 * `EMAIL_DOMAIN` (default: "studio.local"): User email will be built with username + @ + email domain.
 * `LDAP_EXCLUDED_ACCOUNTS`: Set the list of people that should not be created
   in Kitsu API (Zou).
+
+The synchronization stops before it changes any account when `LDAP_GROUP` is
+not found in the directory, or when the search returns no user. Both cases
+usually come from a wrong `LDAP_GROUP` or `LDAP_BASE_DN`, and they would
+deactivate every LDAP account.
 
 Example:
 
