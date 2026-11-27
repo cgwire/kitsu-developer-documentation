@@ -866,6 +866,7 @@ values are stored in the `data` dict of the matching tasks.
 | `name` | string | `""` |
 | `search_query` | string | `""` |
 | `is_shared` | bool | `false` |
+| `position` | int | |
 | `department_id` | string (UUID) | |
 | `search_filter_group_id` | string (UUID) | |
 | `person_id` | string (UUID) | |
@@ -880,6 +881,7 @@ values are stored in the `data` dict of the matching tasks.
 | `name` | string | `""` |
 | `color` | string | `""` |
 | `is_shared` | bool | `false` |
+| `position` | int | |
 | `person_id` | string (UUID) | |
 | `project_id` | string (UUID) | |
 | `department_id` | string (UUID) | |
